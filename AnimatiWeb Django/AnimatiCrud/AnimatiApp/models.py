@@ -20,11 +20,11 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
-    def create_user(self, username, email, first_name,last_name, password=None, **extra_fields):
-        return self._create_user(username, email, first_name,last_name, password, False, False, **extra_fields)
+    def create_user(self, username, email, first_name, last_name, password=None, **extra_fields):
+        return self._create_user(username, email, first_name, last_name, password, False, False, **extra_fields)
 
-    def create_superuser(self, username, email, name,last_name, password=None, **extra_fields):
-        return self._create_user(username, email, name,last_name, password, True, True, **extra_fields)
+    def create_superuser(self, username, email, first_name, last_name, password=None, **extra_fields):
+        return self._create_user(username, email, first_name, last_name, password, True, True, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.BigAutoField(primary_key=True,)
@@ -42,7 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'Usuarios'
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['emai','firt_name','last_name', 'password']
+    REQUIRED_FIELDS = ['email','first_name','last_name', 'password']
 
     def __str__(self):
         return f'{self.username} {self.last_name}'
