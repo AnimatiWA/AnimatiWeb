@@ -1,3 +1,9 @@
+
+from django.db import models
+
+
+# Create your models here.
+
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
@@ -47,6 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f'{self.username} {self.last_name}'
     
+
 class Categoria(models.Model):
     Id_Categoria = models.AutoField(primary_key=True)
     Nombre_Categoria = models.CharField(max_length=100, blank=False)
@@ -62,6 +69,7 @@ class Categoria(models.Model):
 
 
 class Producto(models.Model):
+
     Codigo_Producto = models.IntegerField(primary_key=True)
     Nombre_Producto = models.CharField(max_length=70, blank=False)
     Imagen = models.CharField(max_length=250)
@@ -77,6 +85,7 @@ class Producto(models.Model):
         return self.Nombre_Producto
     def __str__(self):
         return self.Nombre_Producto  
+
     @property
     def ImagenURL(self):
         try:
@@ -104,6 +113,7 @@ class ProductoCarrito(models.Model):
     def __str__(self):
         return  self.client + " - " + self.product    
 
+
 class Cliente(models.Model):
     DNI = models.IntegerField(primary_key=True)
     Nombre = models.CharField(max_length=100, blank=False)
@@ -112,6 +122,7 @@ class Cliente(models.Model):
     Direccion = models.CharField(max_length=120, blank=False)
     Telefono = models.IntegerField(blank=False, default=2000)
     Id_usuario = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
+
     class Meta:
         db_table = 'cliente'
         verbose_name = 'Cliente'
@@ -121,4 +132,3 @@ class Cliente(models.Model):
         return self.Nombre
     def __str__(self):
         return self.Nombre
-    

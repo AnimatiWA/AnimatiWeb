@@ -25,8 +25,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/styles.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -81,15 +80,30 @@
               "zone.js",
               "zone.js/testing"
             ],
+
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
+
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/dashboard-admin/css/feather.css",
+              "assets/dashboard-admin/css/fontawesome.css",
+              "assets/dashboard-admin/css/material.css",
+              "assets/dashboard-admin/css/style.css"
             ],
-            "scripts": []
+            
+            "scripts": [
+            "src/assets/dashboard-admin/js/vendor-all.min.js",
+            "src/assets/dashboard-admin/js/bootstrap.min.js",
+            "src/assets/dashboard-admin/js/feather.min.js",
+            "src/assets/dashboard-admin/js/pcoded.min.js",
+            "src/assets/dashboard-admin/js/apexcharts.min.js",
+            "src/assets/dashboard-admin/js/custom.js",
+            "src/assets/dashboard-admin/js/dashboard-sale.js"
+          ]
           }
         }
       }

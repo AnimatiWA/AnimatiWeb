@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { LoginService } from '../../../services/auth/login.service';
 import { LoginRequest } from '../../../services/auth/loginRequest';
+import { RouterLink } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -16,24 +18,27 @@ import { LoginRequest } from '../../../services/auth/loginRequest';
 export class LoginComponent {
   loginError:string="";
   loginform!:FormGroup;
-
+  
   constructor(private formBuilder: FormBuilder, private router:Router, private loginService:LoginService)
   { 
     this.loginform=this.formBuilder.group(
       {
-        username:['',[Validators.required, Validators.email],[]],
-        password:['',[Validators.required, Validators.minLength(8)],[]]
+        username:['',[Validators.required, Validators.minLength(4) ],[]],
+        password:['',[Validators.required, Validators.minLength(4)],[]]
       }
     )
+  }
+
+  ngOnInit(): void {
   }
 
   get password()
   {
   return this.loginform.get("password");
   }
-  get email()
+  get username()
   {
-  return this.loginform.get("email");
+  return this.loginform.get("username");
   }
 
   login()
@@ -50,7 +55,7 @@ export class LoginComponent {
         },
         complete: () =>{
           console.info('Login completo');
-          this.router.navigateByUrl('/inicio');
+          this.router.navigateByUrl('/gallery');
           this.loginform.reset();
         }
       })

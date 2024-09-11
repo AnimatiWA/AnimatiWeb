@@ -1,0 +1,21 @@
+<app-layout></app-layout>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-borderd">
+            <thead>
+                <tr>
+                    <th>Numero Categoria</th>
+                    <th>Categoria</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of Productos$ |async">
+                    <td>{{item.Id_Categoria}}</td>
+                    <td>{{item.Nombre_Categoria}}</td>
+                    <td>{{item.Descripcion_Categoria}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

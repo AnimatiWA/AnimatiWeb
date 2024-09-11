@@ -11,11 +11,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+
+
         ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
         migrations.CreateModel(
+
             name='Carrito',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -32,6 +35,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+
             name='Categoria',
             fields=[
                 ('Id_Categoria', models.AutoField(primary_key=True, serialize=False)),
@@ -45,6 +49,24 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+
+            name='Cliente',
+            fields=[
+                ('DNI', models.IntegerField(primary_key=True, serialize=False)),
+                ('Nombre', models.CharField(max_length=100)),
+                ('Apellido', models.CharField(max_length=100)),
+                ('Correo_Electronico', models.CharField(max_length=130)),
+                ('Direccion', models.CharField(max_length=120)),
+                ('Telefono', models.IntegerField(default=2000)),
+            ],
+            options={
+                'verbose_name': 'Cliente',
+                'verbose_name_plural': 'Clientes',
+                'db_table': 'cliente',
+            },
+        ),
+        migrations.CreateModel(
+           
             name='Producto',
             fields=[
                 ('Codigo_Producto', models.IntegerField(primary_key=True, serialize=False)),
@@ -52,6 +74,7 @@ class Migration(migrations.Migration):
                 ('Imagen', models.CharField(max_length=250)),
                 ('Precio', models.DecimalField(decimal_places=2, default=2000, max_digits=10)),
                 ('Stock', models.PositiveIntegerField(default=0)),
+
                 ('Id_Categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='AnimatiApp.categoria')),
             ],
             options={

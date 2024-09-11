@@ -9,6 +9,7 @@ import { LoginService } from './login.service';
 export class JwtInterceptorService implements HttpInterceptor {
 
   constructor(private loginService:LoginService) { }
+  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token:String = this.loginService.userToken;
 

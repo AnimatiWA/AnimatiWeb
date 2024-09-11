@@ -1,0 +1,90 @@
+<app-layout></app-layout>
+<div class="row conteiner-fluid">
+  <div [ngClass]="panelVisible ? 'col-8' : 'col-12'" >
+    <div class="card">
+      <div class="card-header bg-primary">
+        <div class="row">
+          <div class="col-6">
+            Lista de Productos
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-sm btn-success" (click)="abrirPanelNuevoProducto()">Nuevo</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-3" *ngFor="let producto of listaProductos">
+            <div class="card" >
+              <img [src]="producto.Imagen" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title">{{producto.Nombre_Producto}}</h5>
+                <h6 class="card-title">Codigo: {{producto.Codigo_Producto}}</h6>
+                <p class="card-text"> Precio: ${{producto.Precio}}</p>
+                <p class="card-text">Stock: {{producto.Stock}}</p>
+                <a  class="btn btn-primary" (click)="onEditarProducto(producto)">Editar</a>
+                <a  class="btn btn-danger mx-2"(click)="onEliminarProducto(producto)" >Eliminar</a>
+              </div>
+            </div>
+          </div>       
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4" *ngIf="panelVisible">
+    <div class="card">
+      <div class="card-header bg-primary">
+        <div class="row">
+          <div class="col-6">
+            Nuevo Productos
+          </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-sm btn-success" (click)="cerrarPanelNuevoProducto()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" >
+        
+          <div class="row">
+            <div class="col-6">
+              <label for="">Codigo de Producto</label>
+              <input type="text" [(ngModel)]="objetoProducto.Codigo_Producto" class="form-control"[value]="productoCodigo">
+            </div>
+            <div class="col-6">
+              <label for="">Nombre de Producto</label>
+              <input type="text" [(ngModel)]="objetoProducto.Nombre_Producto" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="">Categoria</label>
+              
+              <select [(ngModel)]="objetoProducto.Id_Categoria" class="form-select" name="Id_Categoria" #Id_Categoria="ngModel">
+                <option *ngFor="let cate of listaCategorias" [value]="cate.Id_Categoria">{{cate.Nombre_Categoria}}</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="">Imagen de Producto</label>
+              <input type="text" [(ngModel)]="objetoProducto.Imagen" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="">Precio</label>
+              <input type="text" [(ngModel)]="objetoProducto.Precio" class="form-control">
+            </div>
+            <div class="col-6">
+              <label for="">Stock</label>
+              <input type="text" [(ngModel)]="objetoProducto.Stock" class="form-control">
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button class="btn btn-success">reiniciar></button>
+              </div>
+              <div class="col-6 text-center">
+                <button class="btn btn-success" *ngIf="objetoProducto.Codigo_Producto !==0" (click)="enviarProducto()">Crear Producto</button>
+                <button class="btn btn-primary"  *ngIf="objetoProducto.Codigo_Producto !==null" (click)="actualizarProducto()">Actualizar Producto</button>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

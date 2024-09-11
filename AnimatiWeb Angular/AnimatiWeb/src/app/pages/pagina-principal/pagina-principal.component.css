@@ -1,0 +1,151 @@
+body {
+  background-color: #deeaf1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  background-color: #8D46CF;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.subtitulo-1 {
+  text-shadow: 2px 2px 4px #000000, -1px 1px 9px #000000, 2px -3px 0 #000000, -1px -1px 0 #e7dbdb;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  width: 250px;
+  margin: 20px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  background-color: #E08090;
+  padding: 10px;
+  color: white;
+}
+
+.btn-primary {
+  font-size: 18px;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-primary img {
+  width: 1.5rem;
+}
+
+.btn-modern {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #7a1edc;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-modern:hover {
+  background-color: #ac7ae0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.collection-icon {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.btn-text {
+  margin: 0;
+}
+
+/* Estilos responsivos */
+
+/* Pantalla pequeña (menos de 768px) */
+@media (max-width: 767px) {
+  .card {
+    width: 200px;
+    margin: 15px;
+  }
+  .card-img-top {
+    max-height: 150px;
+  }
+  .card-body {
+    padding: 8px;
+  }
+  .btn-primary {
+    font-size: 16px;
+    padding: 12px 25px;
+  }
+  .btn-modern {
+    padding: 6px 12px;
+  }
+}
+
+/* Pantalla mediana (entre 768px y 992px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .card {
+    width: 220px;
+    margin: 18px;
+  }
+  .card-img-top {
+    max-height: 180px;
+  }
+  .card-body {
+    padding: 10px;
+  }
+  .btn-primary {
+    font-size: 18px;
+    padding: 15px 30px;
+  }
+  .btn-modern {
+    padding: 8px 15px;
+  }
+}
+
+/* Pantalla grande (más de 992px) */
+@media (min-width: 992px) {
+  .card {
+    width: 250px;
+    margin: 20px;
+  }
+  .card-img-top {
+    max-height: 200px;
+  }
+  .card-body {
+    padding: 12px;
+  }
+  .btn-primary {
+    font-size: 20px;
+    padding: 18px 35px;
+  }
+  .btn-modern {
+    padding: 10px 20px;
+  }
+}

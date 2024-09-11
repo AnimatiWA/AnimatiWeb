@@ -13,10 +13,12 @@ export class UserService {
 
   getUser(id:number):Observable<User>{
 
-    return this.http.get<User>(environment.urlApi+"user/"+id).pipe(
+    return this.http.get<User>(environment.urlApi+"usuarios/"+id).pipe(
       catchError(this.handleError)
     )
   }
+
+  
 
 
   updateUser(userRequest:User):Observable<any>{

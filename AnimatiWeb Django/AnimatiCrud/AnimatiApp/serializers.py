@@ -11,22 +11,23 @@ class CategoriaSerializer(serializers.ModelSerializer):
         model = Categoria
         fields = '__all__'
 
+        
+        
+
 class ProductosSerializer(serializers.ModelSerializer):
-    Id_Categoria = serializers.SlugRelatedField(
-        queryset = Categoria.objects.all(), slug_field="Nombre_Categoria")
     class Meta:
         model = Producto
-        fields = '__all__'       
+        fields = '__all__'   
+
 
 
 class CarroDeCompraSerializer(serializers.ModelSerializer):
-    producto_nombre = serializers.CharField(max_length=200)
-    producto_precio = serializers.FloatField()
+    
     producto_cantidad = serializers.IntegerField(required=False, default=1)
 
     class Meta:
         model = CarritoCompras
-        fields = ('__all__')
+        fields = '__all__'
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     pass
@@ -40,6 +41,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = '__all__'
+        extra_kwargs:{'password':{'write_only': True}} # type: ignore
 
 
 class CrearUsuarioSerializer(serializers.ModelSerializer):

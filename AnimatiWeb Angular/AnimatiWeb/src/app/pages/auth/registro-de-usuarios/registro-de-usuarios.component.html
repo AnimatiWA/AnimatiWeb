@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<body>
+  <div class="container">
+  
+
+    <div class="body">
+      <h3>Registrarse</h3>
+      <p>Complete el formulario con sus datos</p>
+      <form [formGroup]="formRegistro"  class="form" >
+        <div class="m-3">
+          <label for="username" class="form-label" >Nombre de Usuario</label>
+          <input type="text"  id="username"  class="form-control" formControlName="username"   >
+        </div>
+        <div class="m-3">
+          <label for="first_name" class="form-label" >Nombre</label>
+          <input type="text"  id="first_name"  class="form-control" formControlName="first_name"   >
+        </div>
+        <div class="m-3">
+          <label for="last_name" class="form-label" >Apellido</label>
+          <input type="text"  id="last_name"  class="form-control" formControlName="last_name"   >
+        </div>
+        <div class="m-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email" id="email"  class="form-control" formControlName="email" >
+      </div>
+        <div class="m-3">
+          <label for="password" class="form-label" >Contraseña</label>
+          <input type="text"  id="password"  class="form-control" formControlName="password"   >
+        </div>
+        <fieldset>
+          <label for="business-account">
+            <input id="business-account" type="radio" name="account-type" class="inline">
+            Deseo recibir correos electrónicos con novedades
+          </label>
+          <label for="terms-and-conditions">
+            <input id="terms-and-conditions" type="checkbox" name="terms-and-conditions"  class="inline">
+            Acepto los <a href="./terms-y-co.html">términos y condiciones</a>
+          </label>
+          <div class="m-3">
+            <button class="btn btn-primary mt-3" (click)="registrarse()" >Enviar</button>
+        </div>
+        </fieldset> 
+      </form>
+    </div>
+  </div>
+</body>
+</html>

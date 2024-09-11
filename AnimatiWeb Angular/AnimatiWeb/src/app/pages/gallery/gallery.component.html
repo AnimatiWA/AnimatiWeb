@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos</title>
+    <link rel="stylesheet" href="gallery.component.css">
+</head>
+<body>
+<app-header></app-header>
+    <div class="container-fluid body">
+        <!-- Sección Menú -->
+        <div class="container menu">
+            <header class="container-fluid text-center">
+                <div class="titulo">
+                    <img src="../../assets/images/ico-titulo.jpg" alt="Productos" width="350" height="96">
+                </div>
+                <p>Nuestros productos son completamente originales y están ilustrados por Animati. Si desean algún diseño personalizado, no duden en solicitarlo.</p>
+            </header>
+            <div class="row" >
+                <div class="col-3"*ngFor="let producto of listaProductos">
+                    <article class="producto">
+                        <img [src]="producto.Imagen" alt="Block de notas">
+                        <h3><a href="">{{producto.Nombre_Producto}}</a></h3>
+                        <p>${{producto.Precio}}</p>
+                        <button  class="btn border border-secondary rounded-pill px-3 text-primary"(click)="agregarAlCarrito(producto)"><i class="fa fa-cart-shopping me-2 text-primary"></i>Agregar Al Carrito</button>
+                    </article>
+                    
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
