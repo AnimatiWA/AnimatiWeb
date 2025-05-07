@@ -3,9 +3,9 @@ import { objetoProducto } from "../pages/admin/productos/productos.component";
 let Codigo_Producto: any | objetoProducto["Codigo_Producto"]
 export const environment = {
   production: false,
-  urlHost:'http://localhost:8000/',
-  urlApi: 'http://localhost:8000/api/',
-  API_END_POINT: 'http://localhost:8000/api/',
+  urlHost:'https://animatiapp.up.railway.app/',
+  urlApi: 'https://animatiapp.up.railway.app/api/',
+  API_END_POINT: 'https://animatiapp.up.railway.app/api/',
 
   METHODS: {
     SLASH: '/',
