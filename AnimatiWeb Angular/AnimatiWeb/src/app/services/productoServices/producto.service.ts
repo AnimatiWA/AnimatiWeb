@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -20,12 +20,30 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+  getToken(){
+
+    const token = sessionStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+
+        'Authorization': `Bearer ${token}`
+    });
+
+    return headers
+  }
+
   getAllCategorias(){
-    return this.http.get<Categoria[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_CATEGORY, {responseType: 'json'});
+
+    const headers = this.getToken();
+
+    return this.http.get<Categoria[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_CATEGORY, { headers });
   }
 
   getProductos(){
-    return this.http.get<Producto[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_PRODUCT);
+
+    const headers = this.getToken();
+
+    return this.http.get<Producto[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_PRODUCT, { headers });
   }
 
   getProductoCodigo(Codigo_Producto:number){
@@ -33,16 +51,25 @@ export class ProductService {
   }
 
   gurdarProducto(obj: any){
-    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT, obj);
+
+    const headers = this.getToken();
+    
+    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT, obj, { headers });
   }
 
   actulizarProducto(obj:any):Observable<any>{
-    return this.http.put<Producto["Codigo_Producto"]>(environment.API_END_POINT + environment.METHODS.UPDATE_PRODUCT, obj).pipe(
+
+    const headers = this.getToken();
+    
+    return this.http.put<Producto["Codigo_Producto"]>(environment.API_END_POINT + environment.METHODS.UPDATE_PRODUCT, obj, { headers }).pipe(
 
     )
   }
   eliminarProducto(Codigo_Producto: any){
-    return this.http.delete<Producto["Codigo_Producto"]>(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT + Codigo_Producto );
+
+    const headers = this.getToken();
+    
+    return this.http.delete<Producto["Codigo_Producto"]>(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT + Codigo_Producto, { headers });
   }
 
   agregarProductoCarrito(producto:Producto){
