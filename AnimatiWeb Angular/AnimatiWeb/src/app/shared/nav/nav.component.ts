@@ -25,7 +25,7 @@ export class NavComponent implements OnInit, OnDestroy {
   
 
   ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
+    this.loginService.userLoginOn.subscribe(
       {
         next:(userLoginOn) => {
           this.userLoginOn=userLoginOn;
@@ -40,13 +40,9 @@ export class NavComponent implements OnInit, OnDestroy {
 
 
 
-  logout()
-  {
+  logout():void {
     this.loginService.logout();
     this.router.navigate(['/']);
-    
-    
-
-
+  
   }
 }

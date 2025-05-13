@@ -10,11 +10,12 @@
     <nav class="nav-menu">
       <ul class="nav-list">
         <li><a class="nav-link" routerLink=""><i class="fas fa-home"></i> Inicio</a></li>
-        <li><a class="nav-link" routerLink="./registroUsuarios"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+        <li><a class="nav-link" routerLink="/gallery"><i class="fas fa-sign-in-alt"></i>Tienda</a></li>
         <li><a class="nav-link" routerLink="/contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
         <li><a class="nav-link" routerLink="/Quien-somos"><i class="fas fa-info-circle"></i> Quiénes Somos</a></li>
         <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
-        <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="/gallery"><i class="fas fa-sign-in-alt"></i>Tienda</a></li>
+        <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="./registroUsuarios"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+        <li *ngIf="userLoginOn"><a class="nav-link" routerLink="/" (click)="logout()"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
       </ul>
     </nav>
   </div>
