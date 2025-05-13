@@ -62,7 +62,7 @@ export class LoginService {
 
   get userTokenHeader(): HttpHeaders{
 
-    const token = sessionStorage.getItem('token');
+    const token = this.currentUserData.value || '';
 
     const headers = new HttpHeaders({
 
