@@ -43,7 +43,7 @@ export class ProductService {
 
     const headers = this.getToken();
 
-    return this.http.get<Producto[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_PRODUCT, { headers });
+    return this.http.get<Producto[]>(environment.API_END_POINT + environment.METHODS.GET_ALL_PRODUCT);
   }
 
   getProductoCodigo(Codigo_Producto:number){
