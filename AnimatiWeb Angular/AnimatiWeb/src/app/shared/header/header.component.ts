@@ -15,9 +15,17 @@ export class HeaderComponent implements OnInit{
 
 miCarrito$  = this.productoService.miCarrito$
 viewCart: boolean = false;
+logueado: boolean = false;
   constructor(private productoService: ProductService, private loginService:LoginService, private router:Router){}
   ngOnInit(): void {
     
+    this.loginService.userLoginOn.subscribe({
+
+      next: (estado) => {
+
+        this.logueado = estado;
+      }
+    })
   }
 
   logout():void {

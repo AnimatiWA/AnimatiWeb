@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from './loginRequest';
 import  {  Observable, throwError, catchError, BehaviorSubject , tap, map} from 'rxjs';
@@ -58,6 +58,18 @@ export class LoginService {
 
   get userToken():String{
     return this.currentUserData.value;
+  }
+
+  get userTokenHeader(): HttpHeaders{
+
+    const token = sessionStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+
+        'Authorization': `Bearer ${token}`
+    });
+
+    return headers
   }
 
 }
