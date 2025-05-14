@@ -15,6 +15,7 @@ export class ChangePasswordComponent {
   passwordForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,18 +23,27 @@ export class ChangePasswordComponent {
     private router: Router
   ) {
     this.passwordForm = this.fb.group({
-      password: ['', [Validators.required, this.passwordValidator]],
+      password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator]],
       password2: ['', Validators.required]
     }, { validator: this.passwordsMatchValidator });
   }
 
-  // Validador para la contraseña
+  // Métodos para acceder a los campos
+  get password() {
+    return this.passwordForm.get("password");
+  }
+
+  get password2() {
+    return this.passwordForm.get("password2");
+  }
+
+  // Validador para la seguridad de la contraseña
   passwordValidator(control: any) {
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
     return pattern.test(control.value) ? null : { invalidPassword: true };
   }
 
-  // Validador para coincidencia de contraseñas
+  // Validador para coincidencia entre contraseñas
   passwordsMatchValidator(group: FormGroup) {
     return group.get('password')?.value === group.get('password2')?.value
       ? null : { passwordsMismatch: true };
@@ -45,11 +55,14 @@ export class ChangePasswordComponent {
       return;
     }
 
+    this.isLoading = true;
+
     const userId = localStorage.getItem('idUser');
     const token = localStorage.getItem('token');
 
     if (!userId || !token) {
       this.errorMessage = 'No se pudo obtener la información del usuario.';
+      this.isLoading = false;
       return;
     }
 
@@ -72,7 +85,14 @@ export class ChangePasswordComponent {
         error: (err) => {
           this.errorMessage = 'Error al actualizar la contraseña.';
           console.error(err);
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.passwordForm.reset();
         }
       });
+  }
+  volverAlInicio() {
+    this.router.navigate(['/']);
   }
 }
