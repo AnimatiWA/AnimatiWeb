@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
-import { ProductService } from '../../services/productoServices/producto.service';
 import { CommonModule } from '@angular/common';
+import { CarritoService } from '../../services/carritoServices/carrito.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +13,10 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit{
 
-miCarrito$  = this.productoService.miCarrito$
+miCarrito$  = this.carritoService.miCarrito$
 viewCart: boolean = false;
 logueado: boolean = false;
-  constructor(private productoService: ProductService, private loginService:LoginService, private router:Router){}
+  constructor(private loginService:LoginService, private router:Router, private carritoService: CarritoService){}
   ngOnInit(): void {
     
     this.loginService.userLoginOn.subscribe({

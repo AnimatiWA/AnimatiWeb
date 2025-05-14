@@ -18,7 +18,7 @@ export const environment = {
     DELETE_PRODUCT: 'producto/eliminar/',
     CREATE_PRODUCT_CART: 'carritoProductos/crear',
     CREATE_CART: 'carrito/crear',
-    GET_CART_BY_CUST: 'GetCartProductsByCustomerId?id=',
+    GET_CART_USER: 'carrito/usuario',
     REMOVE_CART: 'DeleteProductFromCartById?ID=',
     LOGIN: 'Login',
     CREATE_CONTACTO: 'contacto',
