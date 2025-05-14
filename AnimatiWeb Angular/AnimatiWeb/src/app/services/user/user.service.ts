@@ -1,41 +1,47 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { User } from '../auth/user';
+import { User } from '../../models/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http:HttpClient) { }
-
-  getUser(id:number):Observable<User>{
-
-    return this.http.get<User>(environment.urlApi+"usuarios/"+id).pipe(
-      catchError(this.handleError)
-    )
+  private getToken(): string {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.token || '';
   }
 
-  
-
-
-  updateUser(userRequest:User):Observable<any>{
-
-    return this.http.put(environment.urlApi+'user', userRequest).pipe(
-      catchError(this.handleError)
-    )
+  getPerfilUsuario(): Observable<User> {
+    const token = this.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http
+      .get<User>(`${environment.urlApi}perfil-usuario`, { headers })
+      .pipe(catchError(this.handleError));
   }
 
-  private handleError(error:HttpErrorResponse){
-    if(error.status===0){
-      console.error('se ha producido un error', error.error);
+  updateUser(userRequest: User): Observable<any> {
+    return this.http
+      .put(environment.urlApi + 'user', userRequest)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('Se ha producido un error:', error.error);
+    } else {
+      console.error(
+        `Backend retornó el código de estado ${error.status}:`,
+        error.error
+      );
     }
-    else{
-      console.error('Backend retorno el codigo de estado', error.status, error.error);
-    }
-    return throwError(() => new Error('algo fallo, intente nuevamente'))
+    return throwError(() => new Error('Algo falló, intente nuevamente'));
   }
-
 }

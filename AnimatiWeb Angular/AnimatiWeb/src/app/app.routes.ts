@@ -13,49 +13,45 @@ import { QuienesSomosComponent } from './pages/auth/quienes-somos/quienes-somos.
 import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
+import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
 
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
 
-
-
-
 export const routes: Routes = [
-    {path:"gallery", component:GalleryComponent},
-    {path:"contacto", component:ContactoComponentComponent},
-    {path:"cubecraft", component:CubecraftCityComponent},
-    {path:"registroUsuarios", component:RegistroDeUsuariosComponent},
-    {path:'login', component:LoginComponent},
-    {path:'accesoadmin', component:AccesoAdminComponent},  
-    {path:'separadores', component:SeparadoresComponent},
-    {path:'set-stickers', component:SetStickersComponent},
-    {path:'', component:PaginaPrincipalComponent},
-    {path:'Quien-somos', component:QuienesSomosComponent},
-    {path:'dashboard',  component: DashboardComponent},
-    {path:'samplepage', title: 'Sample Page', component: SamplepageComponent},
-    {path:'agregarproductos', component:ProductsComponent},
-    {path:'categoria', component:CategoriasComponent},
-    {path:'carrito', component:CarritoComponent},
-    
-    {path:"", redirectTo:"/", pathMatch:"full"},
-    {
-        path: '',
-        component: LayoutComponent,
-        canActivate: [],
-        children: [
-          {
-            path: 'agregarproducto',
-            component: ProductsComponent,
-            title: 'Products'
-          },
-          {
-            path: 'agregarcategoria',
-            component: CategoriasComponent,
-            title: 'Category'
-          }
-        ]
-      }
-    
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'contacto', component: ContactoComponentComponent },
+  { path: 'cubecraft', component: CubecraftCityComponent },
+  { path: 'registroUsuarios', component: RegistroDeUsuariosComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'accesoadmin', component: AccesoAdminComponent },
+  { path: 'separadores', component: SeparadoresComponent },
+  { path: 'set-stickers', component: SetStickersComponent },
+  { path: '', component: PaginaPrincipalComponent },
+  { path: 'Quien-somos', component: QuienesSomosComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'samplepage', title: 'Sample Page', component: SamplepageComponent },
+  { path: 'agregarproductos', component: ProductsComponent },
+  { path: 'categoria', component: CategoriasComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'perfil', component: PerfilComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [],
+    children: [
+      {
+        path: 'agregarproducto',
+        component: ProductsComponent,
+        title: 'Products',
+      },
+      {
+        path: 'agregarcategoria',
+        component: CategoriasComponent,
+        title: 'Category',
+      },
+    ],
+  },
 ];
-
