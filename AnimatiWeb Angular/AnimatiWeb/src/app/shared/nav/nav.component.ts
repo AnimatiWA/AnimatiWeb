@@ -17,7 +17,9 @@ export class NavComponent implements OnInit, OnDestroy {
   userLoginOn:boolean=false;
   userLoginOut:boolean=false;
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  constructor(private loginService:LoginService, private router:Router) {this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); }
+  constructor(private loginService:LoginService, private router:Router) {
+    this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); 
+  }
   ngOnDestroy(): void {
     this.userLoginOut
   }

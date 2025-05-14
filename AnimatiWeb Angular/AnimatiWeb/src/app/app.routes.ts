@@ -12,6 +12,7 @@ import { SamplepageComponent } from './samplepage/samplepage.component';
 import { QuienesSomosComponent } from './pages/auth/quienes-somos/quienes-somos.component';
 import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
+import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -31,10 +32,11 @@ export const routes: Routes = [
     {path:'set-stickers', component:SetStickersComponent},
     {path:'', component:PaginaPrincipalComponent},
     {path:'Quien-somos', component:QuienesSomosComponent},
-    {path: 'dashboard',  component: DashboardComponent},
-    {path: 'samplepage', title: 'Sample Page', component: SamplepageComponent},
-    {path: 'agregarproductos', component:ProductsComponent},
+    {path:'dashboard',  component: DashboardComponent},
+    {path:'samplepage', title: 'Sample Page', component: SamplepageComponent},
+    {path:'agregarproductos', component:ProductsComponent},
     {path:'categoria', component:CategoriasComponent},
+    {path:'carrito', component:CarritoComponent},
     
     {path:"", redirectTo:"/", pathMatch:"full"},
     {
