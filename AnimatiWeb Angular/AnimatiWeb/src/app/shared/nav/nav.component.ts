@@ -17,7 +17,9 @@ export class NavComponent implements OnInit, OnDestroy {
   userLoginOn:boolean=false;
   userLoginOut:boolean=false;
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  constructor(private loginService:LoginService, private router:Router) {this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); }
+  constructor(private loginService:LoginService, private router:Router) {
+    this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); 
+  }
   ngOnDestroy(): void {
     this.userLoginOut
   }
@@ -25,7 +27,7 @@ export class NavComponent implements OnInit, OnDestroy {
   
 
   ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
+    this.loginService.userLoginOn.subscribe(
       {
         next:(userLoginOn) => {
           this.userLoginOn=userLoginOn;
@@ -40,13 +42,9 @@ export class NavComponent implements OnInit, OnDestroy {
 
 
 
-  logout()
-  {
+  logout():void {
     this.loginService.logout();
     this.router.navigate(['/']);
-    
-    
-
-
+  
   }
 }

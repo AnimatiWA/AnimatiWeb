@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { ContactoComponentComponent } from './contacto-component.component';
 
 describe('ContactoComponentComponent', () => {

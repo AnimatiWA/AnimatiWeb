@@ -6,74 +6,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0  text-center ">
             <!-- cart -->
-            <ng-container >
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="fa fa-cart-shopping fs-5 me-1" style="color: #202122;"></i>
-                  <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                    >
-                                 </span>
-                </a>
-                <ng-container class="container"  *ngFor="let producto of miCarrito$ | async">
-                  <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown3" >
-                    <li class="p-2" >
-                      <div>
-                        <div class="">
-                          <div class="col-md-4">
-                            <img class="cartImg" [src]="producto.Imagen" alt="...">
-                          </div>
-                          <div class="col-md-6">
-                            <div class="productCart-body-info">
-                              <h5>{{producto.Nombre_Producto}}</h5>
-                              <p>${{ producto.Precio }}</p>
-                              <p>{{ producto.Cantidad }} uds</p>
-                            </div>
-                            
-                          </div>
-                          
-                        </div>
-                      </div>
-                      
-                    </li>
-                    <li class="p-2">
-                      <div class=" w-100 ">
-                        <div class="d-flex justify-content-between ">
-                          <h6>SubTotal : $ {{totalProduct(producto.Precio, producto.Cantidad)}}</h6>
-                          <h6></h6>
-                        </div>
-                        
-                        <div class="d-flex justify-content-evenly mt-2">
-                          <button class="btn btn-dark rounded-0 px-3" type="button" > Realizar Compra</button>
-                          <a routerLink="/checkout" routerLinkActive="router-link-active"> <button
-                              class="btn btn-danger rounded-0 px-3">Checkout</button></a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </ng-container>
-                <ng-container >
-                  <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown">
-                    <li>
-                      <p class="text-center mb-0">No Hay Producto En El Carrito</p>
-                    </li>
-                  </ul>
-                </ng-container>
-              </li>
+            <ng-container>
               <span class="d-flex">
-                <li class="nav-item dropdown">
+                <li *ngIf="logueado" class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1" id="navbarDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i></span>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li> <a class="dropdown-item hand" > Profile </a></li>
-                    <li> <a class="dropdown-item hand" routerLink="/order-history" routerLinkActive="router-link-active">
-                        Orders</a></li>
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i></span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li> <a class="dropdown-item hand" > Profile </a></li>
+                  <li> <a class="dropdown-item hand" routerLink="/order-history" routerLinkActive="router-link-active">
+                    Orders</a></li>
                   </ul>
                 </li>
-                <li class="nav-link btn btn-outline-danger my-2 my-sm-0" > <i
-                      class="fa fa-sign-out"  routerLink="/" (click)="logout()">Cerrar Sesión</i>
+                <li *ngIf="logueado" class="nav-link btn btn-outline-info my-2 my-sm-0" > 
+                  <i class="fa fa-cart-shopping" style="color: #202122;" routerLink="/carrito">Carrito</i>
+                </li>
+                <li *ngIf="!logueado" class="nav-link my-sm-0" > 
+                  <i class="fa" routerLink="/"></i>
                 </li>
               </span>
             </ng-container>
