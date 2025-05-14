@@ -32,22 +32,23 @@
 
   <div class="body">
     <h6>Escríbenos un mensaje para que entremos en contacto contigo.</h6>
-    <form id="contact-form" method="post" action="./registration.py">
-      <fieldset>
-        <label for="Nombre_Usuario">Nombre</label>
-        <input id="Nombre_Usuario" name="Nombre_Usuario" type="text" required>
-      </fieldset>
-      <fieldset>
-        <label for="email">Correo electrónico</label>
-        <input id="email" name="email" type="email" aria-label="email" required>
-      </fieldset>
-      <fieldset>
-        <label for="Mensaje">Mensaje</label>
-        <textarea id="Mensaje" name="Mensaje" rows="6" required>Escribe tu mensaje aquí...</textarea>
-      </fieldset>
-      <fieldset class="submit-container">
-        <input type="submit" name="submit" value="Enviar">
-      </fieldset>
-    </form>
+   <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+  <fieldset>
+    <label for="Nombre_Usuario">Nombre</label>
+    <input id="Nombre_Usuario" name="nombre" type="text" required [(ngModel)]="contacto.nombre">
+  </fieldset>
+  <fieldset>
+    <label for="email">Correo electrónico</label>
+    <input id="email" name="email" type="email" required [(ngModel)]="contacto.email">
+  </fieldset>
+  <fieldset>
+    <label for="Mensaje">Mensaje</label>
+    <textarea id="Mensaje" name="mensaje" rows="6" required [(ngModel)]="contacto.mensaje"></textarea>
+  </fieldset>
+   <fieldset class="submit-container">
+           <input type="submit" name="submit" value="Enviar">
+  </fieldset>
+</form>
+
   </div>
 </div>

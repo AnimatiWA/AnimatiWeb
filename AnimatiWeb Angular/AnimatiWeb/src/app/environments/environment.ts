@@ -21,6 +21,7 @@ export const environment = {
     GET_CART_BY_CUST: 'GetCartProductsByCustomerId?id=',
     REMOVE_CART: 'DeleteProductFromCartById?ID=',
     LOGIN: 'Login',
+    CREATE_CONTACTO: '/contacto/',
     USER_TOKEN_LOGIN: 'Login',
     REGISTER: 'RegisterCustomer',
     PLACE_ORDER: 'PlaceOrder',
