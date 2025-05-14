@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ContactoService, Contacto } from '../../services/contactoServices/contacto.service';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Siempre útil
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-contacto-component',
   standalone: true,
-  imports: [CommonModule, FormsModule], // 👈 Asegúrate de incluir FormsModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './contacto-component.component.html',
   styleUrl: './contacto-component.component.css'
 })

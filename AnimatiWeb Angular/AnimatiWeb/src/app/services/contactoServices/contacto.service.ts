@@ -17,20 +17,13 @@ export class ContactoService {
 
   constructor(private http: HttpClient) {}
 
-  getToken(): HttpHeaders {
-    const token = sessionStorage.getItem('token');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
 
   enviarMensaje(contacto: Contacto): Observable<any> {
-    const headers = this.getToken();
+  
     return this.http.post(
       environment.API_END_POINT + environment.METHODS.CREATE_CONTACTO,
-      contacto,
-      { headers }
+      contacto
+  
     );
   }
 }
