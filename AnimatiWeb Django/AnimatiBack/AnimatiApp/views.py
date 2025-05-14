@@ -142,22 +142,14 @@ class PerfilView(GenericAPIView):
     
     def get(self, request, *args, **kwargs):
 
-        pk = self.kwargs.get('pk')
-        try:
-            user = User.objects.get(pk = pk)
-        
-        except User.DoesNotExist:
-            return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-        
+        user = request.user
         serializer = self.get_serializer(user)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     def patch(self, request, *args, **kwargs):
-        pk = self.kwargs.get('pk')
-        try:
-            user = User.objects.get(id=pk)
-        except User.DoesNotExist:
-            return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user = request.user
         
         if not request.data:
             return Response({'error': 'No se han proporcionado datos para actualizar'}, status=status.HTTP_400_BAD_REQUEST)
@@ -201,7 +193,7 @@ class EliminarProductos(APIView):
 
     
 class ListaProductos(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     http_method_names = ['get']
     
     def get(self, request, format=None):
@@ -267,6 +259,21 @@ class DetalleCarrito(APIView):
         except Carrito.DoesNotExist:
             return Response({"error": "Carrito no encontrado"}, status=status.HTTP_404_NOT_FOUND)
 
+class DetalleCarritoUsuario(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = CarritoSerializer
+    http_method_names = ['get']
+    
+    def get(self, request):
+
+        usuario = request.user
+
+        try:
+            carrito = Carrito.objects.get(Usuario=usuario, is_active=True)
+            serializer = self.serializer_class(carrito)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Carrito.DoesNotExist:
+            return Response({"error": "No se encontró un carrito activo para el usuario."}, status=status.HTTP_404_NOT_FOUND)
 
 class ListaCarritos(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -336,8 +343,7 @@ class ActualizarCarrito(generics.UpdateAPIView):
         carrito = self.get_queryset().filter(id=id).first()
 
         if carrito:
-            carrito_serializer = self.serializer_class(carrito, data=request.data, 
-            partial=True)
+            carrito_serializer = self.serializer_class(carrito, data=request.data, partial=True)
 
             if carrito_serializer.is_valid():
 
@@ -412,8 +418,13 @@ class CrearProductosCarrito(APIView):
     def post(self, request, format=None):
         
         codigo_producto = request.data.get('Codigo')
-        carrito_id = request.data.get('Carrito')
         cantidad = int(request.data.get('Cantidad', 1))
+
+        try:
+            carrito = Carrito.objects.get(Usuario=request.user, is_active=True)
+            carrito_id = carrito.id
+        except Carrito.DoesNotExist:
+            return Response({"error": "No se encontró un carrito activo para el usuario."}, status=status.HTTP_404_NOT_FOUND)
 
         try:
 
@@ -443,7 +454,14 @@ class CrearProductosCarrito(APIView):
 
                 return Response({"error": "Stock insuficiente"}, status=status.HTTP_400_BAD_REQUEST)
             
-            serializer = ProductoCarritoSerializer(data=request.data)
+            data = {
+
+                "Codigo": codigo_producto,
+                "Cantidad": cantidad,
+                "Carrito": carrito.id
+            }
+            
+            serializer = ProductoCarritoSerializer(data=data)
 
             if serializer.is_valid():
                 serializer.save()
@@ -600,11 +618,7 @@ class PasswordResetView(APIView):
     def post(self, request, pk, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
-            try:
-                user = User.objects.get(pk=pk)
-            except User.DoesNotExist:
-                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
+            user = request.user
             user.password = make_password(serializer.validated_data['password'])
             user.save()
             return Response({"message": "Contraseña actualizada exitosamente."}, status=status.HTTP_200_OK)
@@ -613,7 +627,8 @@ class PasswordResetView(APIView):
 
 class ContactMessageView(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = []  
+    permission_classes = [permissions.AllowAny]
     http_method_names = ['post']
 
     def post(self, request):
