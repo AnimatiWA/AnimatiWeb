@@ -30,8 +30,31 @@
             <span class="visually-hidden">Next</span>
         </button>
         </div>
-        
-        
+          <div class="container menu">
+            <br>
+            <br>
+            <h1 style="text-align: center; color:purple ">PRODUCTOS DESTACADOS</h1>
+            <br>
+            <br>
+         <div class="row" >
+
+                <div class="col-3"*ngFor="let producto of listaProductos.slice(0, 4)">
+                    <article class="producto">
+                        <img [src]="producto.Imagen" alt="Block de notas">
+                        <h6>{{producto.Nombre_Producto}}</h6>
+                        <h6>${{producto.Precio}}</h6>
+                         <button  class="btn border border-secondary rounded-pill px-3 text-primary"(click)="agregarAlCarrito(producto)"><i class="fa fa-cart-shopping me-2 text-primary"></i>Agregar Al Carrito</button>
+                    </article>
+                    
+                </div>
+                <br>
+         </div>
+                     <br>
+            <br>
+            <h4 style="text-align: center;"><a href="/gallery" >Ir a la tienda</a></h4>
+            <br>
+            <br>
+         </div>
     </main>
 </body>
 </html>
