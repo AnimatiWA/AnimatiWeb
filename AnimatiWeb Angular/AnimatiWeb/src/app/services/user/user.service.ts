@@ -7,29 +7,31 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../../models/user';
 import { environment } from '../../environments/environment';
+import { LoginService } from '../auth/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
-
-  private getToken(): string {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.token || '';
-  }
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   getPerfilUsuario(): Observable<User> {
-    const token = this.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    const headers = this.loginService.userTokenHeader;
     return this.http
-      .get<User>(`${environment.urlApi}perfil-usuario`, { headers })
+      .get<User>(environment.API_END_POINT + environment.METHODS.USER_PROFILE, {
+        headers,
+      })
       .pipe(catchError(this.handleError));
   }
 
   updateUser(userRequest: User): Observable<any> {
+    const headers = this.loginService.userTokenHeader;
     return this.http
-      .put(environment.urlApi + 'user', userRequest)
+      .put(
+        environment.API_END_POINT + environment.METHODS.USER_PROFILE,
+        userRequest,
+        { headers }
+      )
       .pipe(catchError(this.handleError));
   }
 

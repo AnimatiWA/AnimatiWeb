@@ -1,0 +1,28 @@
+<div class="perfil-container">
+    <h2>Mi Perfil</h2>
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+    <div class="perfil-info">
+        <div class="perfil-datos">
+            <p><strong>Nombre de usuario:</strong> {{ usuario.username }}</p>
+            <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
+            <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+
+            <button>cambiar datos</button>
+
+        </div>
+        <div class="perfil-datos">
+            <p><strong>Nombre de usuario:</strong> {{ usuario.username }}</p>
+            <p><strong>Nombre:</strong> {{ usuario.first_name }}</p>
+            <p><strong>Apellido:</strong> {{ usuario.last_name }}</p>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+
+            <button>cancelar modificacion</button>
+            <button>guardar modificacion</button>
+
+        </div>
+        <button>cambiar contraseña</button>
+    </div>
+</div>
