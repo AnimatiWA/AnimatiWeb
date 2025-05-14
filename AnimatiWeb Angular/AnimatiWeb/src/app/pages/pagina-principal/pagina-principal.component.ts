@@ -27,10 +27,4 @@ export class PaginaPrincipalComponent implements OnInit {
     });
   }
 
-  agregarAlCarrito(producto: Producto) {
-
-    return this.productoService.agregarProductoCarrito(producto);
-
-  }
-
 }
