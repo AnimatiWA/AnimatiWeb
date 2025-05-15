@@ -64,3 +64,14 @@ body {
     font-size: 1.4em;
     vertical-align: middle;
 }
+
+.playstore-badge {
+    width: 180px;
+    height: auto;
+    margin-top: 10px;
+    transition: transform 0.3s;
+}
+
+.playstore-badge:hover {
+    transform: scale(1.05);
+}
