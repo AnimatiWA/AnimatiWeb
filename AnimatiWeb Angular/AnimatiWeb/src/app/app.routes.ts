@@ -14,10 +14,10 @@ import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
-
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 export const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: 'samplepage', title: 'Sample Page', component: SamplepageComponent },
   { path: 'agregarproductos', component: ProductsComponent },
   { path: 'categoria', component: CategoriasComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
   { path: 'carrito', component: CarritoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' },
