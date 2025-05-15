@@ -7,7 +7,7 @@ body {
   }
   
   header {
-    background: #ff86c4;
+    background: #fff;
     padding: 10px 0;
   }
   
@@ -38,7 +38,7 @@ body {
   }
   
   .nav-link {
-    color: #fff;
+    color: #ff86c4;
     text-decoration: none;
     margin-left: 20px;
     padding: 10px 15px;
