@@ -1,9 +1,9 @@
-import { objetoProducto } from "../pages/admin/productos/productos.component";
+import { objetoProducto } from '../pages/admin/productos/productos.component';
 
-let Codigo_Producto: any | objetoProducto["Codigo_Producto"]
+let Codigo_Producto: any | objetoProducto['Codigo_Producto'];
 export const environment = {
   production: false,
-  urlHost:'https://animatiapp.up.railway.app/',
+  urlHost: 'https://animatiapp.up.railway.app/',
   urlApi: 'https://animatiapp.up.railway.app/api/',
   API_END_POINT: 'https://animatiapp.up.railway.app/api/',
 
@@ -31,7 +31,7 @@ export const environment = {
     UPDATE_PROFILE: 'UpdateProfile',
     GET_ALL_SALE_BY_CUSTOMER_ID: 'GetAllSaleByCustomerId?id=',
     CANCEL_ORDER_BY_SALE_ID: 'cancelOrder?saleId=',
-    OPEN_SALE_BY_SALE_ID: 'OpenSaleBySaleId?saleId='
-  }
+    OPEN_SALE_BY_SALE_ID: 'OpenSaleBySaleId?saleId=',
+    USER_PROFILE: 'perfilusuario',
+  },
 };
-  
