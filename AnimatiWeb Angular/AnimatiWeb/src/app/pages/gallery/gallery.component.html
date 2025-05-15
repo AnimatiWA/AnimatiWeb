@@ -18,14 +18,26 @@
                 <p>Nuestros productos son completamente originales y están ilustrados por Animati. Si desean algún diseño personalizado, no duden en solicitarlo.</p>
             </header>
             <div class="row" >
-                <div class="col-3"*ngFor="let producto of listaProductos">
+                <div class="col-3" *ngFor="let producto of listaProductos">
                     <article class="producto">
                         <img [src]="producto.Imagen" alt="Block de notas">
                         <h3><a href="">{{producto.Nombre_Producto}}</a></h3>
                         <p>${{producto.Precio}}</p>
-                        <button *ngIf="userLoginOn" class="btn border border-secondary rounded-pill px-3 text-primary"(click)="agregarAlCarrito(producto)"><i class="fa fa-cart-shopping me-2 text-primary"></i>Agregar Al Carrito</button>
+                        <input
+                          type="number"
+                          min="1"
+                          [(ngModel)]="producto.Cantidad"
+                          class="cantidad-input"
+                          placeholder="Cantidad"
+                          style="width:60px;"
+                        >
+                        <button *ngIf="userLoginOn"
+                                class="btn border border-secondary rounded-pill px-3 text-primary"
+                                [disabled]="!producto.Cantidad || producto.Cantidad < 1"
+                                (click)="agregarAlCarrito(producto, producto.Cantidad)">
+                          <i class="fa fa-cart-shopping me-2 text-primary"></i>Agregar Al Carrito
+                        </button>
                     </article>
-                    
                 </div>
                 <br>
             </div>
