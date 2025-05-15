@@ -33,5 +33,8 @@ export const environment = {
     CANCEL_ORDER_BY_SALE_ID: 'cancelOrder?saleId=',
     OPEN_SALE_BY_SALE_ID: 'OpenSaleBySaleId?saleId=',
     USER_PROFILE: 'perfilusuario',
+    RECOVERY_PASS: 'passwordRecovery',
+    RECOVERY_PASS_EMAIL: 'passwordRecoveryEmail',
+    CHANGE_PASS: 'resetPassword',
   },
 };

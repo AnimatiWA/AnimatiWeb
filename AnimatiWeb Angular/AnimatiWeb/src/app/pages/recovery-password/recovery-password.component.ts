@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-recovery-password',
@@ -26,7 +27,7 @@ export class RecoveryPasswordComponent {
   ) {
     this.recoveryForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      verificationCode: [''],
+      verificationCode: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password2: ['', Validators.required]
     }, { validator: this.passwordsMatchValidator });
@@ -47,10 +48,10 @@ export class RecoveryPasswordComponent {
     this.isLoading = true;
     const body = { email: this.recoveryForm.value.email };
 
-    this.http.post('https://animatiapp.up.railway.app/api/passwordRecovery', body)
+    this.http.post(environment.API_END_POINT + environment.METHODS.RECOVERY_PASS_EMAIL, body)
       .subscribe({
         next: () => {
-          this.successMessage = 'Código enviado al correo.';
+          this.successMessage = 'Su código de validación ha sido enviado.';
           this.isCodeSent = true;
         },
         error: (err) => {
@@ -69,45 +70,33 @@ export class RecoveryPasswordComponent {
       return;
     }
 
-    this.isLoading = true;
-    const body = { code: this.recoveryForm.value.verificationCode };
-
-    this.http.post('https://animatiapp.up.railway.app/api/validate-code', body)
-      .subscribe({
-        next: () => {
-          this.successMessage = 'Código validado correctamente.';
-          this.isCodeValidated = true;
-        },
-        error: () => {
-          this.errorMessage = 'Código incorrecto.';
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
-  }
-
-  updatePassword() {
     if (this.recoveryForm.invalid) {
       this.errorMessage = 'Las contraseñas no cumplen con los requisitos o no coinciden.';
       return;
     }
 
     this.isLoading = true;
-    const body = {
+    const body = { 
+      codigo: this.recoveryForm.value.verificationCode,
       password: this.recoveryForm.value.password,
       password2: this.recoveryForm.value.password2
     };
 
-    this.http.post('https://animatiapp.up.railway.app/api/update-password', body)
+    this.http.post(environment.API_END_POINT + environment.METHODS.CHANGE_PASS, body)
       .subscribe({
         next: () => {
-          this.successMessage = 'Contraseña actualizada exitosamente.';
-          setTimeout(() => this.router.navigate(['/login']), 2000);
+          this.successMessage = 'Contraseña modificada con éxito.';
+          this.isCodeValidated = true;
+
+          // 🔥 Redirigir al login solo si `successMessage` es correcto
+          setTimeout(() => {
+            if (this.successMessage === 'Contraseña modificada con éxito.') {
+              this.router.navigate(['/login']);
+            }
+          }, 5000);
         },
-        error: (err) => {
-          this.errorMessage = 'Error al actualizar la contraseña.';
-          console.error(err);
+        error: () => {
+          this.errorMessage = 'El código ingresado no es válido.';
         },
         complete: () => {
           this.isLoading = false;

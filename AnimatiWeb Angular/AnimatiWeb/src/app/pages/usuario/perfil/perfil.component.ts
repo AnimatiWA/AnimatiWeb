@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../models/user';
-import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -12,7 +12,7 @@ export class PerfilComponent implements OnInit {
   usuario: User = new User();
   errorMessage: string = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarPerfilUsuario();
@@ -28,5 +28,10 @@ export class PerfilComponent implements OnInit {
         this.errorMessage = 'No se pudo cargar el perfil del usuario.';
       },
     });
+  }
+
+  // 🔥 Método para redirigir a `change-password`
+  irACambiarContrasena(): void {
+    this.router.navigate(['/change-password']);
   }
 }
