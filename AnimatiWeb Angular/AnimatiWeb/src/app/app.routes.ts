@@ -13,11 +13,10 @@ import { QuienesSomosComponent } from './pages/auth/quienes-somos/quienes-somos.
 import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
-
+import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
-
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
@@ -38,6 +37,7 @@ export const routes: Routes = [
     {path:'agregarproductos', component:ProductsComponent},
     {path:'categoria', component:CategoriasComponent},
     {path:'carrito', component:CarritoComponent},
+    {path: 'perfil', component: PerfilComponent },
     {path: 'change-password', component: ChangePasswordComponent },
     {path: 'recovery-password', component: RecoveryPasswordComponent },
     {path:"", redirectTo:"/", pathMatch:"full"},
@@ -60,4 +60,3 @@ export const routes: Routes = [
       }
     
 ];
-
