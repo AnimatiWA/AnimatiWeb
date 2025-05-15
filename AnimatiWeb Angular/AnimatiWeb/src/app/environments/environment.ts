@@ -23,7 +23,7 @@ export const environment = {
     LOGIN: 'Login',
     CREATE_CONTACTO: 'contacto',
     USER_TOKEN_LOGIN: 'Login',
-    REGISTER: 'RegisterCustomer',
+    REGISTER: 'registro',
     PLACE_ORDER: 'PlaceOrder',
     GET_ALL_OFFERS: 'GetAllOffers',
     CREATE_NEW_OFFER: 'CreateNewOffer',

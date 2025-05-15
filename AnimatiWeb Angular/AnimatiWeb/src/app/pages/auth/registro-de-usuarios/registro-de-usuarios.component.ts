@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { Usuario } from '../../../interface/usuario';
-
+import { RegisterService } from '../../../services/auth/register.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -15,10 +15,13 @@ import { Usuario } from '../../../interface/usuario';
   styleUrl: './registro-de-usuarios.component.css'
 })
 
+
+
+
 export class RegistroDeUsuariosComponent {
-  private accesoService = inject(AuthService);
-  private router = inject(Router);
-  public formBuild = inject(FormBuilder);
+  
+
+  constructor(private registerService: RegisterService, private router: Router, private formBuild: FormBuilder ){ }
 
   public formRegistro: FormGroup = this.formBuild.group({
     username: ['',Validators.required],
@@ -39,7 +42,7 @@ export class RegistroDeUsuariosComponent {
       password: this.formRegistro.value.password
     }
 
-    this.accesoService.registrarse(objeto).subscribe({
+    this.registerService.registrarse(objeto).subscribe({
       next: (data) =>{
         
         this.router.navigate(['/login'])
@@ -53,10 +56,4 @@ export class RegistroDeUsuariosComponent {
     })
 
   }
-
-  volver(){
-      this.router.navigate([''])
-  }
-    
 }
-
