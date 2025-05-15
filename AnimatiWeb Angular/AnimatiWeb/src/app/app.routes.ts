@@ -18,8 +18,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
 
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
-
-
+import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
 
 export const routes: Routes = [
@@ -37,8 +36,8 @@ export const routes: Routes = [
     {path: 'samplepage', title: 'Sample Page', component: SamplepageComponent},
     {path: 'agregarproductos', component:ProductsComponent},
     {path:'categoria', component:CategoriasComponent},
-    { path: 'change-password', component: ChangePasswordComponent },
-    
+    {path: 'change-password', component: ChangePasswordComponent },
+    {path: 'recovery-password', component: RecoveryPasswordComponent },
     {path:"", redirectTo:"/", pathMatch:"full"},
     {
         path: '',
