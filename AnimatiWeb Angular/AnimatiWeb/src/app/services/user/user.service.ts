@@ -27,7 +27,7 @@ export class UserService {
   updateUser(userRequest: User): Observable<any> {
     const headers = this.loginService.userTokenHeader;
     return this.http
-      .put(
+      .patch(
         environment.API_END_POINT + environment.METHODS.USER_PROFILE,
         userRequest,
         { headers }

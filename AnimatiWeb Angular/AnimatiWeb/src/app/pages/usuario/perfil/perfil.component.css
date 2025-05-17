@@ -7,6 +7,30 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.perfil-contenido {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn-animati {
+  color: black;
+  background-color: #ff86c4;
+  border-color: #ff86c4;
+  margin-right: 1rem;
+}
+
+.btn-animati:hover {
+  background-color: #eb52a1;
+  border-color: #eb52a1;
+  color: #fff !important;
+}
+
+.btn-password {
+  display: flex;
+  align-items: flex-end;
+}
+
 .perfil-info {
   display: flex;
   gap: 24px;
