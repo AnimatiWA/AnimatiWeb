@@ -36,5 +36,8 @@ export const environment = {
     RECOVERY_PASS: 'passwordRecovery',
     RECOVERY_PASS_EMAIL: 'passwordRecoveryEmail',
     CHANGE_PASS: 'resetPassword',
+    GET_PRODUCT_CART_BY_ID: 'carritoProductos/lista/carrito/',
+    DELETE_PRODUCT_CART_BY_ID: 'carritoProductos/eliminar/',
+    DELETE_ONE_PRODUCT_CART_BY_ID: 'carritoProductos/eliminarUnidad/',
   },
 };
