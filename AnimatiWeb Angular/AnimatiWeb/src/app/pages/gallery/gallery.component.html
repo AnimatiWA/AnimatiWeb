@@ -21,6 +21,7 @@
                 <div class="col-3" *ngFor="let producto of listaProductos">
                     <article class="producto">
                         <img [src]="producto.Imagen" alt="Block de notas">
+                        <p>Unidades disponibles: {{producto.Stock}}</p>
                         <h3><a href="">{{producto.Nombre_Producto}}</a></h3>
                         <p>${{producto.Precio}}</p>
                         <input
