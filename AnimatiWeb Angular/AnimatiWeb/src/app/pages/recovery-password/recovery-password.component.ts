@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   standalone: true,
   templateUrl: './recovery-password.component.html',
   styleUrls: ['./recovery-password.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule] // ✅ Importación correcta
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule]
 })
 export class RecoveryPasswordComponent {
   recoveryForm: FormGroup;
@@ -88,7 +88,7 @@ export class RecoveryPasswordComponent {
 
     const passwordErrors = this.recoveryForm.get('password')?.errors;
     if (passwordErrors) {
-      this.errorMessage = Object.values(passwordErrors)[0]; // ✅ Muestra el primer error específico
+      this.errorMessage = Object.values(passwordErrors)[0];
       return;
     }
 
