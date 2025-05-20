@@ -4,6 +4,7 @@ import { LoginService } from '../auth/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Producto } from '../../interface/prductolista';
+import { ProductoCarrito } from '../../interface/prductoCarritolista';
 import { Carrito } from '../../interface/carrito';
 import { filter, switchMap, catchError, map, tap, of } from 'rxjs';
 
@@ -16,28 +17,24 @@ export class CarritoService {
   private miLista:Producto[]=[];
   private miCarrito= new BehaviorSubject<Producto[]>([])
   miCarrito$ = this.miCarrito
-  constructor(private http: HttpClient, private loginService: LoginService) {
 
-     this.loginService.userLoginOn.pipe(
-      filter(on => on),
-      switchMap(() => this.getCarrito())
-    ).subscribe(id => this.carritoActivoId = id);
-   }
+constructor(private http: HttpClient, private loginService: LoginService) {
 
-  private actualizaCarritoLocal(producto: Producto) {
-
-    const indiceProducto = this.miLista.findIndex(prod => prod.Codigo_Producto === producto.Codigo_Producto);
-
-    if(indiceProducto !== -1){ //Ya existe el producto, actualizo la cantidad.
-
-      this.miLista[indiceProducto].Cantidad += producto.Cantidad;
-    } else{ //No existe el producto, lo agrego al carrito
-
-      this.miLista.push({ ...producto});
-    }
-
-    this.miCarrito.next([...this.miLista]);
+  const savedId = sessionStorage.getItem('carritoActivoId');
+  if (savedId) {
+    this.carritoActivoId = +savedId;
   }
+
+  this.loginService.userLoginOn.pipe(
+    filter(on => on),
+    switchMap(() => this.getCarrito())
+  ).subscribe(id => {
+    this.carritoActivoId = id;
+    if (id !== null) {
+      sessionStorage.setItem('carritoActivoId', id.toString());
+    }
+  });
+}
   
   private getCarrito(): Observable<number | null> {
 
@@ -55,15 +52,12 @@ export class CarritoService {
 
     if (this.carritoActivoId){
 
-      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad).pipe(
-        tap(() => this.actualizaCarritoLocal(producto))
-      );
+      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad);
     } else{
 
       return this.createCarrito().pipe(
         tap(carrito => this.carritoActivoId = carrito.id),
-        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad)),
-        tap(() => this.actualizaCarritoLocal(producto))
+        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad))
       );
     }
   }
@@ -88,32 +82,25 @@ export class CarritoService {
     return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers });
   }
 
-  agregarProductoCarrito(producto:Producto){
+  getProductosCarrito(){
 
-    if(this.miLista.length ===0){
+    const headers = this.loginService.userTokenHeader;
 
-      alert('Se agrego un producto')
-      producto.Cantidad=1;
-      this.miLista.push(producto);
-      this.miCarrito.next(this.miLista);
-    }else{
-
-      const productoModificado=this.miLista.find((elemento)=>{
-        return elemento.Codigo_Producto === producto.Codigo_Producto
-      })
-
-      if(productoModificado){
-
-        alert('Se Agrego Un Unidad')
-        productoModificado.Cantidad += 1
-        this.miCarrito.next(this.miLista);
-      }else{
-
-        alert('Se Agrego Un Producto Diferente')
-        producto.Cantidad=1;
-        this.miLista.push(producto)
-        this.miCarrito.next(this.miLista);
-      }
-    }
+    return this.http.get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + (this.carritoActivoId || 0), { headers });
   }
+
+  deleteProducto(producto: ProductoCarrito){
+
+    const headers = this.loginService.userTokenHeader;
+
+    return this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers });
+  }
+
+  deleteUnProducto(producto: ProductoCarrito): Observable<any>{
+
+    const headers = this.loginService.userTokenHeader;
+
+    return this.http.patch(environment.API_END_POINT + environment.METHODS.DELETE_ONE_PRODUCT_CART_BY_ID + producto.id, {} , { headers });
+  }
+
 }

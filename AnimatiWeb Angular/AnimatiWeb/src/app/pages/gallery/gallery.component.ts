@@ -58,7 +58,7 @@ export class GalleryComponent implements OnInit{
 
         this.carritoService.agregarProducto(producto).subscribe({
             next: () => alert('Producto agregado'),
-            error: () => alert('No se pudo agregar el producto')
+            error: (err) => alert(err.error.error)
         });
     }
 

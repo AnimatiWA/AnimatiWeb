@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { UsuarioModule } from './pages/usuario/usuario.module';
+import { CarritoModule } from './pages/carrito/carrito.module';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ import { UsuarioModule } from './pages/usuario/usuario.module';
     RouterOutlet,
     HttpClientModule,
     UsuarioModule,
+    CarritoModule
   ],
 })
 export class AppComponent {

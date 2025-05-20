@@ -13,7 +13,6 @@ import { CarritoService } from '../../services/carritoServices/carrito.service';
 })
 export class HeaderComponent implements OnInit{
 
-miCarrito$  = this.carritoService.miCarrito$
 viewCart: boolean = false;
 logueado: boolean = false;
   constructor(private loginService:LoginService, private router:Router, private carritoService: CarritoService){}

@@ -1,77 +1,81 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .footer {
-    background-color: hsl(0, 50%, 89%);
-    color: #641881;
-    padding: 40px 0;
+  background-color: hsl(0, 50%, 89%);
+  color: #641881;
+  padding: 10px 0;
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  height: fit-content;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .footer-column {
-    flex: 1;
-    min-width: 250px;
-    margin: 10px 0;
-    padding: 0 20px;
+  flex: 1;
+  min-width: 250px;
+  margin: 10px 0;
+  padding: 0 20px;
 }
 
 .footer-column h3 {
-    font-size: 1.8em;
-    margin-bottom: 15px;
-    position: relative;
-    padding-bottom: 10px;
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
 }
 
 .footer-column h3::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 3px;
-    background-color: rgba(155, 7, 241, 0.781);
-    left: 0;
-    bottom: 0;
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background-color: rgba(155, 7, 241, 0.781);
+  left: 0;
+  bottom: 0;
 }
 
 .footer-column p {
-    margin: 10px 0;
-    font-size: 1.1em;
+  margin: 10px 0;
+  font-size: 1.1em;
 }
 
 .footer-column a {
-    color: #641881;
-    text-decoration: none;
-    transition: color 0.3s;
+  color: #641881;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .footer-column a:hover {
-    color: #ddd;
+  color: #ddd;
 }
 
 .footer-column i {
-    margin-right: 10px;
-    font-size: 1.4em;
-    vertical-align: middle;
+  margin-right: 10px;
+  font-size: 1.4em;
+  vertical-align: middle;
 }
 
 .playstore-badge {
-    width: 180px;
-    height: auto;
-    margin-top: 10px;
-    transition: transform 0.3s;
+  width: 180px;
+  height: auto;
+  margin-top: 10px;
+  transition: transform 0.3s;
 }
 
 .playstore-badge:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
