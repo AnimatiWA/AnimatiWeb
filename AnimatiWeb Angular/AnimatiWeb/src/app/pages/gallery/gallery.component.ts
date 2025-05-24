@@ -45,6 +45,10 @@ export class GalleryComponent implements OnInit{
     getAllProductos(){
         this.productoService.getProductos().subscribe(res => {
             this.listaProductos = res;
+            // Establecer cantidad por defecto en 1 para cada producto
+            this.listaProductos.forEach(producto => {
+                producto.Cantidad = 1;
+            });
           });
     }
 

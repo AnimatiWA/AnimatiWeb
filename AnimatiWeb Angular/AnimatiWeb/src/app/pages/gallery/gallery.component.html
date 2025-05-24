@@ -24,20 +24,20 @@
                         <p>Unidades disponibles: {{producto.Stock}}</p>
                         <h3><a href="">{{producto.Nombre_Producto}}</a></h3>
                         <p>${{producto.Precio}}</p>
-                        <div *ngIf="userLoginOn">
+                        <div *ngIf="userLoginOn" class="cantidad-container">
                             <input
                               type="number"
                               min="1"
                               [(ngModel)]="producto.Cantidad"
                               class="cantidad-input"
                               placeholder="Cantidad"
-                              style="width:60px;"
                             >
                             <button
-                                    class="btn border border-secondary rounded-pill px-3 text-primary"
+                                    class="btn-carrito"
                                     [disabled]="!producto.Cantidad || producto.Cantidad < 1"
                                     (click)="agregarAlCarrito(producto, producto.Cantidad)">
-                              <i class="fa fa-cart-shopping me-2 text-primary"></i>Agregar Al Carrito
+                              <i class="fa fa-cart-shopping"></i>
+                              Agregar Al Carrito
                             </button>
                         </div>
                     </article>
