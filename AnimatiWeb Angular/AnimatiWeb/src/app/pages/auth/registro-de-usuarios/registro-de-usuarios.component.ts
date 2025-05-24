@@ -25,16 +25,29 @@ export class RegistroDeUsuariosComponent {
   constructor(private registerService: RegisterService, private router: Router, private formBuild: FormBuilder ){ }
 
   public formRegistro: FormGroup = this.formBuild.group({
-    username: ['', Validators.required],
-    first_name: ['', Validators.required],
-    last_name: ['', Validators.required],
+    username: ['', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20)
+    ]],
+    first_name: ['', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20)
+    ]],
+    last_name: ['', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20)
+    ]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [
       Validators.required,
-      Validators.minLength(4),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[^\s]+$/)
     ]],
-    confirmPassword: ['', Validators.required]
+    confirmPassword: ['', Validators.required],
+    termsAndConditions: [false, Validators.requiredTrue]
   }, {
     validators: this.passwordMatchValidator
   });
@@ -45,6 +58,8 @@ export class RegistroDeUsuariosComponent {
     const confirmPassword = formGroup.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }
+
+
 
   // Método para verificar errores de contraseña
   checkPasswordErrors() {
@@ -81,6 +96,7 @@ export class RegistroDeUsuariosComponent {
     this.checkPasswordErrors();
 
     if (this.formRegistro.invalid || this.passwordErrors.length > 0) {
+      console.log('Formulario inválido:', this.formRegistro.errors);
       return;
     }
 
@@ -89,16 +105,33 @@ export class RegistroDeUsuariosComponent {
       first_name: this.formRegistro.value.first_name,
       last_name: this.formRegistro.value.last_name,
       email: this.formRegistro.value.email,
-      password: this.formRegistro.value.password
-    }
+      password: this.formRegistro.value.password,
+      termsAndConditions: this.formRegistro.value.termsAndConditions
+    };
+
+    console.log('Valores del formulario:', this.formRegistro.value);
+    console.log('Objeto para enviar:', objeto);
 
     this.registerService.registrarse(objeto).subscribe({
       next: (data) => {
-        this.router.navigate(['/login'])
+        console.log('Registro exitoso:', data);
+        this.router.navigate(['/login']);
       }, 
       error: (error) => {
-        console.log(error.message);
+        console.error('Error completo:', error);
+        console.error('Mensaje de error:', error.message);
+        console.error('Status:', error.status);
+        console.error('Error body:', error.error);
+        
+        let errorMessage = 'Error al registrar el usuario';
+        if (error.error && typeof error.error === 'string') {
+          errorMessage = error.error;
+        } else if (error.error && typeof error.error === 'object' && error.error.detail) {
+          errorMessage = error.error.detail;
+        }
+        
+        alert(errorMessage);
       }
-    })
+    });
   }
 }
