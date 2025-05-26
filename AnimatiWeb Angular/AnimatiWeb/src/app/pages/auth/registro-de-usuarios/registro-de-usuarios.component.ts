@@ -71,7 +71,7 @@ export class RegistroDeUsuariosComponent {
     }
 
     if (passwordControl?.errors?.['minlength']) {
-      this.passwordErrors.push('La contraseña debe tener al menos 4 caracteres');
+      this.passwordErrors.push('La contraseña debe tener al menos 8 caracteres');
     }
 
     if (passwordControl?.errors?.['pattern']) {
