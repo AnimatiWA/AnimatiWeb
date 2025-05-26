@@ -25,13 +25,15 @@
                         <h3><a href="">{{producto.Nombre_Producto}}</a></h3>
                         <p>${{producto.Precio}}</p>
                         <div *ngIf="userLoginOn" class="cantidad-container">
-                            <input
-                              type="number"
-                              min="1"
-                              [(ngModel)]="producto.Cantidad"
-                              class="cantidad-input"
-                              placeholder="Cantidad"
-                            >
+                            <div class="cantidad-control">
+                                <button class="btn-control btn-minus" (click)="decrementarCantidad(producto)" [disabled]="producto.Cantidad <= 1">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <span class="cantidad-display">{{producto.Cantidad || 1}}</span>
+                                <button class="btn-control btn-plus" (click)="incrementarCantidad(producto)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
                             <button
                                     class="btn-carrito"
                                     [disabled]="!producto.Cantidad || producto.Cantidad < 1"

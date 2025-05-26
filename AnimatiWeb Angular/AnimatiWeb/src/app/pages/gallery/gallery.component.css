@@ -60,29 +60,80 @@ body {
     color: #000000;
 }
 
-.cantidad-input {
-    height: 32px;
-    padding: 4px;
-    border: 2px solid #e0e0e0;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    background-color: #f8f9fa;
-  width: 10vh; 
-  margin-bottom: 10px;                  
-  margin-top: 8px;                   
+/* Estilos para el control de cantidad con botones */
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  padding: 4px 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cantidad-input:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-  background: rgba(255,255,255,0.8);
+.cantidad-display {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 10px;
+  min-width: 30px;
+  text-align: center;
+  color: #333;
 }
 
-.cantidad-input::placeholder {
-  color: #888;
-  opacity: 1;
-  font-size: 0.9em;
+.btn-control {
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12px;
+}
+
+.btn-plus {
+  background-color: #a0e4b0; /* Verde claro */
+  border: 1px solid #8ad49c;
+}
+
+.btn-plus:hover {
+  background-color: #82d996;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-plus:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus {
+  background-color: #ffb3b3; /* Rojo claro */
+  border: 1px solid #ff9999;
+}
+
+.btn-minus:hover {
+  background-color: #ff9191;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus:disabled {
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
 }
 
 .small-text {

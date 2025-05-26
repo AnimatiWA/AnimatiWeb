@@ -65,5 +65,19 @@ export class GalleryComponent implements OnInit{
             error: (err) => alert(err.error.error)
         });
     }
+    
+    incrementarCantidad(producto: Producto) {
+        if (!producto.Cantidad) {
+            producto.Cantidad = 1;
+        } else {
+            producto.Cantidad += 1;
+        }
+    }
+    
+    decrementarCantidad(producto: Producto) {
+        if (producto.Cantidad > 1) {
+            producto.Cantidad -= 1;
+        }
+    }
 
 }
