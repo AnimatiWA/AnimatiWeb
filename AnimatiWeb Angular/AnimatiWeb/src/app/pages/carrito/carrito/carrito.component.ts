@@ -72,4 +72,13 @@ export class CarritoComponent {
       error: () => alert('No se ha podido eliminar el producto'),
     })
   }
+  
+  addUnProducto(producto: ProductoCarrito){
+    this.carritoService.addUnProducto(producto).subscribe({
+      next: () => {
+        producto.Cantidad += 1;
+      },
+      error: () => alert('No se ha podido agregar una unidad al producto'),
+    })
+  }
 }

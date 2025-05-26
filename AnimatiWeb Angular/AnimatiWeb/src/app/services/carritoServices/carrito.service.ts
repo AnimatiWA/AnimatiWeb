@@ -17,12 +17,16 @@ export class CarritoService {
   private miLista:Producto[]=[];
   private miCarrito= new BehaviorSubject<Producto[]>([])
   miCarrito$ = this.miCarrito
+  
+  private cartItemsSubject = new BehaviorSubject<ProductoCarrito[]>([]);
+  public cartItems$ = this.cartItemsSubject.asObservable();
 
 constructor(private http: HttpClient, private loginService: LoginService) {
 
   const savedId = sessionStorage.getItem('carritoActivoId');
   if (savedId) {
     this.carritoActivoId = +savedId;
+    this.actualizarProductosCarrito();
   }
 
   this.loginService.userLoginOn.pipe(
@@ -32,6 +36,7 @@ constructor(private http: HttpClient, private loginService: LoginService) {
     this.carritoActivoId = id;
     if (id !== null) {
       sessionStorage.setItem('carritoActivoId', id.toString());
+      this.actualizarProductosCarrito();
     }
   });
 }
@@ -52,12 +57,15 @@ constructor(private http: HttpClient, private loginService: LoginService) {
 
     if (this.carritoActivoId){
 
-      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad);
+      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad).pipe(
+        tap(() => this.actualizarProductosCarrito())
+      );
     } else{
 
       return this.createCarrito().pipe(
         tap(carrito => this.carritoActivoId = carrito.id),
-        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad))
+        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad)),
+        tap(() => this.actualizarProductosCarrito())
       );
     }
   }
@@ -88,19 +96,50 @@ constructor(private http: HttpClient, private loginService: LoginService) {
 
     return this.http.get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + (this.carritoActivoId || 0), { headers });
   }
+  
+  actualizarProductosCarrito(): void {
+    if (!this.carritoActivoId) {
+      this.cartItemsSubject.next([]);
+      return;
+    }
+    
+    const headers = this.loginService.userTokenHeader;
+    
+    this.http.get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + this.carritoActivoId, { headers })
+      .subscribe(productos => {
+        this.cartItemsSubject.next(productos);
+      });
+  }
 
   deleteProducto(producto: ProductoCarrito){
 
     const headers = this.loginService.userTokenHeader;
 
-    return this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers });
+    return this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers }).pipe(
+      tap(() => this.actualizarProductosCarrito())
+    );
   }
 
   deleteUnProducto(producto: ProductoCarrito): Observable<any>{
 
     const headers = this.loginService.userTokenHeader;
 
-    return this.http.patch(environment.API_END_POINT + environment.METHODS.DELETE_ONE_PRODUCT_CART_BY_ID + producto.id, {} , { headers });
+    return this.http.patch(environment.API_END_POINT + environment.METHODS.DELETE_ONE_PRODUCT_CART_BY_ID + producto.id, {} , { headers }).pipe(
+      tap(() => this.actualizarProductosCarrito())
+    );
+  }
+  
+  addUnProducto(producto: ProductoCarrito): Observable<any> {
+    const headers = this.loginService.userTokenHeader;
+    
+    const body = {
+      Codigo: producto.Codigo,
+      Cantidad: 1,
+    };
+    
+    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers }).pipe(
+      tap(() => this.actualizarProductosCarrito())
+    );
   }
 
 }

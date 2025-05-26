@@ -13,7 +13,14 @@
           <p>Precio: ${{producto.Precio}}</p>
           <div class="cantidad">
             <p>Cantidad: {{producto.Cantidad}}</p>
-            <button class="btn btn-primary btn-restar-uno btn-animati" (click)="deleteUnProducto(producto)">-1</button>
+            <div class="botones-cantidad">
+              <button class="btn btn-control btn-add" (click)="addUnProducto(producto)">
+                <i class="fa fa-plus"></i> Agregar uno
+              </button>
+              <button class="btn btn-control btn-delete" (click)="deleteUnProducto(producto)">
+                <i class="fa fa-minus"></i> Borrar uno
+              </button>
+            </div>
           </div>
           <p class="subtotal">Subtotal: ${{producto.Precio * producto.Cantidad}}</p>
         </div>

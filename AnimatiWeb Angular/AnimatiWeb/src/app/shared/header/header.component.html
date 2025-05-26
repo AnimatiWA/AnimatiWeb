@@ -19,8 +19,9 @@
                       Orders</a></li>
                 </ul>
               </li>
-              <li *ngIf="logueado" class="nav-link btn btn-outline-info my-2 my-sm-0">
+              <li *ngIf="logueado" class="nav-link btn btn-outline-info my-2 my-sm-0 cart-container">
                 <i class="fa fa-cart-shopping" style="color: #202122;" routerLink="/carrito">Carrito</i>
+                <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
               </li>
               <li *ngIf="!logueado" class="nav-link my-sm-0">
                 <i class="fa" routerLink="/"></i>
