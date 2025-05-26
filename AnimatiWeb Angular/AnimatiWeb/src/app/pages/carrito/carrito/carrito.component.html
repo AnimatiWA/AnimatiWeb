@@ -17,7 +17,7 @@
               <button class="btn btn-control btn-add" (click)="addUnProducto(producto)">
                 <i class="fa fa-plus"></i> Agregar uno
               </button>
-              <button class="btn btn-control btn-delete" (click)="deleteUnProducto(producto)">
+              <button class="btn btn-control btn-delete" (click)="deleteUnProducto(producto)" [disabled]="producto.Cantidad <= 1">
                 <i class="fa fa-minus"></i> Borrar uno
               </button>
             </div>
