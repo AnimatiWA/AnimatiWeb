@@ -95,7 +95,7 @@ body {
 }
 
 .btn-plus {
-  background-color: #a0e4b0; /* Verde claro */
+  background-color: #a0e4b0;
   border: 1px solid #8ad49c;
 }
 
@@ -111,7 +111,7 @@ body {
 }
 
 .btn-minus {
-  background-color: #ffb3b3; /* Rojo claro */
+  background-color: #ffb3b3;
   border: 1px solid #ff9999;
 }
 
