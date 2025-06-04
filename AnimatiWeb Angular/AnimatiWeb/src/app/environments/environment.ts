@@ -1,9 +1,9 @@
-import { objetoProducto } from "../pages/admin/productos/productos.component";
+import { objetoProducto } from '../pages/admin/productos/productos.component';
 
-let Codigo_Producto: any | objetoProducto["Codigo_Producto"]
+let Codigo_Producto: any | objetoProducto['Codigo_Producto'];
 export const environment = {
   production: false,
-  urlHost:'https://animatiapp.up.railway.app/',
+  urlHost: 'https://animatiapp.up.railway.app/',
   urlApi: 'https://animatiapp.up.railway.app/api/',
   API_END_POINT: 'https://animatiapp.up.railway.app/api/',
 
@@ -23,7 +23,7 @@ export const environment = {
     LOGIN: 'Login',
     CREATE_CONTACTO: 'contacto',
     USER_TOKEN_LOGIN: 'Login',
-    REGISTER: 'RegisterCustomer',
+    REGISTER: 'registro',
     PLACE_ORDER: 'PlaceOrder',
     GET_ALL_OFFERS: 'GetAllOffers',
     CREATE_NEW_OFFER: 'CreateNewOffer',
@@ -31,7 +31,13 @@ export const environment = {
     UPDATE_PROFILE: 'UpdateProfile',
     GET_ALL_SALE_BY_CUSTOMER_ID: 'GetAllSaleByCustomerId?id=',
     CANCEL_ORDER_BY_SALE_ID: 'cancelOrder?saleId=',
-    OPEN_SALE_BY_SALE_ID: 'OpenSaleBySaleId?saleId='
-  }
+    OPEN_SALE_BY_SALE_ID: 'OpenSaleBySaleId?saleId=',
+    USER_PROFILE: 'perfilusuario',
+    RECOVERY_PASS: 'passwordRecovery',
+    RECOVERY_PASS_EMAIL: 'passwordRecoveryEmail',
+    CHANGE_PASS: 'resetPassword',
+    GET_PRODUCT_CART_BY_ID: 'carritoProductos/lista/carrito/',
+    DELETE_PRODUCT_CART_BY_ID: 'carritoProductos/eliminar/',
+    DELETE_ONE_PRODUCT_CART_BY_ID: 'carritoProductos/eliminarUnidad/',
+  },
 };
-  

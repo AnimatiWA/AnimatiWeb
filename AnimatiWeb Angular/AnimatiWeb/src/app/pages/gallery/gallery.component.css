@@ -24,6 +24,7 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin-bottom: 20px;
+    padding: 16px 20px;
 }
 
 .producto:hover {
@@ -46,7 +47,7 @@ body {
     margin: 10px 20px 15px 20px;
 }
 
-/* Efectos de hover */
+
 .producto:hover {
     background: linear-gradient(to right, #b9e5ff, #e0d8ff); 
 }
@@ -58,3 +59,66 @@ body {
 .producto:hover p {
     color: #000000;
 }
+
+.cantidad-input {
+  background: rgba(255,255,255,0.5);   
+  border: 1px solid #ced4da;           
+  border-radius: 50px;                 
+  outline: none;
+  margin-right: 12px;                 
+  text-align: center;
+  font-size: 1rem;
+  padding: 4px 12px;
+  transition: box-shadow 0.2s;
+  width: 100%; 
+  margin-bottom: 10px;                  
+  margin-top: 8px;                   
+}
+
+.cantidad-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  background: rgba(255,255,255,0.8);
+}
+
+.cantidad-input::placeholder {
+  color: #888;
+  opacity: 1;
+  font-size: 0.9em;
+}
+
+.small-text {
+    font-size: 0.875rem; 
+    color: #6c757d; 
+    margin-bottom: 0.5rem; 
+}
+
+.producto button {
+  margin-bottom: 16px;   
+  margin-top: 8px;       
+  display: block;        
+}
+
+.col-4 {
+    
+    box-sizing: border-box;
+    padding: 0 15px; 
+    margin-bottom: 30px; 
+    flex: 0 0 33.3333%; 
+    max-width: 33.3333%; 
+}
+
+@media (max-width: 768px) {
+  .col-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-4 {
+    flex: 0 0 100%; 
+    max-width: 100%;
+  }
+}
+
+

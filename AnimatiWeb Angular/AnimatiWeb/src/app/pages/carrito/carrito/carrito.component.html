@@ -1,1 +1,36 @@
-<p>carrito works!</p>
+<div class="container-fluid body">
+  <h2>Carrito de Compras</h2>
+
+  <div *ngIf="listaProductos.length === 0">
+    <p>No hay productos en el carrito.</p>
+  </div>
+  <div *ngIf="listaProductos.length > 0" class="text-end mt-4 carrito">
+    <div class="productos">
+      <div *ngFor="let producto of listaProductos" class="producto mb-3 p-3">
+        <img [src]="producto.imagen_producto" alt="{{producto.nombre_producto}}" class="img-fluid mb-2">
+        <div>
+          <h3>{{producto.nombre_producto}}</h3>
+          <p>Precio: ${{producto.Precio}}</p>
+          <div class="cantidad">
+            <p>Cantidad: {{producto.Cantidad}}</p>
+            <button class="btn btn-primary btn-restar-uno btn-animati" (click)="deleteUnProducto(producto)">-1</button>
+          </div>
+          <p class="subtotal">Subtotal: ${{producto.Precio * producto.Cantidad}}</p>
+        </div>
+        <button class="btn btn-close btn-borrar btn-animati" (click)="deleteProducto(producto)"></button>
+      </div>
+    </div>
+    <div class="resumen">
+      <h4>Resumen de compra</h4>
+      <div class="cantidad">
+        <p>Productos:</p>
+        <p>{{listaProductos.length}}</p>
+      </div>
+      <div class="total">
+        <p>Total:</p>
+        <p>${{getTotal()}}</p>
+      </div>
+      <button (click)="comprar()" class="btn btn-primary mt-2 btn-animati">Comprar</button>
+    </div>
+  </div>
+</div>

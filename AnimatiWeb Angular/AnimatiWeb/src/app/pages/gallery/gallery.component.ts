@@ -7,13 +7,14 @@ import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carritoServices/carrito.service';
 import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../../services/auth/login.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-gallery',
     standalone: true,
     templateUrl: './gallery.component.html',
     styleUrl: './gallery.component.css',
-    imports: [HeaderComponent,CommonModule]
+    imports: [HeaderComponent, CommonModule, FormsModule]
 })
 export class GalleryComponent implements OnInit{
 
@@ -48,11 +49,16 @@ export class GalleryComponent implements OnInit{
     }
 
     
-    agregarAlCarrito(producto: Producto) {
+    agregarAlCarrito(producto: Producto, cantidad: number = 1) {
+        if (cantidad < 1) {
+            alert('La cantidad debe ser al menos 1');
+            return;
+        }
+        producto.Cantidad = cantidad;
 
         this.carritoService.agregarProducto(producto).subscribe({
             next: () => alert('Producto agregado'),
-            error: () => alert('No se pudo agregar el producto')
+            error: (err) => alert(err.error.error)
         });
     }
 

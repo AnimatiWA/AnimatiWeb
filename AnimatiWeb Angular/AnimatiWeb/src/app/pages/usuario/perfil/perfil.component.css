@@ -1,0 +1,66 @@
+.perfil-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-contenido {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn-animati {
+  color: black;
+  background-color: #ff86c4;
+  border-color: #ff86c4;
+  margin-right: 1rem;
+}
+
+.btn-animati:hover {
+  background-color: #eb52a1;
+  border-color: #eb52a1;
+  color: #fff !important;
+}
+
+.btn-password {
+  display: flex;
+  align-items: flex-end;
+}
+
+.perfil-info {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.perfil-avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.perfil-datos p {
+  margin: 8px 0;
+}
+
+.activo {
+  color: green;
+  font-weight: bold;
+}
+
+.inactivo {
+  color: red;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

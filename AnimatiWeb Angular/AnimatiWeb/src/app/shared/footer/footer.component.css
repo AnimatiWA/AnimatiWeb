@@ -1,16 +1,36 @@
+/* Importar fuente del navbar */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+/* Importar Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+/* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
+/* Línea separadora en el footer */
+.footer-separator {
+    width: 100%;
+    height: 5px;
+    background-color: #641881; /* Violeta de la paleta */
+}
+
+/* Footer */
 .footer {
     background-color: hsl(0, 50%, 89%);
-    color: #641881;
-    padding: 40px 0;
+    color: #4A0A66; /* Mejor contraste */
+    padding: 10px 0;
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: fit-content;
 }
 
+/* Contenedor del footer */
 .footer-container {
     display: flex;
     justify-content: space-around;
@@ -20,6 +40,7 @@ body {
     padding: 0 20px;
 }
 
+/* Columnas */
 .footer-column {
     flex: 1;
     min-width: 250px;
@@ -27,15 +48,18 @@ body {
     padding: 0 20px;
 }
 
+/* Títulos con fuente mejorada */
 .footer-column h3 {
-    font-size: 1.8em;
-    margin-bottom: 15px;
-    position: relative;
-    padding-bottom: 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    color: #2A3335;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
+/* Subrayado en títulos */
 .footer-column h3::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 50px;
     height: 3px;
@@ -44,23 +68,45 @@ body {
     bottom: 0;
 }
 
+/* Texto con misma fuente del navbar */
 .footer-column p {
-    margin: 10px 0;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre icono y texto */
+    margin: 10px 0;
 }
 
+/* Iconos alineados a la izquierda */
+.footer-column i {
+    font-size: 1.4em;
+    color: #641881; /* Violeta de la paleta */
+}
+
+/* Enlaces */
 .footer-column a {
-    color: #641881;
+    color: #4A0A66;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-.footer-column a:hover {
-    color: #ddd;
+.footer-column a:hover,
+.footer-column a:focus {
+    color: #2A3335;
+    outline: 2px solid #641881;
 }
 
-.footer-column i {
-    margin-right: 10px;
-    font-size: 1.4em;
-    vertical-align: middle;
+/* Imagen Play Store */
+.playstore-badge {
+    width: 180px;
+    height: auto;
+    margin-top: 10px;
+    transition: transform 0.3s;
+}
+
+.playstore-badge:hover,
+.playstore-badge:focus {
+    transform: scale(1.05);
+    outline: 2px solid rgba(155, 7, 241, 0.781);
 }

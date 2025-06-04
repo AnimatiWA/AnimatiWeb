@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../../services/auth/login.service';
 import { LoginRequest } from '../../../services/auth/loginRequest';
 import { RouterLink } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-login',
@@ -14,59 +12,47 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-
 export class LoginComponent {
-  loginError:string="";
-  loginform!:FormGroup;
-  
-  constructor(private formBuilder: FormBuilder, private router:Router, private loginService:LoginService)
-  { 
-    this.loginform=this.formBuilder.group(
-      {
-        username:['',[Validators.required, Validators.minLength(4) ],[]],
-        password:['',[Validators.required, Validators.minLength(4)],[]]
-      }
-    )
+  loginError: string = '';
+  isLoading = false;
+  loginform: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
+    this.loginform = this.formBuilder.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]]
+    });
   }
 
-  ngOnInit(): void {
+  get password() {
+    return this.loginform.get("password");
   }
 
-  get password()
-  {
-  return this.loginform.get("password");
-  }
-  get username()
-  {
-  return this.loginform.get("username");
+  get username() {
+    return this.loginform.get("username");
   }
 
-  login()
-  {
-   
-    if(this.loginform.valid){
+  login() {
+    if (this.loginform.valid) {
+      this.isLoading = true;
       this.loginService.login(this.loginform.value as LoginRequest).subscribe({
-        next: (userData) =>{
+        next: (userData) => {
           console.log(userData);
         },
-        error: (errorData) =>{
+        error: (errorData) => {
           console.error(errorData);
-          this.loginError = errorData;
+          this.loginError = errorData?.message || 'Error desconocido';
+          this.isLoading = false;
         },
-        complete: () =>{
+        complete: () => {
           console.info('Login completo');
           this.router.navigateByUrl('/gallery');
           this.loginform.reset();
+          this.isLoading = false;
         }
-      })
-      
-    }
-    else
-    {
+      });
+    } else {
       this.loginform.markAllAsTouched();
     }
   }
-
-  
 }
-
