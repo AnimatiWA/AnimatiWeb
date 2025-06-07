@@ -1,3 +1,13 @@
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
+}
+
 body {
   margin: 0;
   padding: 0;

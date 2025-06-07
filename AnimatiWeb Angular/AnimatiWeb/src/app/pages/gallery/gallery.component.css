@@ -1,9 +1,18 @@
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #c8b8ff; 
     margin: 0;
     padding: 0;
+}
+
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
 }
 
 .container-fluid.body {
