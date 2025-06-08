@@ -15,6 +15,25 @@ body {
     background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
 }
 
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.titulo img {
+    filter: drop-shadow(4px 4px 8px rgba(255, 255, 255, 1));
+    margin-bottom: 30px;
+}
+
+h4 {
+    font-size: 20px;
+    text-align: left;
+    color: #2A3335;
+    margin-bottom: 30px;
+}
+
 .container-fluid.body {
     padding: 20px;
 }
@@ -129,5 +148,3 @@ body {
     max-width: 100%;
   }
 }
-
-

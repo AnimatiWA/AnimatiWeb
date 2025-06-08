@@ -1,8 +1,7 @@
 /* Importar fuente del navbar */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-/* Importar Font Awesome */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /* General Styles */
 body {
@@ -38,6 +37,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    gap: 35px;
 }
 
 /* Columnas */
@@ -50,11 +50,11 @@ body {
 
 /* Títulos con fuente mejorada */
 .footer-column h3 {
-    font-family: 'Raleway', sans-serif;
-    font-size: 2rem;
-    color: #2A3335;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-family: 'Pacifico', cursive;
+    font-size: 28px;
+    color: #641881;
+    font-weight: 500;
+    margin-bottom: 20px;
 }
 
 /* Subrayado en títulos */
@@ -109,4 +109,12 @@ body {
 .playstore-badge:focus {
     transform: scale(1.05);
     outline: 2px solid rgba(155, 7, 241, 0.781);
+}
+
+.footer-legend {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #4A0A66;
+    padding-top: 10px;
 }

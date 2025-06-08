@@ -27,12 +27,16 @@
 
 <div class="bg-gradient-custom">
 <div class="container">
-  <div class="titulo-contacto">
-    <h3>Contacta con Animati</h3>
-  </div>
+        <header class="container-fluid text-center">
+            <div class="titulo">
+                <h1>
+                    <img src="../../assets/images/h1-contacto.png" alt="Contáctanos">
+                </h1>
+            </div>
+        </header>
 
   <div class="body">
-    <h6>Escríbenos un mensaje para que entremos en contacto contigo.</h6>
+    <h6>Escribínos un mensaje para que entremos en contacto contigo.</h6>
    <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
   <fieldset>
     <label for="Nombre_Usuario">Nombre</label>
@@ -47,7 +51,7 @@
     <textarea id="Mensaje" name="mensaje" rows="6" required [(ngModel)]="contacto.mensaje"></textarea>
   </fieldset>
    <fieldset class="submit-container">
-           <input type="submit" name="submit" value="Enviar">
+           <input type="submit" name="submit" value="Envía tu mensaje">
   </fieldset>
 </form>
 
