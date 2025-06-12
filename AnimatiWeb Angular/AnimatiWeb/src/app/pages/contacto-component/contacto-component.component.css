@@ -1,3 +1,15 @@
+/* Importar fuente Pacifico */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
+}
 
 .container {
   max-width: 700px;
@@ -5,15 +17,19 @@
   padding: 30px 20px;
   
 }
-.titulo-contacto {
-  background-color: #a83b58;
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.titulo img {
+    max-width: 100%;
+    height: auto;
+    width: 400px; /* Ajusta según necesidades */
+    display: block;
+    margin: 0 auto; /* Centrado */
+}
+
+/* Espaciado para evitar compresión y mejorar distribución */
+.titulo {
+    margin-bottom: 30px; /* Separación del formulario */
+    text-align: center;
 }
 
 .titulo-contacto h3 {
@@ -25,7 +41,7 @@
 
 
 .body {
-  background: linear-gradient(to right, #ffcfe5, #fce4ec);
+  background: linear-gradient(to right, #b3e5fc, #e1f5fe);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -52,10 +68,12 @@ fieldset {
   padding: 0;
 }
 
+h6 {
+  margin-bottom: 30px;
+}
+
 label {
-  font-weight: bold;
   color: #0A5EB0;
-  margin-bottom: 5px;
 }
 
 input[type="text"],
@@ -84,18 +102,29 @@ textarea {
 }
 
 input[type="submit"] {
-  background-color: #B03052;
-  color: #fff;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 16px;
-  align-self: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: #641881;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Efecto de elevación */
 }
 
-input[type="submit"]:hover {
-  background-color: #0A5EB0;
-  transform: scale(1.05);
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    background-color: #4A0A66;
+    transform: translateY(-3px); /* Hace que el botón parezca levantarse */
+    outline: 3px solid #FFFFFF; /* Resalta el borde al enfocarlo */
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Asegura alineación vertical */
+    width: 100%;
+    margin-top: 20px; /* Espaciado respecto al formulario */
 }

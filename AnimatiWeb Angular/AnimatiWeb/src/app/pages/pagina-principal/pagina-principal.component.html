@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="pagina-principal.component.css">
 </head>
 <body>
+    <div class="bg-gradient-custom">
     <main>
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -32,9 +33,13 @@
         </div>
 
         <div class="container menu">
-            <div class="masking-container">
-                <h1 class="titulo-productos masked-text">PRODUCTOS DESTACADOS</h1>
+        <header class="container-fluid text-center">
+            <div class="titulo">
+                <h1>
+                    <img src="../../assets/images/h1-pagina-principal.png" alt="Productos Destacados">
+                </h1>
             </div>
+        </header>
             <div class="row">
                 <div class="col-3" *ngFor="let producto of listaProductos.slice(0, 4)">
                     <article class="producto">
@@ -49,5 +54,6 @@
             </div>
         </div>
     </main>
+    </div>
 </body>
 </html>
