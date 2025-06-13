@@ -1,79 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* Reset global */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-h1, h2 {
-    letter-spacing: 2px;
-    color: #ff86c4;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 2em;
-    text-shadow: 
-        2.5px 1.5px 4px #4d4c4c,
-        1px -2px 3px #f8dede,
-        -2px 1px 0 #c7adcd, 
-        -1px -1px 0 #9d9a9a;
-    margin-top: 20px;
-    text-align: left; 
+/* Fondo general */
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Fondo principal */
 }
 
-p {
-    padding: 5px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-
+/* Contenedor principal de "Quiénes Somos" */
 .about-us {
-    background-color: #f8efef; 
-    padding: 50px;
+    background: linear-gradient(to right, #b3e5fc, #e1f5fe);
+    width: 80%;
+    max-width: 900px;
+    padding: 30px;
     margin: 20px auto;
-    max-width: max-content;
     border-radius: 15px;
-    box-shadow: 
-        0 4px 8px rgba(0, 0, 0, 0.5), 
-        0 6px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Suavizamos las sombras */
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Titulos */
+h1 {
+    margin-top: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Pacifico', cursive;
+    font-size: 35px;
+    color: #ff86c4;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-shadow: 
+        -2px -2px 0 #FFFFFF,
+        2px -2px 0 #FFFFFF,
+        -2px 2px 0 #FFFFFF,
+        2px 2px 0 #FFFFFF;
+}
+
+.about-us div {
+    margin: 10px 0;
+    padding: 20px;
+}
+
+.about-us p, .about-us ul, .about-us li {
+    text-align: left;
+}
+
+.about-us p {
+    color: #2A3335;
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-indent: 40px;
+}
+
+/* Listas dentro de la sección */
 .about-us ul {
     list-style-type: none;
     padding: 10px;
 }
 
-.about-us ul li { 
+.about-us ul li {
     padding-left: 30px;
     margin-bottom: 10px;
 }
 
-.team {
-    max-width: 1500px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-    background-color: #fcefef;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    
+.values ul {
+    list-style-type: disc;
+    padding-left: 20px;
 }
 
+.intro p {
+    font-style: italic;
+    line-height: 1.8;
+    color: #641881;
+}
+
+/* Estilo del equipo */
+.team {
+    background-color: hsl(0, 50%, 89%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Efectos en los enlaces del equipo */
 .team a {
     position: relative;
     padding: 10px 15px;
     text-decoration: none;
-    overflow: hidden;
     color: #333;
     font-weight: bolder;
     transition: font-size 0.3s, color 0.3s;
 }
 
 .team a:hover {
-    font-size: 25px; 
+    font-size: 25px;
 }
 
 .team a:nth-child(1):hover {
-    color: #6b9bf3; 
+    color: #6b9bf3;
+}
+
+.team ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.team ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+.team ul li::before {
+    content: "🚀";
+    position: absolute;
+    left: 0;
+    font-size: 18px;
+}
+
+ul li p span {
+    color: #0000FF;
+    font-weight: bold;
+}
+
+/* Espaciado del título */
+.titulo {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.titulo img {
+    max-width: 100%;
+    height: auto;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ajustes finales */
+.values, .vision {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
 }

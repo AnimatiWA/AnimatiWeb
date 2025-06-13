@@ -1,88 +1,93 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  header {
-    background: #fff;
+}
+
+header {
+    background-color: hsl(0, 50%, 89%); /* Fondo igual al footer */
+    color: #641881; /* Texto oscuro para mejor contraste */
     padding: 10px 0;
-  }
-  
-  .menu {
+    width: 100%;
+    height: fit-content;
+}
+
+.menu {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-  }
-  
-  .logo img {
+}
+
+.logo img {
     width: 155px;
     height: 62px;
-  }
-  
-  /* Navigation Styles */
-  .nav-menu {
+}
+
+/* Navigation Styles */
+.nav-menu {
     display: flex;
-  }
-  
-  .nav-list {
+}
+
+.nav-list {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
-  }
-  
-  .nav-link {
-    color: #ff86c4;
+}
+
+.nav-link {
+    color: #641881; /* Texto accesible sobre fondo rosa */
     text-decoration: none;
     margin-left: 20px;
     padding: 10px 15px;
     transition: background-color 0.3s, color 0.3s;
     display: flex;
-    align-items: center; 
-  }
- 
-  .nav-link i {
-    margin-right: 8px; 
-  }
-  
+    align-items: center;
+    font-weight: 600;
+}
 
-  .nav-link:hover {
-    background-color: #660a66;
+.nav-link i {
+    margin-right: 8px;
+}
+
+/* Hover y Focus para accesibilidad */
+.nav-link:hover,
+.nav-link:focus {
+    background-color: rgba(155, 7, 241, 0.781); /* Violeta de tu paleta */
     border-radius: 5px;
     color: #fff;
-  }
-  
+    outline: 2px solid #641881; /* Púrpura oscuro para resaltar selección */
+}
 
-  @media (max-width: 768px) {
+/* Adaptación para móviles */
+@media (max-width: 768px) {
     .nav-menu {
-      display: none;
+        display: none;
     }
-  
+
     .menu {
-      flex-direction: column;
-      align-items: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
-  
+
     .logo {
-      margin-bottom: 10px;
+        margin-bottom: 10px;
     }
-  
+
     .menu.active .nav-menu {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
-  
+
     .nav-link {
-      margin: 5px 0;
-      width: 100%;
-      text-align: center;
+        margin: 5px 0;
+        width: 100%;
+        text-align: center;
     }
-  }
-  
+}

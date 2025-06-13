@@ -1,9 +1,37 @@
 /* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #c8b8ff; 
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
+}
+
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.titulo img {
+    filter: drop-shadow(4px 4px 8px rgba(255, 255, 255, 1));
+    margin-bottom: 30px;
+}
+
+h4 {
+    font-size: 20px;
+    text-align: left;
+    color: #2A3335;
+    margin-bottom: 30px;
 }
 
 .container-fluid.body {
@@ -244,5 +272,3 @@ body {
     max-width: 100%;
   }
 }
-
-

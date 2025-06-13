@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "../../shared/header/header.component";
 import { ProductService } from '../../services/productoServices/producto.service';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './pagina-principal.component.html',
   styleUrl: './pagina-principal.component.css',
-  imports: [CommonModule, RouterLink]
+  imports: [CommonModule, RouterModule]
 })
 export class PaginaPrincipalComponent implements OnInit {
   listaProductos!: Producto[];

@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="gallery.component.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<app-header></app-header>
+    <div class="bg-gradient-custom">
+    <div class="header-container">
+        <app-header></app-header>
+    </div>
     <div class="container-fluid body">
         <!-- Sección Menú -->
         <div class="container menu">
@@ -15,7 +19,7 @@
                 <div class="titulo">
                     <img src="../../assets/images/ico-titulo.jpg" alt="Productos" width="350" height="96">
                 </div>
-                <p>Nuestros productos son completamente originales y están ilustrados por Animati. Si desean algún diseño personalizado, no duden en solicitarlo.</p>
+                <h4>Nuestros productos son completamente originales y están ilustrados por Animati. Si desean algún diseño personalizado, no duden en solicitarlo.</h4>
             </header>
             <div class="row" >
                 <div class="col-3" *ngFor="let producto of listaProductos">
@@ -47,6 +51,7 @@
                 <br>
             </div>
         </div>
+    </div>
     </div>
 </body>
 </html>

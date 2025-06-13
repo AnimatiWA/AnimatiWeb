@@ -1,7 +1,11 @@
-.dropdown-item:hover {
-  background: #81C408 !important;
+/* Dropdown items */
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: #5E8E04 !important; /* Mejor contraste */
+  outline: 2px solid #000; /* Hace visible el enfoque para teclados */
 }
 
+/* Password input */
 #password-input-container {
   position: relative;
 }
@@ -9,64 +13,77 @@
 .password-eye {
   position: absolute;
   bottom: 14%;
-  right: 8%;
+  right: 10px; /* Ajuste para mejor alineación */
   font-size: medium;
 }
 
+/* Botón de login */
 .loginBtn {
-  background: #81C408;
+  background: #5E8E04; /* Mejor contraste */
   width: calc(100% - 32px);
   margin: 0px 16px;
   padding: 5px 0px;
   box-sizing: border-box;
   font-size: 13px;
   font-weight: 500;
+  color: #fff; /* Asegurar legibilidad */
+  border: none;
+  transition: background 0.3s ease;
 }
 
 .loginBtn:active {
-  background: #81C408;
-  border: none;
+  background: #4C7303; /* Variación al hacer clic */
 }
 
+/* Dropdown de login */
 .loginDropdownMenu {
   width: 220px !important;
 }
 
+/* Registro */
 .regDiv {
   font-size: 12px;
   margin-top: 5px;
 }
 
+/* Enlace de registro */
 .registerLink {
   text-decoration: none !important;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .registerLink:hover {
-  cursor: pointer;
   text-decoration: underline !important;
-  color: #81C408;
+  color: #5E8E04;
 }
 
+/* Perfil de usuario */
 .userProfile {
   margin: 7px 0px 0px 0px;
   cursor: pointer !important;
 }
 
+/* Texto "Recordarme" */
 .rememberMeTxt {
   margin: -3px 0px 0px 0px !important;
   font-size: 14px;
 }
 
+/* Botón de logout */
 .logOutBtn {
-  padding: 4px 10px 4px 10px;
+  padding: 4px 10px;
   margin: 6px 0px 0px 0px;
+  background: #5E8E04; /* Mejor contraste */
+  color: #fff; /* Asegurar accesibilidad */
+  border: none;
 }
 
 .logOutBtn i:hover {
   color: #fff !important;
 }
 
-/* Add this to your styles.css or styles.scss */
+/* Submenú */
 .sub-menu {
   position: absolute;
   top: 0;
@@ -74,6 +91,7 @@
   margin-top: -1px;
 }
 
+/* Imagen del carrito */
 .cartImg {
   height: 50px !important;
   width: 80px !important;

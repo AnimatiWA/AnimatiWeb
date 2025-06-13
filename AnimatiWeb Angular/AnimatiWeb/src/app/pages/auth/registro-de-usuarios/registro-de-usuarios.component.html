@@ -2,10 +2,11 @@
 <html lang="es">
 
 <body>
+  <div class="bg-gradient-custom">
   <div class="container">
     <div class="body">
-      <h3>Registrarse</h3>
-      <p>Complete el formulario con sus datos</p>
+      <h2>Registrarse</h2>
+      <p>Completa el formulario con tus datos.</p>
       <form [formGroup]="formRegistro" class="form" (ngSubmit)="registrarse()">
         <div class="m-3">
           <label for="username" class="form-label">Nombre de Usuario</label>
@@ -115,11 +116,12 @@
             </div>
           </div>
           <div class="m-3">
-            <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+            <button type="submit" class="btn btn-primary btn-enviar mt-3" (click)="registrarse()">Crear cuenta</button>
           </div>
         </fieldset>
       </form>
     </div>
+  </div>
   </div>
 </body>
 </html>

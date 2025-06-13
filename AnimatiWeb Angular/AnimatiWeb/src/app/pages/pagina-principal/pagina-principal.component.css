@@ -1,14 +1,47 @@
+/* Importar fuente Pacifico */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff; 
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.container-fluid.body {
-    padding: 20px;
+.bg-gradient-custom {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #c8b8ff, #e0d8ff); /* Color de fondo */
 }
 
+/* Ajuste de imagen en el título */
+.titulo img {
+    max-width: 100%;
+    height: auto;
+    width: 400px; /* Ajusta según necesidades */
+    display: block;
+    margin: 0 auto; /* Centrado */
+}
+
+/* Espaciado para separar el título del carrusel y la galería */
+.titulo {
+    margin-top: 40px; /* Espacio entre el carrusel y el título */
+    margin-bottom: 30px; /* Espacio entre el título y la galería */
+    text-align: center;
+}
+
+/* Espaciado extra en el contenedor de productos */
+.container.menu {
+    padding-top: 20px; /* Espaciado desde arriba */
+}
+
+/* Sección de productos */
 .productos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -16,16 +49,12 @@ body {
 }
 
 .producto {
-    background-color: #fff; 
+    background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     margin-bottom: 20px;
-}
-
-.producto:hover {
-    transform: translateY(-5px);
 }
 
 .producto img {
@@ -34,149 +63,69 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
-.producto h3 {
-    font-size: 18px;
-    margin: 15px 20px 10px 20px;
-}
-
-.producto p {
+.producto h6 {
     font-size: 16px;
-    margin: 10px 20px 15px 20px;
+    margin: 10px 20px;
 }
 
-/* Efectos de hover */
-.producto:hover {
-    background: linear-gradient(to right, #b9e5ff, #e0d8ff); 
+/* Botón "Ir a la tienda" */
+.button-container {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 90px;
 }
 
-.producto:hover h3 a {
-    color: #000000;
+.btn-tienda {
+    font-family: 'Pacifico', cursive;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 14px 35px;
+    background-color: #641881; /* Violeta */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.producto:hover p {
-    color: #000000;
-}
-
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-img-top {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  max-height: 200px;
-  object-fit: cover;
-}
-
-.card-body {
-  background-color: #E08090;
-  padding: 10px;
-  color: white;
-}
-
-.btn-primary {
-  font-size: 18px;
-  padding: 15px 30px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-primary img {
-  width: 1.5rem;
-}
-
-.btn-modern {
-  display: flex;
-  align-items: center;
-  padding: 8px 15px;
-  background-color: #7a1edc;
-  color: white;
-  text-decoration: none;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.btn-modern:hover {
-  background-color: #ac7ae0;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.collection-icon {
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-}
-
-.btn-text {
-  margin: 0;
+.btn-tienda:hover,
+.btn-tienda:focus {
+    background-color: #4A0A66; /* Violeta más oscuro */
+    transform: translateY(-3px);
+    outline: 3px solid #FFFFFF;
 }
 
 /* Estilos responsivos */
-
-/* Pantalla pequeña (menos de 768px) */
 @media (max-width: 767px) {
-  .card {
-    width: 200px;
-    margin: 15px;
-  }
-  .card-img-top {
-    max-height: 150px;
-  }
-  .card-body {
-    padding: 8px;
-  }
-  .btn-primary {
-    font-size: 16px;
-    padding: 12px 25px;
-  }
-  .btn-modern {
-    padding: 6px 12px;
-  }
+    .titulo-productos {
+        font-size: 2rem;
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+    .button-container {
+        margin-top: 50px;
+        margin-bottom: 60px;
+    }
+    .btn-tienda {
+        font-size: 20px;
+        padding: 12px 30px;
+    }
 }
 
-/* Pantalla mediana (entre 768px y 992px) */
 @media (min-width: 768px) and (max-width: 991px) {
-  .card {
-    width: 220px;
-    margin: 18px;
-  }
-  .card-img-top {
-    max-height: 180px;
-  }
-  .card-body {
-    padding: 10px;
-  }
-  .btn-primary {
-    font-size: 18px;
-    padding: 15px 30px;
-  }
-  .btn-modern {
-    padding: 8px 15px;
-  }
+    .titulo-productos {
+        font-size: 2.3rem;
+    }
+
+    .masked-text {
+        -webkit-text-stroke: 1.5px #641881; /* Ajuste de grosor en pantallas medianas */
+    }
 }
 
-/* Pantalla grande (más de 992px) */
 @media (min-width: 992px) {
-  .card {
-    width: 250px;
-    margin: 20px;
-  }
-  .card-img-top {
-    max-height: 200px;
-  }
-  .card-body {
-    padding: 12px;
-  }
-  .btn-primary {
-    font-size: 20px;
-    padding: 18px 35px;
-  }
-  .btn-modern {
-    padding: 10px 20px;
-  }
+    .titulo-productos {
+        font-size: 2.8rem;
+    }
 }
