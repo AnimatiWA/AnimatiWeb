@@ -7,26 +7,59 @@
     <div class="body">
       <h2>Registrarse</h2>
       <p>Completa el formulario con tus datos.</p>
-      <form [formGroup]="formRegistro" class="form">
+      <form [formGroup]="formRegistro" class="form" (ngSubmit)="registrarse()">
         <div class="m-3">
           <label for="username" class="form-label">Nombre de Usuario</label>
+          <small class="form-text text-muted">
+            El nombre de usuario debe tener entre 3 y 20 caracteres
+          </small>
           <input type="text" id="username" class="form-control" formControlName="username">
-          <div *ngIf="formRegistro.get('username')?.invalid && (formRegistro.get('username')?.touched || formSubmitted)" class="text-danger">
-            El nombre de usuario es requerido
+          <div class="text-danger" *ngIf="formRegistro.get('username')?.touched && formRegistro.get('username')?.invalid">
+            <div *ngIf="formRegistro.get('username')?.errors?.['required']">
+              El nombre de usuario es requerido
+            </div>
+            <div *ngIf="formRegistro.get('username')?.errors?.['minlength']">
+              El nombre de usuario debe tener al menos 3 caracteres
+            </div>
+            <div *ngIf="formRegistro.get('username')?.errors?.['maxlength']">
+              El nombre de usuario debe tener máximo 20 caracteres
+            </div>
           </div>
         </div>
         <div class="m-3">
           <label for="first_name" class="form-label">Nombre</label>
+          <small class="form-text text-muted">
+            El nombre debe tener entre 3 y 20 caracteres
+          </small>
           <input type="text" id="first_name" class="form-control" formControlName="first_name">
-          <div *ngIf="formRegistro.get('first_name')?.invalid && (formRegistro.get('first_name')?.touched || formSubmitted)" class="text-danger">
-            El nombre es requerido
+          <div class="text-danger" *ngIf="formRegistro.get('first_name')?.touched && formRegistro.get('first_name')?.invalid">
+            <div *ngIf="formRegistro.get('first_name')?.errors?.['required']">
+              El nombre es requerido
+            </div>
+            <div *ngIf="formRegistro.get('first_name')?.errors?.['minlength']">
+              El nombre debe tener al menos 3 caracteres
+            </div>
+            <div *ngIf="formRegistro.get('first_name')?.errors?.['maxlength']">
+              El nombre debe tener máximo 20 caracteres
+            </div>
           </div>
         </div>
         <div class="m-3">
           <label for="last_name" class="form-label">Apellido</label>
+          <small class="form-text text-muted">
+            El apellido debe tener entre 3 y 20 caracteres
+          </small>
           <input type="text" id="last_name" class="form-control" formControlName="last_name">
-          <div *ngIf="formRegistro.get('last_name')?.invalid && (formRegistro.get('last_name')?.touched || formSubmitted)" class="text-danger">
-            El apellido es requerido
+          <div class="text-danger" *ngIf="formRegistro.get('last_name')?.touched && formRegistro.get('last_name')?.invalid">
+            <div *ngIf="formRegistro.get('last_name')?.errors?.['required']">
+              El apellido es requerido
+            </div>
+            <div *ngIf="formRegistro.get('last_name')?.errors?.['minlength']">
+              El apellido debe tener al menos 3 caracteres
+            </div>
+            <div *ngIf="formRegistro.get('last_name')?.errors?.['maxlength']">
+              El apellido debe tener máximo 20 caracteres
+            </div>
           </div>
         </div>
         <div class="m-3">
@@ -39,6 +72,9 @@
         </div>
         <div class="m-3">
           <label for="password" class="form-label">Contraseña</label>
+          <small class="form-text text-muted">
+            La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y no debe contener espacios
+          </small>
           <div class="input-group">
             <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control" formControlName="password">
             <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('password')">
@@ -46,10 +82,12 @@
             </button>
           </div>
           <div *ngIf="passwordErrors.length > 0" class="text-danger">
-            <div *ngFor="let error of passwordErrors">{{error}}</div>
+            <div *ngFor="let error of passwordErrors">
+              {{error}}
+            </div>
           </div>
           <small class="form-text text-muted">
-            La contraseña debe tener al menos 4 caracteres, incluyendo mayúsculas, minúsculas y números.
+            La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.
           </small>
         </div>
         <div class="m-3">
@@ -66,12 +104,19 @@
             <input id="business-account" type="radio" name="account-type" class="inline">
             Deseo recibir correos electrónicos con novedades
           </label>
-          <label for="terms-and-conditions">
-            <input id="terms-and-conditions" type="checkbox" name="terms-and-conditions" class="inline">
-            Acepto los <a href="./terms-y-co.html">términos y condiciones</a>
-          </label>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="terms-and-conditions" formControlName="termsAndConditions">
+            <label class="form-check-label" for="terms-and-conditions">
+              Acepto los <a href="./terms-y-co.html">términos y condiciones</a>
+            </label>
+          </div>
+          <div class="text-danger" *ngIf="formRegistro.get('termsAndConditions')?.touched && formRegistro.get('termsAndConditions')?.invalid">
+            <div *ngIf="formRegistro.get('termsAndConditions')?.errors?.['required']">
+              Debes aceptar los términos y condiciones
+            </div>
+          </div>
           <div class="m-3">
-            <button class="btn btn-primary btn-enviar mt-3" (click)="registrarse()">Crear cuenta</button>
+            <button type="submit" class="btn btn-primary btn-enviar mt-3" (click)="registrarse()">Crear cuenta</button>
           </div>
         </fieldset>
       </form>
