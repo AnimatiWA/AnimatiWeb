@@ -43,7 +43,7 @@ export class HistorialComprasComponent implements OnInit {
   }
 
   volverAlPerfil(): void {
-    this.router.navigate(['/usuario/perfil']);
+    this.router.navigate(['/perfil']);
   }
 
   formatearFecha(fecha: string): string {

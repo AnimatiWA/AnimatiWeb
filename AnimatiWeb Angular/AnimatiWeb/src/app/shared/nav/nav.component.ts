@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LoginService } from '../../services/auth/login.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -30,7 +30,8 @@ export class NavComponent implements OnInit, OnDestroy {
     private router:Router,
     private carritoService: CarritoService,
     private localStorage: LocalStorageService,
-    private avatarService: AvatarService
+    private avatarService: AvatarService,
+    private cdr: ChangeDetectorRef
   ) {
     this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); 
   }
@@ -60,19 +61,26 @@ export class NavComponent implements OnInit, OnDestroy {
   }
   
   private subscribeToCartChanges(): void {
+    // Cancelar suscripción previa si existe
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
 
     this.cartSubscription = this.carritoService.cartItems$.subscribe(productos => {
+      console.log('NavComponent: Actualizando contador del carrito con', productos.length, 'productos');
       if (productos && Array.isArray(productos)) {
-
         this.cartItemsCount = productos.reduce((total, item) => {
           return total + (item.Cantidad || 0);
         }, 0);
       } else {
         this.cartItemsCount = 0;
       }
+      
+      // Forzar la detección de cambios para actualizar la UI inmediatamente
+      this.cdr.detectChanges();
     });
     
-
+    // Solicitar una actualización inicial de los productos del carrito
     this.carritoService.actualizarProductosCarrito();
   }
 
