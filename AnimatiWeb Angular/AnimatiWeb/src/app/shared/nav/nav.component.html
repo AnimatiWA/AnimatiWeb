@@ -18,6 +18,25 @@
                 <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="/login" aria-label="Iniciar sesión"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
                 <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="./registroUsuarios" aria-label="Registrarse"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                 <li *ngIf="userLoginOn"><a class="nav-link" routerLink="/" (click)="logout()" aria-label="Cerrar sesión"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                
+
+                <li *ngIf="userLoginOn" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menú de usuario">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" routerLink="/perfil" aria-label="Ir al perfil">Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/order-history" aria-label="Ver historial de pedidos">Orders</a></li>
+                    </ul>
+                </li>
+                
+
+                <li *ngIf="userLoginOn" class="cart-container">
+                    <a class="nav-link" routerLink="/carrito" aria-label="Ver carrito de compras">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

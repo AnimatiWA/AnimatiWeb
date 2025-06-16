@@ -5,6 +5,13 @@
   outline: 2px solid #000; /* Hace visible el enfoque para teclados */
 }
 
+/* Asegura que los elementos de navegación estén alineados verticalmente */
+.navbar-nav .nav-item.dropdown,
+.navbar-nav .nav-link {
+  display: flex;
+  align-items: center;
+}
+
 /* Password input */
 #password-input-container {
   position: relative;
@@ -38,6 +45,16 @@
 /* Dropdown de login */
 .loginDropdownMenu {
   width: 220px !important;
+}
+
+/* Mejora de alineación vertical para todos los elementos de navegación */
+.navbar-nav {
+  align-items: center;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
 }
 
 /* Registro */
@@ -100,7 +117,11 @@
 /* Estilos para el contador del carrito */
 .cart-container {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0.5rem 1rem;
 }
 
 .cart-badge {

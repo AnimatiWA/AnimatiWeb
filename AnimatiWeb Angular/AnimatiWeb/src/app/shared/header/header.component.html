@@ -4,14 +4,15 @@
 
       <!-- Nav Items -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-          <!-- cart -->
+        <ul class="navbar-nav ms-auto mb-0 text-center d-flex align-items-center">
+          <!-- User menu and cart items container -->
           <ng-container>
-            <span class="d-flex">
-              <li *ngIf="logueado" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1" id="navbarDropdown" role="button"
+            <div class="d-flex align-items-center">
+              <!-- User Menu Dropdown -->
+              <li *ngIf="logueado" class="nav-item dropdown d-flex align-items-center me-2">
+                <a class="nav-link dropdown-toggle fw-semibold text-uppercase" id="navbarDropdown" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menú de usuario">
-                  <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i></span>
+                  <span class="text-dark fw-bold"><i class="fa fa-user"></i></span>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li> <a class="dropdown-item hand" routerLink="/perfil" aria-label="Ir al perfil">Profile</a></li>
@@ -19,18 +20,19 @@
                       aria-label="Ver historial de pedidos">Orders</a></li>
                 </ul>
               </li>
-              <li *ngIf="logueado" class="nav-link btn btn-outline-info my-2 my-sm-0 cart-container">
-                <i class="fa fa-cart-shopping" style="color: #202122;" aria-label="Ver carrito de compras" routerLink="/carrito">Carrito</i>
-                <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
+              <!-- Shopping Cart -->
+              <li *ngIf="logueado" class="nav-item cart-container">
+                <a class="nav-link" routerLink="/carrito" aria-label="Ver carrito de compras">
+                  <i class="fa fa-cart-shopping" style="color: #202122;">Carrito</i>
+                  <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
+                </a>
               </li>
-              <li *ngIf="!logueado" class="nav-link my-sm-0">
-                <i class="fa" routerLink="/" aria-hidden="true"></i>
+              <!-- Placeholder for non-logged in users -->
+              <li *ngIf="!logueado" class="nav-item">
+                <a class="nav-link" routerLink="/" aria-hidden="true"></a>
               </li>
-            </span>
+            </div>
           </ng-container>
-          <li class="nav-item">
-            <a class="nav-link" aria-hidden="true"></a>
-          </li>
         </ul>
       </div>
     </div>
