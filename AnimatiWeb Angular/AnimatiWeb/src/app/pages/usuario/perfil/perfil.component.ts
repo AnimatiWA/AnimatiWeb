@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../models/user';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../../services/localStorage/local-storage.service';
+import { AvatarService } from '../../../services/avatar/avatar.service';
 
 @Component({
   selector: 'app-perfil',
@@ -37,13 +38,14 @@ export class PerfilComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private router: Router,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private avatarService: AvatarService
   ) {
-    // Intentar recuperar avatar guardado en localStorage
-    const avatarGuardado = this.localStorage.getItem('usuario_avatar');
-    if (avatarGuardado) {
-      this.avatarSeleccionado = avatarGuardado;
-    }
+    // Intentar recuperar avatar guardado
+    this.avatarService.avatar$.subscribe(avatar => {
+      this.avatarSeleccionado = avatar;
+      this.avatarEdicion = avatar;
+    });
   }
 
   ngOnInit(): void {
@@ -87,9 +89,9 @@ export class PerfilComponent implements OnInit {
         this.modoEdicion = false;
         this.errorMessage = '';
         
-        // Guardar el avatar seleccionado
+        // Guardar y notificar el cambio de avatar
         this.avatarSeleccionado = this.avatarEdicion;
-        this.localStorage.setItem('usuario_avatar', this.avatarSeleccionado);
+        this.avatarService.updateAvatar(this.avatarSeleccionado);
       },
       error: (err) => {
         console.error('Error al guardar los cambios:', err);

@@ -4,6 +4,8 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { CarritoService } from '../../services/carritoServices/carrito.service';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
+import { AvatarService } from '../../services/avatar/avatar.service';
 
 @Component({
   selector: 'app-nav',
@@ -18,18 +20,26 @@ export class NavComponent implements OnInit, OnDestroy {
   userLoginOn:boolean=false;
   userLoginOut:boolean=false;
   cartItemsCount: number = 0;
+  userAvatar: string = 'avatar1.png';
   private cartSubscription: Subscription | undefined;
+  private avatarSubscription: Subscription | undefined;
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
-  constructor(private loginService:LoginService, 
-              private router:Router,
-              private carritoService: CarritoService) {
+  constructor(
+    private loginService:LoginService, 
+    private router:Router,
+    private carritoService: CarritoService,
+    private localStorage: LocalStorageService,
+    private avatarService: AvatarService
+  ) {
     this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); 
   }
-  ngOnDestroy(): void {
-
+  ngOnDestroy() {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
+    }
+    if (this.avatarSubscription) {
+      this.avatarSubscription.unsubscribe();
     }
   }
 
@@ -43,6 +53,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
         if (estado) {
           this.subscribeToCartChanges();
+          this.subscribeToAvatarChanges();
         }
       }
     });
@@ -70,6 +81,15 @@ export class NavComponent implements OnInit, OnDestroy {
   logout():void {
     this.loginService.logout();
     this.router.navigate(['/']);
+  }
   
+  subscribeToAvatarChanges(): void {
+    this.avatarSubscription = this.avatarService.avatar$.subscribe(avatar => {
+      this.userAvatar = avatar;
+    });
+  }
+  
+  irAPerfil(): void {
+    this.router.navigate(['/perfil']);
   }
 }
