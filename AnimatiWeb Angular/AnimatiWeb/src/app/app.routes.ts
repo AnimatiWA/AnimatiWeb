@@ -19,6 +19,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
 
 
 export const routes: Routes = [
@@ -38,7 +39,8 @@ export const routes: Routes = [
     {path:'categoria', component:CategoriasComponent},
     {path:'carrito', component:CarritoComponent},
     {path: 'perfil', component: PerfilComponent },
-    {path: 'change-password', component: ChangePasswordComponent },
+    {path: 'usuario/historial-compras', component: HistorialComprasComponent },
+    {path: 'cambio-contrasena', component: ChangePasswordComponent },
     {path: 'recovery-password', component: RecoveryPasswordComponent },
     {path:"", redirectTo:"/", pathMatch:"full"},
     {

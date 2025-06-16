@@ -1,0 +1,46 @@
+<div class="historial-container">
+  <h2>Historial de Compras</h2>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    Cargando historial...
+  </div>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+  <div *ngIf="!loading && compras.length === 0 && !errorMessage" class="empty-state">
+    <p>No tienes compras realizadas todavía.</p>
+  </div>
+  
+  <div *ngIf="!loading && compras.length > 0" class="compras-list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let compra of compras">
+          <td>{{ formatearFecha(compra.Fecha) }}</td>
+          <td>{{ compra.Cantidad }}</td>
+          <td>${{ compra.Precio | number:'1.2-2' }}</td>
+          <td>
+            <span [ngClass]="compra.Confirmado ? 'estado-confirmado' : 'estado-pendiente'">
+              {{ compra.Confirmado ? 'Confirmado' : 'Pendiente' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="actions">
+    <button class="btn btn-primary btn-animati" (click)="volverAlPerfil()">
+      <i class="fas fa-arrow-left"></i> Volver al Perfil
+    </button>
+  </div>
+</div>
