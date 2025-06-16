@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginService } from '../auth/login.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Producto } from '../../interface/prductolista';
 import { ProductoCarrito } from '../../interface/prductoCarritolista';
@@ -139,6 +139,43 @@ constructor(private http: HttpClient, private loginService: LoginService) {
     
     return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers }).pipe(
       tap(() => this.actualizarProductosCarrito())
+    );
+  }
+  
+  resetCarrito(): Observable<any> {
+    if (!this.carritoActivoId) {
+      return of({ success: true });
+    }
+    
+    const headers = this.loginService.userTokenHeader;
+    
+    return this.getProductosCarrito().pipe(
+      switchMap(productos => {
+        if (!productos || productos.length === 0) {
+          this.cartItemsSubject.next([]);
+          return of({ success: true });
+        }
+        
+        const deleteObservables = productos.map(producto => 
+          this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers })
+        );
+        
+        return deleteObservables.length > 0
+          ? forkJoin(deleteObservables).pipe(
+              tap(() => {
+                this.cartItemsSubject.next([]);
+              }),
+              tap(() => {
+                this.miCarrito.next([]);
+              })
+            )
+          : of({ success: true });
+      }),
+      catchError(error => {
+        this.cartItemsSubject.next([]);
+        this.miCarrito.next([]);
+        return of({ success: false, error });
+      })
     );
   }
 

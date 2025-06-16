@@ -33,19 +33,55 @@ export class CarritoComponent {
   }
 
   getTotal(){
-
-    this.total = this.listaProductos.reduce((total, producto) => total + (producto.Precio * producto.Cantidad), 0)
+    if (!this.listaProductos || this.listaProductos.length === 0) {
+      return 0;
+    }
+    
+    this.total = this.listaProductos.reduce((total, producto) => {
+      const precio = Number(producto.Precio) || 0;
+      const cantidad = Math.max(1, Number(producto.Cantidad) || 1);
+      return total + (precio * cantidad);
+    }, 0);
+    
     return this.total;
   }
 
   comprar(){
+    if (this.listaProductos.length === 0) {
+      alert('El carrito está vacío');
+      return;
+    }
+
+    const montoCompra = this.getTotal();
+    
+    if (montoCompra <= 0) {
+      alert('El total de la compra debe ser mayor a 0');
+      return;
+    }
+
+    const confirmarCompra = window.confirm('¿Confirmar la compra por un total de $' + montoCompra + '?');
+    
+    if (!confirmarCompra) {
+      return;
+    }
 
     this.carritoService.createCarrito().subscribe({
       next: () => {
-
-        this.listaProductos = [];
-        alert('Compra confirmada por un monto de $' + this.total);
-        this.router.navigate(['/']);
+        this.carritoService.resetCarrito().subscribe({
+          next: () => {
+            alert('¡Compra confirmada por un monto de $' + montoCompra + '!');
+            this.listaProductos = [];
+            this.total = 0;
+            this.router.navigate(['/']);
+          },
+          error: () => {
+            alert('Compra procesada, pero ocurrió un error al vaciar el carrito');
+            this.listaProductos = [];
+            this.total = 0;
+            this.carritoService.actualizarProductosCarrito();
+            this.router.navigate(['/']);
+          }
+        });
       },
       error: () => alert('No se pudo confirmar la compra'),
     })
@@ -65,10 +101,18 @@ export class CarritoComponent {
   }
 
   deleteUnProducto(producto: ProductoCarrito){
+    if (producto.Cantidad <= 1) {
+      return; 
+    }
 
     this.carritoService.deleteUnProducto(producto).subscribe({
-
-      next: (productoActualizado) => producto.Cantidad = productoActualizado.Cantidad,
+      next: (productoActualizado) => {
+        if (productoActualizado && productoActualizado.Cantidad !== undefined) {
+          producto.Cantidad = Math.max(1, productoActualizado.Cantidad);
+        } else {
+          producto.Cantidad = Math.max(1, producto.Cantidad - 1);
+        }
+      },
       error: () => alert('No se ha podido eliminar el producto'),
     })
   }
