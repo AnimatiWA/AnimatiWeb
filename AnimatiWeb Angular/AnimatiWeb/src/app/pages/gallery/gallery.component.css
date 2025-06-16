@@ -88,30 +88,80 @@ h4 {
     color: #000000;
 }
 
-.cantidad-input {
-  background: rgba(255,255,255,0.5);   
-  border: 1px solid #ced4da;           
-  border-radius: 50px;                 
-  outline: none;
-  margin-right: 12px;                 
+/* Estilos para el control de cantidad con botones */
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  padding: 4px 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cantidad-display {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 10px;
+  min-width: 30px;
   text-align: center;
-  font-size: 1rem;
-  padding: 4px 12px;
-  transition: box-shadow 0.2s;
-  width: 100%; 
-  margin-bottom: 10px;                  
-  margin-top: 8px;                   
+  color: #333;
 }
 
-.cantidad-input:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-  background: rgba(255,255,255,0.8);
+.btn-control {
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12px;
 }
 
-.cantidad-input::placeholder {
-  color: #888;
-  opacity: 1;
-  font-size: 0.9em;
+.btn-plus {
+  background-color: #a0e4b0;
+  border: 1px solid #8ad49c;
+}
+
+.btn-plus:hover {
+  background-color: #82d996;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-plus:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus {
+  background-color: #ffb3b3;
+  border: 1px solid #ff9999;
+}
+
+.btn-minus:hover {
+  background-color: #ff9191;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-minus:disabled {
+  background-color: #e6e6e6;
+  border-color: #d9d9d9;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
 }
 
 .small-text {
@@ -124,6 +174,80 @@ h4 {
   margin-bottom: 16px;   
   margin-top: 8px;       
   display: block;        
+}
+
+/* Estilos para el botón agregar carrito - Diseño moderno */
+.btn-carrito {
+  padding: 10px 18px;
+  background-image: linear-gradient(135deg, #ffcee6 0%, #ffb6d9 100%); /* Gradiente rosado */
+  border: none;
+  border-radius: 30px; /* Bordes más redondeados */
+  box-shadow: 0 4px 15px rgba(255, 182, 217, 0.4), 0 0 0 0 rgba(255, 182, 217, 0); /* Sombra principal y preparación para glow effect */
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transición más suave y elegante */
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-carrito::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.btn-carrito:hover {
+  background-image: linear-gradient(135deg, #ffb6d9 0%, #ff9ed2 100%); /* Gradiente más intenso al hover */
+  box-shadow: 0 8px 20px rgba(255, 182, 217, 0.6), 0 0 20px 5px rgba(255, 182, 217, 0.1); /* Sombra más pronunciada y glow effect */
+  transform: translateY(-3px); /* Efecto de elevación mejorado */
+  color: #000;
+}
+
+.btn-carrito:hover::before {
+  transform: translateX(100%);
+  transition: 0.6s;
+}
+
+.btn-carrito:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 8px rgba(255, 182, 217, 0.4);
+  transition: 0.1s;
+}
+
+.btn-carrito i {
+  font-size: 1.05rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-carrito:hover i {
+  transform: translateX(-4px) scale(1.1);
+}
+
+.btn-carrito:disabled {
+  background-image: linear-gradient(135deg, #f2f2f2 0%, #e0e0e0 100%);
+  color: #999;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-carrito:disabled::before {
+  display: none;
 }
 
 .col-4 {
