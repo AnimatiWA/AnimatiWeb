@@ -17,6 +17,7 @@ export class ConfirmacionCompraComponent implements OnInit {
   ordenId: string = '';
   fecha: string = '';
   fechaFormateada: string = '';
+  metodoPago: string = '';
 
   constructor(
     private router: Router, 
@@ -31,6 +32,7 @@ export class ConfirmacionCompraComponent implements OnInit {
       this.items = Number(params['items']) || 0;
       this.ordenId = params['ordenId'] || this.generarOrdenId();
       this.fecha = params['fecha'] || new Date().toISOString();
+      this.metodoPago = params['metodoPago'] || 'No especificado';
       this.fechaFormateada = this.formatearFecha(this.fecha);
     });
   }

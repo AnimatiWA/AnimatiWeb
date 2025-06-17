@@ -20,6 +20,13 @@
         <span class="label">Items:</span>
         <span class="value">{{ items }}</span>
       </div>
+      <div class="detail-row">
+        <span class="label">Método de pago:</span>
+        <span class="value payment-method">
+          <i [ngClass]="metodoPago === 'tarjeta' ? 'fas fa-credit-card' : 'fas fa-university'"></i>
+          {{ metodoPago === 'tarjeta' ? 'Tarjeta de crédito' : metodoPago === 'transferencia' ? 'Transferencia bancaria' : metodoPago }}
+        </span>
+      </div>
       <div class="detail-row total">
         <span class="label">Total:</span>
         <span class="value">${{ total | number:'1.2-2' }}</span>

@@ -55,6 +55,17 @@
   color: #5e17eb;
 }
 
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.payment-method i {
+  color: #5e17eb;
+  font-size: 16px;
+}
+
 .message {
   margin: 25px 0;
   color: #6c757d;

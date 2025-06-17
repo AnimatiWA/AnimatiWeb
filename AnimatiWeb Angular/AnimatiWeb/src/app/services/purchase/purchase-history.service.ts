@@ -31,14 +31,15 @@ export class PurchaseHistoryService {
     );
   }
   
-  registrarCompra(datos: { total: number, items: number }): Observable<PurchaseItem> {
+  registrarCompra(datos: { total: number, items: number, metodoPago?: string }): Observable<PurchaseItem> {
     const headers = this.loginService.userTokenHeader;
     
     const compra = {
       Precio: datos.total,
       Cantidad: datos.items,
       Fecha: new Date().toISOString(),
-      Confirmado: true
+      Confirmado: true,
+      MetodoPago: datos.metodoPago || 'No especificado'
     };
     
     return this.http.post<PurchaseItem>(

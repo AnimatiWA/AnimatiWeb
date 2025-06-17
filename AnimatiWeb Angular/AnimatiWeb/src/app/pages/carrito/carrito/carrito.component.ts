@@ -131,21 +131,34 @@ export class CarritoComponent {
       alert('El carrito está vacío');
       return;
     }
+    this.checkout();
+  }
 
-    const montoCompra = this.getTotal();
+  checkout() {
+    // Verificar que hayan productos en el carrito
+    if (!this.listaProductos.length) {
+      this.mostrarMensaje('El carrito está vacío', 'error');
+      return;
+    }
+    
+    // Redirigir al componente de métodos de pago
+    const montoCompra = this.total;
     const cantidadItems = this.listaProductos.reduce((total, item) => total + (item.Cantidad || 0), 0);
     
-    if (montoCompra <= 0) {
-      alert('El total de la compra debe ser mayor a 0');
-      return;
-    }
+    this.router.navigate(['/metodo-pago'], {
+      queryParams: {
+        total: montoCompra,
+        items: cantidadItems
+      }
+    });
+  }
 
-    const confirmarCompra = window.confirm('¿Confirmar la compra por un total de $' + montoCompra + '?');
-    
-    if (!confirmarCompra) {
-      return;
-    }
-    
+  // Este método se mantiene para compatibilidad con código existente
+  finalizarCompra() {
+    this.checkout();
+  }
+
+  private procesarCompraDirecta(montoCompra: number, cantidadItems: number) {
     this.loading = true;
     this.error = null;
 
