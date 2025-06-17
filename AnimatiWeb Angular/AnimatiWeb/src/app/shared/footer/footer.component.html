@@ -1,29 +1,52 @@
-<footer class="footer">
-    <div class="footer-separator"></div> <!-- Línea violeta superior -->
-    <div class="footer-container">
-        <div class="footer-column">
-            <h3>Animati Papelería</h3>
-            <p>🎈  Diseños 100% originales</p>
-            <p>🎈  Aritos, Posters, Polaroids</p>
-            <p>🎈  Cajas temáticas, Señaladores, y mucho más.</p>
-        </div>
-        <div class="footer-column">
-            <h3>Encuéntranos</h3>
-            <p><i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                <a href="https://www.instagram.com/animati_papeleria/" target="_blank" aria-label="Ir al Instagram de Animati Papelería">
-                    animati_papeleria
-                </a>
-            </p>
-            <p><i class="fa-solid fa-phone" aria-hidden="true"></i> 
-                <span aria-label="Número de WhatsApp de Animati Papelería">+549 3521 413315</span>
-            </p>
-        </div>
-        <div class="footer-column">
-            <img src="assets/img/playstore-badge.png" alt="Descarga la app en Play Store" class="playstore-badge" (click)="openPromoModal()">
-        </div>
+<footer class="footer" role="contentinfo">
+  <div class="footer-separator"></div> <!-- Línea violeta superior -->
+
+  <div class="footer-container">
+    <!-- Columna 1 -->
+    <div class="footer-column">
+      <h3>Animati Papelería</h3>
+      <p>🎈 Diseños 100% originales</p>
+      <p>🎈 Aritos, Posters, Polaroids</p>
+      <p>🎈 Cajas temáticas, Señaladores, y mucho más.</p>
     </div>
-        <!-- Leyenda de desarrollo -->
-    <div class="footer-legend">
-        <p>&copy; 2025 Animati | Desarrollado con 💙 por Equipo Animati</p>
+
+    <!-- Columna 2 -->
+    <div class="footer-column">
+      <h3>Encuéntranos</h3>
+
+      <p>
+        <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+        <a href="https://www.instagram.com/animati_papeleria/"
+           target="_blank"
+           aria-label="Ir al Instagram de Animati Papelería">
+          animati_papeleria
+        </a>
+      </p>
+
+      <p>
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <a href="https://wa.me/5493521413315?text=Hola%20Animati%2C%20quiero%20hacer%20una%20consulta"
+           target="_blank"
+           aria-label="Enviar mensaje a Animati Papelería por WhatsApp">
+          +54 9 3521 413315
+        </a>
+      </p>
     </div>
+
+    <!-- Columna 3 -->
+    <div class="footer-column">
+      <button class="playstore-button"
+              (click)="openPromoModal()"
+              aria-label="Abrir información sobre la app en Play Store">
+        <img src="assets/img/playstore-badge.png"
+             alt=""
+             class="playstore-badge" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Leyenda de desarrollo -->
+  <div class="footer-legend">
+    <p>&copy; 2025 Animati | Desarrollado con 💙 por Equipo Animati</p>
+  </div>
 </footer>
