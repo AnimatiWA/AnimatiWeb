@@ -342,10 +342,98 @@ input:focus {
   color: #075E54;
 }
 
-.whatsapp-button-container {
+/* Estilos para los pasos del checkout */
+.checkout-steps {
   display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  margin: 30px 0;
+}
+
+.step {
+  flex: 1;
+  display: flex;
+  border: 1px solid #dde0e3;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: white;
+  position: relative;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.step-number {
+  background-color: #e9ecef;
+  color: #6c757d;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  font-weight: bold;
+  margin-right: 15px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h4 {
+  margin: 0 0 10px;
+  color: #495057;
+}
+
+.step.completed {
+  border-color: #28a745;
+  background-color: #f8fff8;
+}
+
+.step.completed .step-number {
+  background-color: #28a745;
+  color: white;
+}
+
+.step.active {
+  border-color: #5e17eb;
+  background-color: #f8f5ff;
+}
+
+.step.active .step-number {
+  background-color: #5e17eb;
+  color: white;
+}
+
+.step.disabled {
+  opacity: 0.7;
+  background-color: #f8f9fa;
+}
+
+.step-divider {
+  width: 40px;
+  margin-top: 30px;
+  border-top: 2px dashed #dee2e6;
+  position: relative;
+}
+
+.step-status {
+  margin-top: 10px;
+  color: #28a745;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.step-note {
+  font-size: 13px;
+  color: #6c757d;
+  margin: 10px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .whatsapp-button {
@@ -423,10 +511,36 @@ input[type="file"] {
 }
 
 /* Botones de acción */
-.action-buttons {
+.actions {
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
+}
+
+.final-actions {
+  margin-top: 40px;
+}
+
+.info-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e3f2fd;
+  border-radius: 6px;
+  padding: 12px 15px;
   margin-top: 20px;
+  border-left: 4px solid #2196f3;
+}
+
+.info-message i {
+  color: #2196f3;
+  font-size: 18px;
+}
+
+.info-message p {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
 }
 
 .btn {

@@ -50,9 +50,41 @@
 
 .total {
   font-weight: bold;
-  font-size: 1.2em;
-  margin-top: 10px;
-  color: #5e17eb;
+}
+
+/* Estilos para el aviso de aprobación */
+.approval-notice {
+  display: flex;
+  background-color: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.notice-icon {
+  color: #ffa000;
+  font-size: 24px;
+}
+
+.notice-content h4 {
+  margin: 0 0 8px;
+  color: #795548;
+  font-size: 16px;
+}
+
+.notice-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #424242;
+  line-height: 1.5;
+}
+
+.notice-content strong {
+  color: #e65100;
+  font-weight: bold;
 }
 
 .payment-method {

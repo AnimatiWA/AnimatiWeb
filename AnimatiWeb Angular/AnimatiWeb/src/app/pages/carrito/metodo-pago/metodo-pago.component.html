@@ -215,10 +215,29 @@
           </div>
         </div>
         
-        <div class="whatsapp-button-container">
-          <button type="button" class="whatsapp-button" (click)="abrirWhatsApp()">
-            <i class="fab fa-whatsapp"></i> Enviar comprobante
-          </button>
+        <div class="checkout-steps">
+          <div class="step" [ngClass]="{'completed': comprobantePorWhatsAppEnviado}">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Enviar comprobante</h4>
+              <button type="button" class="whatsapp-button" (click)="abrirWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+              </button>
+              <div class="step-status" *ngIf="comprobantePorWhatsAppEnviado">
+                <i class="fas fa-check-circle"></i> Comprobante enviado
+              </div>
+            </div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step" [ngClass]="{'active': comprobantePorWhatsAppEnviado, 'disabled': !comprobantePorWhatsAppEnviado}">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Confirmar compra</h4>
+              <p *ngIf="!comprobantePorWhatsAppEnviado" class="step-note">
+                <i class="fas fa-info-circle"></i> Complete el paso anterior primero
+              </p>
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -229,20 +248,33 @@
     </div>
     
     <!-- Botones de acción -->
-    <div class="action-buttons">
-      <button class="btn btn-secondary" (click)="volverAlCarrito()">
+    <div class="actions final-actions">
+      <button 
+        class="btn btn-outline-secondary" 
+        (click)="volverAlCarrito()">
         <i class="fas fa-arrow-left"></i> Volver al carrito
       </button>
       <button 
         class="btn btn-primary" 
-        [disabled]="loading || metodoPagoSeleccionado === 'tarjeta'" 
+        [disabled]="loading || metodoPagoSeleccionado === 'tarjeta' || !comprobantePorWhatsAppEnviado" 
+        [class.btn-success]="comprobantePorWhatsAppEnviado"
         (click)="procesarPago()">
-        <span *ngIf="!loading">Finalizar compra</span>
+        <span *ngIf="!loading && !comprobantePorWhatsAppEnviado">
+          <i class="fas fa-lock"></i> Finalizar compra
+        </span>
+        <span *ngIf="!loading && comprobantePorWhatsAppEnviado">
+          <i class="fas fa-check-circle"></i> Finalizar compra
+        </span>
         <span *ngIf="loading" class="spinner">
           <i class="fas fa-spinner fa-spin"></i> Procesando...
         </span>
       </button>
     </div>
+    
+    <!-- Mensaje informativo sobre el proceso -->
+    <div class="info-message" *ngIf="comprobantePorWhatsAppEnviado">
+      <i class="fas fa-info-circle"></i>
+      <p>El comprobante ha sido enviado por WhatsApp. Ahora puede finalizar su compra.</p>
+    </div>
   </div>
 </div>
-

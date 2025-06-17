@@ -38,6 +38,16 @@
       <p>Pronto recibirás un email con los detalles de tu compra</p>
     </div>
     
+    <div class="approval-notice" *ngIf="metodoPago === 'transferencia'">
+      <div class="notice-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="notice-content">
+        <h4>Proceso de aprobación</h4>
+        <p>La aprobación de su comprobante puede demorar hasta <strong>72 horas hábiles</strong>. Una vez verificado el pago, sus productos estarán disponibles.</p>
+      </div>
+    </div>
+    
     <div class="actions">
       <button class="btn btn-primary" (click)="volverAInicio()">Volver a la tienda</button>
       <button class="btn btn-outline-primary" (click)="verHistorialCompras()">Ver mis compras</button>

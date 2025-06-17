@@ -31,6 +31,7 @@ export class MetodoPagoComponent implements OnInit {
   // Variables para WhatsApp
   numeroWhatsApp: string = '';
   whatsappContacto: string = '+5491112345678';
+  comprobantePorWhatsAppEnviado: boolean = false;
   
   // Formularios
   formTarjeta: FormGroup;
@@ -144,6 +145,9 @@ export class MetodoPagoComponent implements OnInit {
       
       // Abrimos en una nueva ventana
       window.open(whatsappUrl, '_blank');
+      
+      // Marcamos como enviado el comprobante
+      this.comprobantePorWhatsAppEnviado = true;
     } else {
       this.formTransferencia.markAllAsTouched();
     }
@@ -160,9 +164,18 @@ export class MetodoPagoComponent implements OnInit {
       this.error = 'El pago con tarjeta no está disponible en este momento. Por favor, utilice la opción de transferencia bancaria.';
       this.cambiarMetodoPago('transferencia');
       return;
-    } else if (this.metodoPagoSeleccionado === 'transferencia' && this.formTransferencia.invalid) {
-      this.marcarCamposComoTocados(this.formTransferencia);
-      return;
+    } else if (this.metodoPagoSeleccionado === 'transferencia') {
+      // Verificar que el formulario sea válido
+      if (this.formTransferencia.invalid) {
+        this.marcarCamposComoTocados(this.formTransferencia);
+        return;
+      }
+      
+      // Verificar que se haya enviado el comprobante por WhatsApp
+      if (!this.comprobantePorWhatsAppEnviado) {
+        this.error = 'Debe enviar el comprobante por WhatsApp antes de finalizar la compra.';
+        return;
+      }
     }
     
     this.loading = true;
