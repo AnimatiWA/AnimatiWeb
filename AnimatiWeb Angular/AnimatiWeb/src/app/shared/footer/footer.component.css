@@ -105,6 +105,13 @@ body {
     transition: transform 0.3s;
 }
 
+.playstore-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .playstore-badge:hover,
 .playstore-badge:focus {
     transform: scale(1.05);
