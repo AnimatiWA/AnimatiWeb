@@ -16,13 +16,13 @@ import { CommonModule } from '@angular/common';
 })
 
 export class RegistroDeUsuariosComponent {
-  
+
   public showPassword = false;
   public showConfirmPassword = false;
   public passwordErrors: string[] = [];
   public formSubmitted = false;
 
-  constructor(private registerService: RegisterService, private router: Router, private formBuild: FormBuilder ){ }
+  constructor(private registerService: RegisterService, private router: Router, private formBuild: FormBuilder) { }
 
   public formRegistro: FormGroup = this.formBuild.group({
     username: ['', [
@@ -115,21 +115,26 @@ export class RegistroDeUsuariosComponent {
     this.registerService.registrarse(objeto).subscribe({
       next: (data) => {
         console.log('Registro exitoso:', data);
-        this.router.navigate(['/login']);
-      }, 
+        alert('Cuenta creada exitosamente. Inicie sesión para continuar.');
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2500); // Espera 2.5 segundos antes de redirigir
+      },
+      
       error: (error) => {
         console.error('Error completo:', error);
         console.error('Mensaje de error:', error.message);
         console.error('Status:', error.status);
         console.error('Error body:', error.error);
-        
+
         let errorMessage = 'Error al registrar el usuario';
         if (error.error && typeof error.error === 'string') {
           errorMessage = error.error;
         } else if (error.error && typeof error.error === 'object' && error.error.detail) {
           errorMessage = error.error.detail;
         }
-        
+
         alert(errorMessage);
       }
     });
