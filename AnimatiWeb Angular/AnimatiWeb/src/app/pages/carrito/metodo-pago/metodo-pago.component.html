@@ -1,0 +1,280 @@
+<div class="payment-container">
+  <div class="payment-card">
+    <div class="header">
+      <h2>Métodos de Pago</h2>
+      <p class="subtitle">Selecciona tu método de pago preferido</p>
+    </div>
+    
+    <!-- Resumen de compra -->
+    <div class="order-summary">
+      <h3>Resumen de la compra</h3>
+      <div class="summary-details">
+        <div class="summary-row">
+          <span>Total productos:</span>
+          <span>{{ cantidadItems }} items</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span class="price">${{ montoCompra | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Selector de método de pago -->
+    <div class="payment-method-selector">
+      <div 
+        class="method-option disabled" 
+        [class.selected]="metodoPagoSeleccionado === 'tarjeta'"
+        (click)="cambiarMetodoPago('tarjeta')">
+        <i class="far fa-credit-card"></i>
+        <span>Tarjeta</span>
+        <div class="disabled-badge"><i class="fas fa-ban"></i></div>
+      </div>
+      <div 
+        class="method-option" 
+        [class.selected]="metodoPagoSeleccionado === 'transferencia'"
+        (click)="cambiarMetodoPago('transferencia')">
+        <i class="fas fa-university"></i>
+        <span>Transferencia</span>
+      </div>
+    </div>
+    
+    <!-- Formulario de tarjeta -->
+    <div class="payment-form" *ngIf="metodoPagoSeleccionado === 'tarjeta'">
+      <h3>Pago con Tarjeta</h3>
+      <div class="secure-badge">
+        <i class="fas fa-lock"></i> Pago Seguro
+      </div>
+      
+      <div class="card-disabled-alert">
+        <i class="fas fa-exclamation-triangle"></i>
+        <p><strong>Atención:</strong> El pago con tarjeta no está disponible en este momento. Por favor, utilice la opción de transferencia bancaria.</p>
+      </div>
+      
+      <form [formGroup]="formTarjeta" (ngSubmit)="procesarPago()">
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="numeroTarjeta">Número de tarjeta</label>
+            <div class="card-input-container">
+              <input 
+                type="text" 
+                id="numeroTarjeta" 
+                formControlName="numeroTarjeta" 
+                placeholder="1234 5678 9012 3456" 
+                maxlength="16">
+              <i [class]="getIconoTarjeta()" *ngIf="formTarjeta.get('numeroTarjeta')?.value"></i>
+            </div>
+            <div class="card-type" *ngIf="detectarTipoTarjeta()">
+              {{ detectarTipoTarjeta() }}
+            </div>
+            <div class="error-message" *ngIf="formTarjeta.get('numeroTarjeta')?.invalid && formTarjeta.get('numeroTarjeta')?.touched">
+              Número de tarjeta inválido
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="titular">Titular de la tarjeta</label>
+            <input 
+              type="text" 
+              id="titular" 
+              formControlName="titular" 
+              placeholder="Nombre y apellido">
+            <div class="error-message" *ngIf="formTarjeta.get('titular')?.invalid && formTarjeta.get('titular')?.touched">
+              Ingrese el nombre del titular
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dni">DNI del titular</label>
+            <input 
+              type="text" 
+              id="dni" 
+              formControlName="dni" 
+              placeholder="12345678" 
+              maxlength="8">
+            <div class="error-message" *ngIf="formTarjeta.get('dni')?.invalid && formTarjeta.get('dni')?.touched">
+              DNI inválido
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mesVencimiento">Mes</label>
+            <input 
+              type="number" 
+              id="mesVencimiento" 
+              formControlName="mesVencimiento" 
+              placeholder="MM" 
+              min="1" 
+              max="12">
+            <div class="error-message" *ngIf="formTarjeta.get('mesVencimiento')?.invalid && formTarjeta.get('mesVencimiento')?.touched">
+              Mes inválido
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="anioVencimiento">Año</label>
+            <input 
+              type="number" 
+              id="anioVencimiento" 
+              formControlName="anioVencimiento" 
+              placeholder="AAAA" 
+              [min]="currentYear" 
+              [max]="maxYear">
+            <div class="error-message" *ngIf="formTarjeta.get('anioVencimiento')?.invalid && formTarjeta.get('anioVencimiento')?.touched">
+              Año inválido
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cvv">Código de seguridad</label>
+            <input 
+              type="password" 
+              id="cvv" 
+              formControlName="cvv" 
+              placeholder="CVV" 
+              maxlength="4">
+            <div class="error-message" *ngIf="formTarjeta.get('cvv')?.invalid && formTarjeta.get('cvv')?.touched">
+              Código inválido
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Formulario de transferencia -->
+    <div class="payment-form" *ngIf="metodoPagoSeleccionado === 'transferencia'">
+      <h3>Pago por Transferencia</h3>
+      
+      <div class="bank-info">
+        <h4>Datos bancarios</h4>
+        <div class="order-details">
+          <div class="detail-row">
+            <span class="label">CBU:</span>
+            <span class="value">0000098765432112345678</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Alias:</span>
+            <span class="value">ANIMATI.WEB.STORE</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Banco:</span>
+            <span class="value">Banco Provincia</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">CUIT:</span>
+            <span class="value">30-12345678-9</span>
+          </div>
+        </div>
+        <div class="transfer-notice">
+          <i class="fas fa-info-circle"></i>
+          <p><strong>Importante:</strong> Los productos adquiridos por transferencia bancaria estarán disponibles una vez pasadas las 72hs hábiles de confirmado el pago.</p>
+        </div>
+      </div>
+      
+      <form [formGroup]="formTransferencia" (ngSubmit)="procesarPago()">
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="nombreTransferente">Nombre del transferente</label>
+            <input 
+              type="text" 
+              id="nombreTransferente" 
+              formControlName="nombreTransferente" 
+              placeholder="Nombre completo">
+            <div class="error-message" *ngIf="formTransferencia.get('nombreTransferente')?.invalid && formTransferencia.get('nombreTransferente')?.touched">
+              Ingrese el nombre del transferente
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="numeroWhatsApp">Número de WhatsApp</label>
+            <div class="whatsapp-input-container">
+              <span class="whatsapp-prefix">+</span>
+              <input 
+                type="text" 
+                id="numeroWhatsApp" 
+                formControlName="numeroWhatsApp" 
+                placeholder="549 11 12345678">
+            </div>
+            <div class="error-message" *ngIf="formTransferencia.get('numeroWhatsApp')?.invalid && formTransferencia.get('numeroWhatsApp')?.touched">
+              Ingrese un número de WhatsApp válido (solo números sin espacios ni guiones)
+            </div>
+          </div>
+        </div>
+        
+        <div class="whatsapp-info">
+          <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+          <div class="info-text">
+            <p>Una vez realizada la transferencia, deberás enviar el comprobante por WhatsApp al número <strong>{{whatsappContacto}}</strong></p>
+            <p>Presiona el botón "Enviar comprobante" para abrir WhatsApp automáticamente.</p>
+          </div>
+        </div>
+        
+        <div class="checkout-steps">
+          <div class="step" [ngClass]="{'completed': comprobantePorWhatsAppEnviado}">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Enviar comprobante</h4>
+              <button type="button" class="whatsapp-button" (click)="abrirWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+              </button>
+              <div class="step-status" *ngIf="comprobantePorWhatsAppEnviado">
+                <i class="fas fa-check-circle"></i> Comprobante enviado
+              </div>
+            </div>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step" [ngClass]="{'active': comprobantePorWhatsAppEnviado, 'disabled': !comprobantePorWhatsAppEnviado}">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Confirmar compra</h4>
+              <p *ngIf="!comprobantePorWhatsAppEnviado" class="step-note">
+                <i class="fas fa-info-circle"></i> Complete el paso anterior primero
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Mensaje de error -->
+    <div class="error-alert" *ngIf="error">
+      {{ error }}
+    </div>
+    
+    <!-- Botones de acción -->
+    <div class="actions final-actions">
+      <button 
+        class="btn btn-outline-secondary" 
+        (click)="volverAlCarrito()">
+        <i class="fas fa-arrow-left"></i> Volver al carrito
+      </button>
+      <button 
+        class="btn btn-primary" 
+        [disabled]="loading || metodoPagoSeleccionado === 'tarjeta' || !comprobantePorWhatsAppEnviado" 
+        [class.btn-success]="comprobantePorWhatsAppEnviado"
+        (click)="procesarPago()">
+        <span *ngIf="!loading && !comprobantePorWhatsAppEnviado">
+          <i class="fas fa-lock"></i> Finalizar compra
+        </span>
+        <span *ngIf="!loading && comprobantePorWhatsAppEnviado">
+          <i class="fas fa-check-circle"></i> Finalizar compra
+        </span>
+        <span *ngIf="loading" class="spinner">
+          <i class="fas fa-spinner fa-spin"></i> Procesando...
+        </span>
+      </button>
+    </div>
+    
+    <!-- Mensaje informativo sobre el proceso -->
+    <div class="info-message" *ngIf="comprobantePorWhatsAppEnviado">
+      <i class="fas fa-info-circle"></i>
+      <p>El comprobante ha sido enviado por WhatsApp. Ahora puede finalizar su compra.</p>
+    </div>
+  </div>
+</div>

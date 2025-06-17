@@ -13,12 +13,15 @@ import { QuienesSomosComponent } from './pages/auth/quienes-somos/quienes-somos.
 import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
+import { ConfirmacionCompraComponent } from './pages/carrito/confirmacion-compra/confirmacion-compra.component';
+import { MetodoPagoComponent } from './pages/carrito/metodo-pago/metodo-pago.component';
 import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
 
 
 export const routes: Routes = [
@@ -37,8 +40,11 @@ export const routes: Routes = [
     {path:'agregarproductos', component:ProductsComponent},
     {path:'categoria', component:CategoriasComponent},
     {path:'carrito', component:CarritoComponent},
+    {path:'metodo-pago', component:MetodoPagoComponent},
+    {path:'confirmacion-compra', component:ConfirmacionCompraComponent},
     {path: 'perfil', component: PerfilComponent },
-    {path: 'change-password', component: ChangePasswordComponent },
+    {path: 'usuario/historial-compras', component: HistorialComprasComponent },
+    {path: 'cambio-contrasena', component: ChangePasswordComponent },
     {path: 'recovery-password', component: RecoveryPasswordComponent },
     {path:"", redirectTo:"/", pathMatch:"full"},
     {

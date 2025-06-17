@@ -4,6 +4,7 @@ import { LoginService } from '../../services/auth/login.service';
 import { CommonModule } from '@angular/common';
 import { CarritoService } from '../../services/carritoServices/carrito.service';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -17,17 +18,23 @@ export class HeaderComponent implements OnInit, OnDestroy{
 viewCart: boolean = false;
 logueado: boolean = false;
 cartItemsCount: number = 0;
+userAvatar: string = 'avatar1.png';
 private cartSubscription: Subscription | undefined;
-  constructor(private loginService:LoginService, private router:Router, private carritoService: CarritoService){}
+
+constructor(
+  private loginService: LoginService, 
+  private router: Router, 
+  private carritoService: CarritoService,
+  private localStorage: LocalStorageService
+){}
   ngOnInit(): void {
-    
     this.loginService.userLoginOn.subscribe({
       next: (estado) => {
         this.logueado = estado;
         
-        // Si el usuario está logueado, suscribirse a los cambios del carrito
         if (estado) {
           this.subscribeToCartChanges();
+          this.loadUserAvatar();
         }
       }
     });
@@ -55,6 +62,17 @@ private cartSubscription: Subscription | undefined;
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
     }
+  }
+
+  loadUserAvatar() {
+    const avatarGuardado = this.localStorage.getItem('usuario_avatar');
+    if (avatarGuardado) {
+      this.userAvatar = avatarGuardado;
+    }
+  }
+  
+  irAPerfil() {
+    this.router.navigate(['/usuario/perfil']);
   }
 
   logout():void {

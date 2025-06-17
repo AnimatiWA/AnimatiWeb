@@ -1,0 +1,56 @@
+<div class="confirmacion-container">
+  <div class="confirmacion-card">
+    <div class="header">
+      <div class="check-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>¡Compra Confirmada!</h2>
+    </div>
+    
+    <div class="order-details">
+      <div class="detail-row">
+        <span class="label">Fecha:</span>
+        <span class="value">{{ fechaFormateada }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Orden ID:</span>
+        <span class="value">{{ ordenId }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Items:</span>
+        <span class="value">{{ items }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">Método de pago:</span>
+        <span class="value payment-method">
+          <i [ngClass]="metodoPago === 'tarjeta' ? 'fas fa-credit-card' : 'fas fa-university'"></i>
+          {{ metodoPago === 'tarjeta' ? 'Tarjeta de crédito' : metodoPago === 'transferencia' ? 'Transferencia bancaria' : metodoPago }}
+        </span>
+      </div>
+      <div class="detail-row total">
+        <span class="label">Total:</span>
+        <span class="value">${{ total | number:'1.2-2' }}</span>
+      </div>
+    </div>
+    
+    <div class="message">
+      <p>Tu compra ha sido procesada correctamente</p>
+      <p>Pronto recibirás un email con los detalles de tu compra</p>
+    </div>
+    
+    <div class="approval-notice" *ngIf="metodoPago === 'transferencia'">
+      <div class="notice-icon">
+        <i class="fas fa-clock"></i>
+      </div>
+      <div class="notice-content">
+        <h4>Proceso de aprobación</h4>
+        <p>La aprobación de su comprobante puede demorar hasta <strong>72 horas hábiles</strong>. Una vez verificado el pago, sus productos estarán disponibles.</p>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button class="btn btn-primary" (click)="volverAInicio()">Volver a la tienda</button>
+      <button class="btn btn-outline-primary" (click)="verHistorialCompras()">Ver mis compras</button>
+    </div>
+  </div>
+</div>
