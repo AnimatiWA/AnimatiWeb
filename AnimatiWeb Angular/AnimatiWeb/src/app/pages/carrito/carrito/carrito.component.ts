@@ -270,6 +270,7 @@ export class CarritoComponent {
           this.getTotal();
         }
         this.loading = false;
+        this.mostrarMensaje('Producto eliminado', 'info');
       },
       error: (err) => {
         // Revertir al valor original en caso de error
@@ -295,6 +296,7 @@ export class CarritoComponent {
     this.carritoService.addUnProducto(producto).subscribe({
       next: () => {
         this.loading = false;
+        this.mostrarMensaje('Producto añadido', 'success');
       },
       error: (err) => {
         // Revertir al valor original en caso de error
