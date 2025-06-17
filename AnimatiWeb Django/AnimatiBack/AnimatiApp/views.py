@@ -307,6 +307,7 @@ class CrearCarrito(APIView):
                 return Response({"error": f"Stock insuficiente para los productos: {', '.join(productos_sin_stock)}"}, status=status.HTTP_400_BAD_REQUEST)
 
             carrito_activo.is_active = False
+            carrito_activo.Deshabilitado = timezone.now()
             carrito_activo.save()
 
 
@@ -402,7 +403,7 @@ class ListarProductosEnCarritoEspecifico(APIView):
     http_method_names = ['get']
 
     def get(self, request, carrito_id, format=None):
-        productosCarrito = ProductoCarrito.objects.filter(Carrito = carrito_id)
+        productosCarrito = ProductoCarrito.objects.select_related('Codigo').filter(Carrito = carrito_id)
 
         if not productosCarrito.exists():
             return Response({"error": "No hay productos en el carrito o el carrito no existe"}, status=status.HTTP_404_NOT_FOUND)
@@ -541,7 +542,7 @@ class EliminarUnidadItemEnCarrito(APIView):
 class PasswordRecoveryEmailAPIView(APIView):
     
     permission_classes = [AllowAny]
-    serializer_class = PasswordRecoverySerializer
+    serializer_class = PasswordRecoveryEmailSerializer
     http_method_names = ['post']
 
     def post(self, request):
@@ -578,7 +579,7 @@ class PasswordRecoveryEmailAPIView(APIView):
 
 class EmailPasswordResetView(APIView):
     permission_classes = [AllowAny]
-    serializer_class = PasswordResetSerializer
+    serializer_class = PasswordRecoverySerializer
     http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
@@ -615,7 +616,7 @@ class EmailPasswordResetView(APIView):
 class PasswordResetView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, pk, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
             user = request.user
@@ -666,25 +667,23 @@ class HistorialCarritoView(APIView):
 
             return Response([], status=status.HTTP_204_NO_CONTENT)
         
-        carrito_data = []
+        historial = []
 
-        for i, carrito in enumerate(carritos_inactivos):
+        for carrito in carritos_inactivos:
 
-            total_precio = ProductoCarrito.objects.filter(Carrito=carrito).aggregate(total=Sum('Precio'))['total'] or 0.0
+            productos = ProductoCarrito.objects.filter(Carrito=carrito)
 
-            if i + 1 < len(carritos_inactivos):
+            total_precio = productos.aggregate(total=Sum('Precio'))['total'] or 0.0
+            total_cantidad = productos.aggregate(total=Sum('Cantidad'))['total'] or 0
 
-                siguiente_carrito = carritos_inactivos[i + 1]
-                fecha_deshabilitacion = siguiente_carrito.Creado
-            else:
 
-                fecha_deshabilitacion = None
+            historial.append({
 
-            carrito_data.append({
-
-                'id': carrito.id,
-                'total': total_precio,
-                'fecha_compra': fecha_deshabilitacion,
+                'Id': carrito.id,
+                'Fecha': carrito.Deshabilitado.date().isoformat() if carrito.Deshabilitado else None,
+                'Cantidad': total_cantidad,
+                'Precio': total_precio,
+                'Confirmado': carrito.confirmado,
             })
 
-        return Response(carrito_data, status=status.HTTP_200_OK)
+        return Response(historial, status=status.HTTP_200_OK)
