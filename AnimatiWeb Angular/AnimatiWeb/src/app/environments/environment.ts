@@ -41,5 +41,7 @@ export const environment = {
     DELETE_ONE_PRODUCT_CART_BY_ID: 'carritoProductos/eliminarUnidad/',
     PURCHASE_HISTORY: 'carrito/historial',
     REGISTER_PURCHASE: 'carrito/registrar',
+    CREATE_PREFERENCE: 'mercadopago/crearPreferencia',
+    GET_PURCHASE_STATUS: 'mercadopago/estadoPago',
   },
 };

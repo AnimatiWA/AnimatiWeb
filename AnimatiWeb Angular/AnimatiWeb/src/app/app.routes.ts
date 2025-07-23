@@ -15,6 +15,7 @@ import { CategoriasComponent } from './pages/admin/categorias/categorias.compone
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 import { ConfirmacionCompraComponent } from './pages/carrito/confirmacion-compra/confirmacion-compra.component';
 import { MetodoPagoComponent } from './pages/carrito/metodo-pago/metodo-pago.component';
+import { ProcesandoPagoComponent } from './pages/carrito/procesando-pago/procesando-pago.component';
 import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
 import { LayoutComponent } from './admin/pages/layout/layout.component';
 import { HeaderComponent } from './shared/header/header.component';
@@ -23,46 +24,45 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
 
-
 export const routes: Routes = [
-    {path:"gallery", component:GalleryComponent},
-    {path:"contacto", component:ContactoComponentComponent},
-    {path:"cubecraft", component:CubecraftCityComponent},
-    {path:"registroUsuarios", component:RegistroDeUsuariosComponent},
-    {path:'login', component:LoginComponent},
-    {path:'accesoadmin', component:AccesoAdminComponent},  
-    {path:'separadores', component:SeparadoresComponent},
-    {path:'set-stickers', component:SetStickersComponent},
-    {path:'', component:PaginaPrincipalComponent},
-    {path:'Quien-somos', component:QuienesSomosComponent},
-    {path:'dashboard',  component: DashboardComponent},
-    {path:'samplepage', title: 'Sample Page', component: SamplepageComponent},
-    {path:'agregarproductos', component:ProductsComponent},
-    {path:'categoria', component:CategoriasComponent},
-    {path:'carrito', component:CarritoComponent},
-    {path:'metodo-pago', component:MetodoPagoComponent},
-    {path:'confirmacion-compra', component:ConfirmacionCompraComponent},
-    {path: 'perfil', component: PerfilComponent },
-    {path: 'usuario/historial-compras', component: HistorialComprasComponent },
-    {path: 'cambio-contrasena', component: ChangePasswordComponent },
-    {path: 'recovery-password', component: RecoveryPasswordComponent },
-    {path:"", redirectTo:"/", pathMatch:"full"},
-    {
-        path: '',
-        component: LayoutComponent,
-        canActivate: [],
-        children: [
-          {
-            path: 'agregarproducto',
-            component: ProductsComponent,
-            title: 'Products'
-          },
-          {
-            path: 'agregarcategoria',
-            component: CategoriasComponent,
-            title: 'Category'
-          }
-        ]
-      }
-    
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'contacto', component: ContactoComponentComponent },
+  { path: 'cubecraft', component: CubecraftCityComponent },
+  { path: 'registroUsuarios', component: RegistroDeUsuariosComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'accesoadmin', component: AccesoAdminComponent },
+  { path: 'separadores', component: SeparadoresComponent },
+  { path: 'set-stickers', component: SetStickersComponent },
+  { path: '', component: PaginaPrincipalComponent },
+  { path: 'Quien-somos', component: QuienesSomosComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'samplepage', title: 'Sample Page', component: SamplepageComponent },
+  { path: 'agregarproductos', component: ProductsComponent },
+  { path: 'categoria', component: CategoriasComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'metodo-pago', component: MetodoPagoComponent },
+  { path: 'confirmacion-compra', component: ConfirmacionCompraComponent },
+  { path: 'procesando-pago', component: ProcesandoPagoComponent },
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'usuario/historial-compras', component: HistorialComprasComponent },
+  { path: 'cambio-contrasena', component: ChangePasswordComponent },
+  { path: 'recovery-password', component: RecoveryPasswordComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [],
+    children: [
+      {
+        path: 'agregarproducto',
+        component: ProductsComponent,
+        title: 'Products',
+      },
+      {
+        path: 'agregarcategoria',
+        component: CategoriasComponent,
+        title: 'Category',
+      },
+    ],
+  },
 ];
