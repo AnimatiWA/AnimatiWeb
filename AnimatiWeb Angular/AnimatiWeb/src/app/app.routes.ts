@@ -14,7 +14,6 @@ import { ProductsComponent } from './pages/admin/productos/productos.component';
 import { CategoriasComponent } from './pages/admin/categorias/categorias.component';
 import { CarritoComponent } from './pages/carrito/carrito/carrito.component';
 import { ConfirmacionCompraComponent } from './pages/carrito/confirmacion-compra/confirmacion-compra.component';
-import { MetodoPagoComponent } from './pages/carrito/metodo-pago/metodo-pago.component';
 import { ProcesandoPagoComponent } from './pages/carrito/procesando-pago/procesando-pago.component';
 import { PerfilComponent } from './pages/usuario/perfil/perfil.component';
 import { LayoutComponent } from './admin/pages/layout/layout.component';
@@ -40,7 +39,6 @@ export const routes: Routes = [
   { path: 'agregarproductos', component: ProductsComponent },
   { path: 'categoria', component: CategoriasComponent },
   { path: 'carrito', component: CarritoComponent },
-  { path: 'metodo-pago', component: MetodoPagoComponent },
   { path: 'confirmacion-compra', component: ConfirmacionCompraComponent },
   { path: 'procesando-pago', component: ProcesandoPagoComponent },
   { path: 'perfil', component: PerfilComponent },
