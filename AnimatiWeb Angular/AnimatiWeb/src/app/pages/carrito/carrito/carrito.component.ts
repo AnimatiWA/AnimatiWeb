@@ -31,6 +31,10 @@ export class CarritoComponent {
   private mensajeElement: HTMLElement | null = null;
   private mensajeTimeout: any = null;
 
+
+  //#region Aparte
+  //Todo esto tendrian que haberlo hecho en un componente aparte
+
   /**
    * Muestra un mensaje no bloqueante en la interfaz
    * @param mensaje Texto a mostrar
@@ -101,14 +105,15 @@ export class CarritoComponent {
     }, 3000);
   }
 
+  //#endregion
+
   ngOnInit(): void {
-    this.carritoService.getProductosCarrito().subscribe({
-      next: (listaProductos) => (this.listaProductos = listaProductos),
-      error: (err) => {
-        alert(err.error.error);
-        this.router.navigate(['/gallery']);
-      },
+    
+    this.carritoService.itemsCarrito$.subscribe((productos) => {
+      this.listaProductos = productos;
     });
+
+    this.carritoService.actualizarProductosCarrito();
   }
 
   getTotal() {
@@ -132,25 +137,6 @@ export class CarritoComponent {
     }
     this.checkout();
   }
-
-  // checkout() {
-  //   // Verificar que hayan productos en el carrito
-  //   if (!this.listaProductos.length) {
-  //     this.mostrarMensaje('El carrito está vacío', 'error');
-  //     return;
-  //   }
-
-  //   // Redirigir al componente de métodos de pago
-  //   const montoCompra = this.total;
-  //   const cantidadItems = this.listaProductos.reduce((total, item) => total + (item.Cantidad || 0), 0);
-
-  //   this.router.navigate(['/metodo-pago'], {
-  //     queryParams: {
-  //       total: montoCompra,
-  //       items: cantidadItems
-  //     }
-  //   });
-  // }
 
   checkout() {
     // Verificar que hayan productos en el carrito
@@ -181,101 +167,30 @@ export class CarritoComponent {
     });
   }
 
-  // Este método se mantiene para compatibilidad con código existente
-  finalizarCompra() {
-    this.checkout();
-  }
-
-  private procesarCompraDirecta(montoCompra: number, cantidadItems: number) {
-    this.loading = true;
-    this.error = null;
-
-    // Primero registramos la compra en el historial
-    this.purchaseHistoryService
-      .registrarCompra({
-        total: montoCompra,
-        items: cantidadItems,
-      })
-      .pipe(
-        catchError((error) => {
-          console.error('Error al registrar la compra en el historial:', error);
-          return of(null); // Continuamos con el proceso aunque falle el registro en historial
-        }),
-        finalize(() => {
-          // Procesar el carrito independientemente de si se registró en el historial
-          this.carritoService.createCarrito().subscribe({
-            next: (carrito) => {
-              const ordenId = 'ORD-' + Date.now().toString().slice(-8);
-              this.carritoService.resetCarrito().subscribe({
-                next: () => {
-                  this.loading = false;
-                  this.listaProductos = [];
-                  this.total = 0;
-                  this.carritoService.actualizarProductosCarrito();
-
-                  // Navegar a la página de confirmación con los datos de la compra
-                  this.router.navigate(['/confirmacion-compra'], {
-                    queryParams: {
-                      total: montoCompra,
-                      items: cantidadItems,
-                      ordenId: ordenId,
-                      fecha: new Date().toISOString(),
-                    },
-                  });
-                },
-                error: (err) => {
-                  this.loading = false;
-                  this.error = 'Error al vaciar el carrito';
-                  console.error('Error al resetear el carrito:', err);
-                  alert(
-                    'Compra procesada, pero ocurrió un error al vaciar el carrito'
-                  );
-                  this.listaProductos = [];
-                  this.total = 0;
-                  this.carritoService.actualizarProductosCarrito();
-                  this.router.navigate(['/']);
-                },
-              });
-            },
-            error: (err) => {
-              this.loading = false;
-              this.error = 'No se pudo confirmar la compra';
-              console.error('Error al crear el carrito:', err);
-              alert('No se pudo confirmar la compra');
-            },
-          });
-        })
-      )
-      .subscribe();
-  }
-
   deleteProducto(producto: ProductoCarrito) {
-    // Almacenamos el índice antes de eliminar para no perderlo
-    const indiceProducto = this.listaProductos.indexOf(producto);
-
-    // Hacemos una eliminación optimista para actualizar la UI inmediatamente
-    if (indiceProducto > -1) {
-      this.listaProductos.splice(indiceProducto, 1);
-    }
-
-    // Recalcular el total inmediatamente
-    this.getTotal();
 
     // Mostrar el loading
-    this.loading = true;
+    producto.loading = true;
 
-    // La eliminación ya llama internamente a actualizarProductosCarrito()
     this.carritoService.deleteProducto(producto).subscribe({
       next: () => {
-        this.loading = false;
+    
+        const indiceProducto = this.listaProductos.indexOf(producto);
+
+        if (indiceProducto > -1) {
+          this.listaProductos.splice(indiceProducto, 1);
+        }
+
+        this.getTotal();
+
+        producto.loading = false;
 
         // Usamos una notificación no bloqueante
         this.mostrarMensaje('Producto eliminado', 'success');
       },
       error: (err) => {
         // Si falla, revertimos la operación local
-        this.loading = false;
-        this.carritoService.actualizarProductosCarrito();
+        producto.loading = false;
         this.mostrarMensaje('Error al eliminar producto', 'error');
         console.error('Error al eliminar producto:', err);
       },
@@ -283,33 +198,46 @@ export class CarritoComponent {
   }
 
   deleteUnProducto(producto: ProductoCarrito) {
+
     if (producto.Cantidad <= 1) {
       return;
     }
 
-    // Actualización optimista local
-    const cantidadOriginal = producto.Cantidad;
-    producto.Cantidad = Math.max(1, producto.Cantidad - 1);
+    producto.loading = true;
 
+    const precioOriginal = producto.Precio;
+    const cantidadOriginal = producto.Cantidad;
+
+    const productoActualizado: ProductoCarrito = {
+      ...producto,
+      Precio: precioOriginal - (precioOriginal / cantidadOriginal),
+      Cantidad: Math.max(1, cantidadOriginal - 1),
+      loading: true,
+    };
+
+    producto = productoActualizado
+    
     // Recalcular el total inmediatamente
     this.getTotal();
 
-    this.loading = true;
-
     this.carritoService.deleteUnProducto(producto).subscribe({
+
       next: (productoActualizado) => {
+
         if (productoActualizado && productoActualizado.Cantidad !== undefined) {
           producto.Cantidad = Math.max(1, productoActualizado.Cantidad);
           this.getTotal();
         }
-        this.loading = false;
+        
+        producto.loading = false;
         this.mostrarMensaje('Producto eliminado', 'info');
       },
       error: (err) => {
         // Revertir al valor original en caso de error
         producto.Cantidad = cantidadOriginal;
+        producto.Precio = precioOriginal;
         this.getTotal();
-        this.loading = false;
+        producto.loading = false;
         this.mostrarMensaje('No se ha podido eliminar el producto', 'error');
         console.error('Error al eliminar unidad del producto:', err);
       },
@@ -317,25 +245,37 @@ export class CarritoComponent {
   }
 
   addUnProducto(producto: ProductoCarrito) {
-    // Actualización optimista local
+    
+    //Flag de carga del boton.
+
+    producto.loading = true;
+
+    const precioOriginal = producto.Precio;
     const cantidadOriginal = producto.Cantidad;
-    producto.Cantidad += 1;
+
+    const productoActualizado: ProductoCarrito = {
+      ...producto,
+      Precio: precioOriginal + (precioOriginal / cantidadOriginal),
+      Cantidad: cantidadOriginal + 1,
+      loading: true,
+    };
+
+    producto = productoActualizado
 
     // Recalcular el total inmediatamente
     this.getTotal();
 
-    this.loading = true;
-
     this.carritoService.addUnProducto(producto).subscribe({
       next: () => {
-        this.loading = false;
+        producto.loading = false;
         this.mostrarMensaje('Producto añadido', 'success');
       },
       error: (err) => {
         // Revertir al valor original en caso de error
+        producto.loading = false;
         producto.Cantidad = cantidadOriginal;
+        producto.Precio = precioOriginal;
         this.getTotal();
-        this.loading = false;
         this.mostrarMensaje(
           'No se ha podido agregar una unidad al producto',
           'error'
