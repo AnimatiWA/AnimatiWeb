@@ -46,7 +46,7 @@ export class GalleryComponent implements OnInit{
             }
         )
         
-        this.carritoService.cartItems$.subscribe(items => {
+        this.carritoService.itemsCarrito$.subscribe(items => {
             this.productosEnCarrito = items;
             this.actualizarCantidadesEnGaleria();
         });

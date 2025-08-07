@@ -66,7 +66,7 @@ export class NavComponent implements OnInit, OnDestroy {
       this.cartSubscription.unsubscribe();
     }
 
-    this.cartSubscription = this.carritoService.cartItems$.subscribe(productos => {
+    this.cartSubscription = this.carritoService.itemsCarrito$.subscribe(productos => {
       console.log('NavComponent: Actualizando contador del carrito con', productos.length, 'productos');
       if (productos && Array.isArray(productos)) {
         this.cartItemsCount = productos.reduce((total, item) => {
