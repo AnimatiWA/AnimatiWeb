@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -28,7 +27,6 @@ header {
     height: 62px;
 }
 
-
 .nav-menu {
     display: flex;
     align-items: center;
@@ -57,7 +55,6 @@ header {
     margin-right: 8px;
 }
 
-
 .nav-link:hover,
 .nav-link:focus {
     background-color: rgba(155, 7, 241, 0.781);
@@ -65,7 +62,6 @@ header {
     color: #fff;
     outline: 2px solid #641881;
 }
-
 
 .dropdown-menu {
     min-width: 10rem;
@@ -93,7 +89,6 @@ header {
     text-decoration: none;
 }
 
-
 .cart-container {
     position: relative;
     display: flex;
@@ -118,7 +113,6 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border: 2px solid white;
 }
-
 
 @media (max-width: 768px) {
     .nav-menu {
@@ -146,7 +140,6 @@ header {
         text-align: center;
     }
     
-
     .nav-list {
         flex-wrap: wrap;
     }
@@ -178,4 +171,86 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Estilos uniformes para el dropdown de admin */
+.nav-item.dropdown {
+    position: relative;
+}
+
+/* El link de admin ahora usa los mismos estilos que otros nav-links */
+.admin-link {
+    color: #641881;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 10px 15px;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.admin-link i {
+    margin-right: 8px;
+}
+
+.admin-link:hover,
+.admin-link:focus {
+    background-color: rgba(155, 7, 241, 0.781);
+    border-radius: 5px;
+    color: #fff !important;
+    outline: 2px solid #641881;
+}
+
+/* El dropdown menu de admin usa los mismos estilos que otros dropdowns */
+.admin-dropdown {
+    min-width: 10rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-dropdown .dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    clear: both;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    color: #641881;
+}
+
+.admin-dropdown .dropdown-item:hover,
+.admin-dropdown .dropdown-item:focus {
+    background: #641881;
+    color: white;
+    text-decoration: none;
+}
+
+.admin-dropdown .dropdown-item i {
+    margin-right: 8px;
+}
+
+/* Responsive para móviles - admin sigue el mismo patrón */
+@media (max-width: 768px) {
+    .admin-link {
+        margin: 5px 0;
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+    
+    .admin-dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+    }
+    
+    .admin-dropdown .dropdown-item {
+        padding: 0.5rem 1rem;
+    }
 }

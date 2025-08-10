@@ -24,43 +24,69 @@ import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-pa
 import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
 
 export const routes: Routes = [
+  // === RUTAS PÚBLICAS ===
+  { path: '', component: PaginaPrincipalComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'contacto', component: ContactoComponentComponent },
   { path: 'cubecraft', component: CubecraftCityComponent },
-  { path: 'registroUsuarios', component: RegistroDeUsuariosComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'accesoadmin', component: AccesoAdminComponent },
   { path: 'separadores', component: SeparadoresComponent },
   { path: 'set-stickers', component: SetStickersComponent },
-  { path: '', component: PaginaPrincipalComponent },
   { path: 'Quien-somos', component: QuienesSomosComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'samplepage', title: 'Sample Page', component: SamplepageComponent },
-  { path: 'agregarproductos', component: ProductsComponent },
-  { path: 'categoria', component: CategoriasComponent },
+  
+  // === RUTAS DE AUTENTICACIÓN ===
+  { path: 'login', component: LoginComponent },
+  { path: 'registroUsuarios', component: RegistroDeUsuariosComponent },
+  { path: 'accesoadmin', component: AccesoAdminComponent },
+  { path: 'cambio-contrasena', component: ChangePasswordComponent },
+  { path: 'recovery-password', component: RecoveryPasswordComponent },
+  
+  // === RUTAS DE USUARIO LOGUEADO ===
   { path: 'carrito', component: CarritoComponent },
   { path: 'confirmacion-compra', component: ConfirmacionCompraComponent },
   { path: 'procesando-pago', component: ProcesandoPagoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'usuario/historial-compras', component: HistorialComprasComponent },
-  { path: 'cambio-contrasena', component: ChangePasswordComponent },
-  { path: 'recovery-password', component: RecoveryPasswordComponent },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  
+  // === RUTAS DE ADMINISTRACIÓN ===
   {
-    path: '',
-    component: LayoutComponent,
-    canActivate: [],
+    path: 'admin',
+    // canActivate: [AdminGuard], // Descomenta cuando tengas el guard
     children: [
       {
-        path: 'agregarproducto',
+        path: 'productos',
         component: ProductsComponent,
-        title: 'Products',
+        title: 'Gestión de Productos'
       },
       {
-        path: 'agregarcategoria',
+        path: 'categorias',
         component: CategoriasComponent,
-        title: 'Category',
+        title: 'Gestión de Categorías'
       },
-    ],
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'Dashboard Admin'
+      },
+      // Redirigir /admin a /admin/productos por defecto
+      {
+        path: '',
+        redirectTo: 'productos',
+        pathMatch: 'full'
+      }
+    ]
   },
+
+  // === RUTAS LEGACY/COMPATIBILIDAD (para no romper enlaces existentes) ===
+  // Redirigir rutas antiguas a las nuevas
+  { path: 'agregarproductos', redirectTo: 'admin/productos', pathMatch: 'full' },
+  { path: 'agregarproducto', redirectTo: 'admin/productos', pathMatch: 'full' },
+  { path: 'categoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
+  { path: 'agregarcategoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
+  { path: 'dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
+  
+  // === RUTAS DE DESARROLLO/TESTING ===
+  { path: 'samplepage', title: 'Sample Page', component: SamplepageComponent },
+
+  // === RUTA CATCH-ALL (debe ir al final) ===
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
