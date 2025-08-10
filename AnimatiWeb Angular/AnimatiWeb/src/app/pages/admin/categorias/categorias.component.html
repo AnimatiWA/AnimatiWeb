@@ -35,13 +35,8 @@
                          (input)="onSearchChange($event)">
                 </div>
               </div>
-              <!-- Botón agregar -->
-              <div>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaCategoriaModal">
-                  <i class="fas fa-plus me-2"></i>
-                  Nueva Categoría
-                </button>
-              </div>
+          
+             
             </div>
           </div>
         </div>
@@ -66,10 +61,7 @@
                       <i class="fas fa-align-left me-2"></i>
                       Descripción
                     </th>
-                    <th class="text-center">
-                      <i class="fas fa-cogs me-2"></i>
-                      Acciones
-                    </th>
+                  
                   </tr>
                 </thead>
                 <tbody>
@@ -91,16 +83,7 @@
                     <td>
                       <span class="descripcion-text">{{item.Descripcion_Categoria}}</span>
                     </td>
-                    <td class="text-center">
-                      <div class="action-buttons">
-                        <button class="btn btn-sm btn-primary" title="Editar">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" title="Eliminar">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div>
-                    </td>
+                  
                   </tr>
                 </tbody>
               </table>
@@ -110,20 +93,7 @@
       </div>
     </div>
 
-    <!-- Estado vacío (mostrar cuando no hay categorías) -->
-    <div class="row" *ngIf="(filteredCategorias | async)?.length === 0">
-      <div class="col-12">
-        <div class="empty-state">
-          <i class="fas fa-tags fa-3x"></i>
-          <h4>No hay categorías disponibles</h4>
-          <p>Comienza creando tu primera categoría de productos</p>
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaCategoriaModal">
-            <i class="fas fa-plus me-2"></i>
-            Crear Primera Categoría
-          </button>
-        </div>
-      </div>
-    </div>
+
 
     <!-- Estadísticas rápidas -->
     <div class="row mt-4">
@@ -140,38 +110,4 @@
   </div>
 </div>
 
-<!-- Modal para nueva categoría -->
-<div class="modal fade" id="nuevaCategoriaModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">
-          <i class="fas fa-plus me-2"></i>
-          Nueva Categoría
-        </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label class="form-label required">Nombre de la Categoría</label>
-            <input type="text" class="form-control" placeholder="Ej: Bebidas, Comidas, Postres...">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Descripción</label>
-            <textarea class="form-control" rows="3" 
-                      placeholder="Describe brevemente esta categoría..."></textarea>
-          </div>
-     
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">
-          <i class="fas fa-save me-2"></i>
-          Guardar Categoría
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+ 
