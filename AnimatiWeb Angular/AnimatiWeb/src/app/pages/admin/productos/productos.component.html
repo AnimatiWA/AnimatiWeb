@@ -1,29 +1,96 @@
 <app-layout></app-layout>
-<div class="row conteiner-fluid">
-  <div [ngClass]="panelVisible ? 'col-8' : 'col-12'" >
-    <div class="card">
-      <div class="card-header bg-primary">
-        <div class="row">
+
+<!-- Loading spinner -->
+<div class="d-flex justify-content-center my-4" *ngIf="loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+<div class="row container-fluid" *ngIf="!loading">
+  <!-- Lista de productos -->
+  <div [ngClass]="panelVisible ? 'col-lg-8 col-md-7' : 'col-12'">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <div class="row align-items-center">
           <div class="col-6">
-            Lista de Productos
+            <h5 class="mb-0">
+              <i class="fas fa-boxes"></i> Lista de Productos
+              <span class="badge bg-light text-dark ms-2">{{listaProductos.length || 0}}</span>
+            </h5>
           </div>
           <div class="col-6 text-end">
-            <button class="btn btn-sm btn-success" (click)="abrirPanelNuevoProducto()">Nuevo</button>
+            <button 
+              class="btn btn-success btn-sm" 
+              (click)="abrirPanelNuevoProducto()"
+              [disabled]="loading">
+              <i class="fas fa-plus"></i> Nuevo Producto
+            </button>
           </div>
         </div>
       </div>
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-3" *ngFor="let producto of listaProductos">
-            <div class="card" >
-              <img [src]="producto.Imagen" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title">{{producto.Nombre_Producto}}</h5>
-                <h6 class="card-title">Codigo: {{producto.Codigo_Producto}}</h6>
-                <p class="card-text"> Precio: ${{producto.Precio}}</p>
-                <p class="card-text">Stock: {{producto.Stock}}</p>
-                <a  class="btn btn-primary" (click)="onEditarProducto(producto)">Editar</a>
-                <a  class="btn btn-danger mx-2"(click)="onEliminarProducto(producto)" >Eliminar</a>
+      
+      <div class="card-body">
+        <!-- Mensaje cuando no hay productos -->
+        <div class="text-center py-4" *ngIf="listaProductos.length === 0">
+          <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+          <h5 class="text-muted">No hay productos disponibles</h5>
+          <p class="text-muted">Agrega tu primer producto usando el botón "Nuevo Producto"</p>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="row" *ngIf="listaProductos.length > 0">
+          <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4" *ngFor="let producto of listaProductos; trackBy: trackByProductId">
+            <div class="card h-100 shadow-sm producto-card">
+              <div class="position-relative">
+                <img 
+                  [src]="getImageUrl(producto.Imagen)" 
+                  class="card-img-top" 
+                  alt="{{producto.Nombre_Producto}}"
+                  style="height: 200px; object-fit: cover;"
+                  (error)="onImageError($event)">
+                
+                <!-- Badge de stock -->
+                <span 
+                  class="position-absolute top-0 end-0 badge m-2"
+                  [ngClass]="producto.Stock > 10 ? 'bg-success' : (producto.Stock > 0 ? 'bg-warning' : 'bg-danger')">
+                  Stock: {{producto.Stock}}
+                </span>
+              </div>
+              
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title text-truncate" [title]="producto.Nombre_Producto">
+                  {{producto.Nombre_Producto}}
+                </h6>
+                <p class="card-text small text-muted mb-1">
+                  <i class="fas fa-barcode"></i> Código: {{producto.Codigo_Producto}}
+                </p>
+                <p class="card-text small text-muted mb-2">
+                  <i class="fas fa-tag"></i> Categoría: {{getCategoryName(producto.Id_Categoria)}}
+                </p>
+                <h5 class="text-success mb-3">
+                  <i class="fas fa-dollar-sign"></i>{{producto.Precio | number:'1.2-2'}}
+                </h5>
+                
+                <!-- Botones de acción -->
+                <div class="mt-auto">
+                  <div class="btn-group w-100" role="group">
+                    <button 
+                      class="btn btn-outline-primary btn-sm"
+                      (click)="onEditarProducto(producto)"
+                      [disabled]="loading"
+                      title="Editar producto">
+                      <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button 
+                      class="btn btn-outline-danger btn-sm"
+                      (click)="onEliminarProducto(producto)"
+                      [disabled]="loading"
+                      title="Eliminar producto">
+                      <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>       
@@ -31,60 +98,181 @@
       </div>
     </div>
   </div>
-  <div class="col-4" *ngIf="panelVisible">
-    <div class="card">
-      <div class="card-header bg-primary">
-        <div class="row">
-          <div class="col-6">
-            Nuevo Productos
+
+  <!-- Panel lateral para crear/editar -->
+  <div class="col-lg-4 col-md-5" *ngIf="panelVisible">
+    <div class="card shadow">
+      <div class="card-header" [ngClass]="isEditMode ? 'bg-warning' : 'bg-success'">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <h6 class="mb-0 text-white">
+              <i [class]="isEditMode ? 'fas fa-edit' : 'fas fa-plus'"></i>
+              {{isEditMode ? 'Editar Producto' : 'Nuevo Producto'}}
+            </h6>
           </div>
-          <div class="col-6 text-end">
-            <button class="btn btn-sm btn-success" (click)="cerrarPanelNuevoProducto()">Cerrar</button>
+          <div class="col-4 text-end">
+            <button 
+              class="btn btn-sm btn-light" 
+              (click)="cerrarPanelNuevoProducto()"
+              [disabled]="loading">
+              <i class="fas fa-times"></i> Cerrar
+            </button>
           </div>
         </div>
       </div>
-      <div class="card-body" >
-        
-          <div class="row">
-            <div class="col-6">
-              <label for="">Codigo de Producto</label>
-              <input type="text" [(ngModel)]="objetoProducto.Codigo_Producto" class="form-control"[value]="productoCodigo">
-            </div>
-            <div class="col-6">
-              <label for="">Nombre de Producto</label>
-              <input type="text" [(ngModel)]="objetoProducto.Nombre_Producto" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="">Categoria</label>
-              
-              <select [(ngModel)]="objetoProducto.Id_Categoria" class="form-select" name="Id_Categoria" #Id_Categoria="ngModel">
-                <option *ngFor="let cate of listaCategorias" [value]="cate.Id_Categoria">{{cate.Nombre_Categoria}}</option>
-              </select>
-            </div>
-            <div class="col-6">
-              <label for="">Imagen de Producto</label>
-              <input type="text" [(ngModel)]="objetoProducto.Imagen" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="">Precio</label>
-              <input type="text" [(ngModel)]="objetoProducto.Precio" class="form-control">
-            </div>
-            <div class="col-6">
-              <label for="">Stock</label>
-              <input type="text" [(ngModel)]="objetoProducto.Stock" class="form-control">
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <button class="btn btn-success">reiniciar></button>
-              </div>
-              <div class="col-6 text-center">
-                <button class="btn btn-success" *ngIf="objetoProducto.Codigo_Producto !==0" (click)="enviarProducto()">Crear Producto</button>
-                <button class="btn btn-primary"  *ngIf="objetoProducto.Codigo_Producto !==null" (click)="actualizarProducto()">Actualizar Producto</button>
-              </div>
+      
+      <div class="card-body">
+        <form #productForm="ngForm" novalidate>
+          <!-- Código del producto (solo lectura en edición) -->
+          <div class="mb-3">
+            <label class="form-label">
+              <i class="fas fa-barcode"></i> Código de Producto
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="objetoProducto.Codigo_Producto" 
+              class="form-control"
+              name="codigo"
+              [readonly]="isEditMode"
+              placeholder="Generado automáticamente">
+          </div>
+
+          <!-- Nombre del producto -->
+          <div class="mb-3">
+            <label class="form-label required">
+              <i class="fas fa-tag"></i> Nombre del Producto
+            </label>
+            <input 
+              type="text" 
+              [(ngModel)]="objetoProducto.Nombre_Producto" 
+              class="form-control"
+              name="nombre"
+              required
+              placeholder="Ingresa el nombre del producto">
+          </div>
+
+          <!-- Categoría -->
+          <div class="mb-3">
+            <label class="form-label required">
+              <i class="fas fa-list"></i> Categoría
+            </label>
+            <select 
+              [(ngModel)]="objetoProducto.Id_Categoria" 
+              class="form-select" 
+              name="categoria"
+              required>
+              <option value="0">Selecciona una categoría</option>
+              <option *ngFor="let cate of listaCategorias" [value]="cate.Id_Categoria">
+                {{cate.Nombre_Categoria}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Imagen -->
+          <div class="mb-3">
+            <label class="form-label required">
+              <i class="fas fa-image"></i> URL de la Imagen
+            </label>
+            <input 
+              type="url" 
+              [(ngModel)]="objetoProducto.Imagen" 
+              class="form-control"
+              name="imagen"
+              required
+              placeholder="https://ejemplo.com/imagen.jpg">
+            <!-- Preview de imagen -->
+            <div class="mt-2" *ngIf="objetoProducto.Imagen">
+              <img 
+                [src]="getImageUrl(objetoProducto.Imagen)" 
+                class="img-thumbnail"
+                style="max-width: 100px; max-height: 100px;"
+                (error)="onImageError($event)">
             </div>
           </div>
-        
+
+          <!-- Precio -->
+          <div class="mb-3">
+            <label class="form-label required">
+              <i class="fas fa-dollar-sign"></i> Precio
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="objetoProducto.Precio" 
+              class="form-control"
+              name="precio"
+              min="0"
+              step="0.01"
+              required
+              placeholder="0.00">
+          </div>
+
+          <!-- Stock -->
+          <div class="mb-3">
+            <label class="form-label required">
+              <i class="fas fa-boxes"></i> Stock
+            </label>
+            <input 
+              type="number" 
+              [(ngModel)]="objetoProducto.Stock" 
+              class="form-control"
+              name="stock"
+              min="0"
+              required
+              placeholder="0">
+          </div>
+
+          <!-- Botones de acción -->
+          <div class="row g-2">
+            <div class="col-6">
+              <button 
+                type="button"
+                class="btn btn-outline-secondary w-100" 
+                (click)="resetForm()"
+                [disabled]="loading">
+                <i class="fas fa-undo"></i> Reiniciar
+              </button>
+            </div>
+            <div class="col-6">
+              <button 
+                type="button"
+                *ngIf="!isEditMode"
+                class="btn btn-success w-100" 
+                (click)="enviarProducto()"
+                [disabled]="loading || !productForm.valid">
+                <span class="spinner-border spinner-border-sm me-2" *ngIf="loading"></span>
+                <i class="fas fa-plus" *ngIf="!loading"></i>
+                {{loading ? 'Creando...' : 'Crear'}}
+              </button>
+              
+              <button 
+                type="button"
+                *ngIf="isEditMode"
+                class="btn btn-primary w-100" 
+                (click)="actualizarProducto()"
+                [disabled]="loading || !productForm.valid">
+                <span class="spinner-border spinner-border-sm me-2" *ngIf="loading"></span>
+                <i class="fas fa-save" *ngIf="!loading"></i>
+                {{loading ? 'Actualizando...' : 'Actualizar'}}
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+.required::after {
+  content: " *";
+  color: red;
+}
+
+.producto-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.producto-card:hover {
+  transform: translateY(-2px);
+}
+</style>

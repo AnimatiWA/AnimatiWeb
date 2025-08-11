@@ -1,60 +1,89 @@
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-<script>
-  //validaciones en JavaScript
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
-    const nombreUsuario = document.querySelector('#Nombre_Usuario');
-    const email = document.querySelector('#email');
-
-    form.addEventListener('submit', function (event) {
-      // Valida el campo Nombre de Usuario
-      if (!nombreUsuario.checkValidity()) {
-        alert('El campo Nombre de Usuario es inválido.');
-        event.preventDefault(); // Evita que se envíe el formulario
-        return;
-      }
-
-      // Valida el campo de Correo Electrónico
-      if (!email.checkValidity()) {
-        alert('El campo Correo Electrónico es inválido.');
-        event.preventDefault();
-        return;
-      }
-    });
-  });
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
 
 <div class="bg-gradient-custom">
-<div class="container">
-        <header class="container-fluid text-center">
-            <div class="titulo">
-                <h1>
-                    <img src="../../assets/images/h1-contacto.png" alt="Contáctanos">
-                </h1>
-            </div>
-        </header>
+  <main class="container" role="main">
+    <header class="container-fluid text-center" aria-labelledby="tituloContacto">
+      <div class="titulo">
+        <h1 id="tituloContacto">
+          <img src="../../assets/images/h1-contacto.png" alt="Contáctanos" />
+        </h1>
+      </div>
+    </header>
 
-  <div class="body">
-    <h6>Escribínos un mensaje para que entremos en contacto contigo.</h6>
-   <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
-  <fieldset>
-    <label for="Nombre_Usuario">Nombre</label>
-    <input id="Nombre_Usuario" name="nombre" type="text" required [(ngModel)]="contacto.nombre">
-  </fieldset>
-  <fieldset>
-    <label for="email">Correo electrónico</label>
-    <input id="email" name="email" type="email" required [(ngModel)]="contacto.email">
-  </fieldset>
-  <fieldset>
-    <label for="Mensaje">Mensaje</label>
-    <textarea id="Mensaje" name="mensaje" rows="6" required [(ngModel)]="contacto.mensaje"></textarea>
-  </fieldset>
-   <fieldset class="submit-container">
-           <input type="submit" name="submit" value="Envía tu mensaje">
-  </fieldset>
-</form>
+    <section class="body" aria-label="Formulario de contacto">
+      <h6>Escribínos un mensaje para que entremos en contacto contigo.</h6>
+      <form (ngSubmit)="onSubmit($event)" #contactForm="ngForm" novalidate aria-describedby="instruccionesFormulario">
+        <p id="instruccionesFormulario" class="sr-only">
+          Todos los campos son obligatorios e incluyen validaciones en tiempo real
+        </p>
 
-  </div>
-  </div>
+        <fieldset>
+          <label for="Nombre_Usuario">Nombre</label>
+          <input
+            id="Nombre_Usuario"
+            name="nombre"
+            type="text"
+            required
+            [(ngModel)]="contacto.nombre"
+            #nombre="ngModel"
+            aria-required="true"
+          />
+          <small *ngIf="nombre.invalid && nombre.touched" class="error-msg">El nombre es obligatorio.</small>
+        </fieldset>
+
+        <fieldset>
+          <label for="email">Correo electrónico</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            [(ngModel)]="contacto.email"
+            #email="ngModel"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            aria-required="true"
+          />
+          <small *ngIf="email.invalid && email.touched" class="error-msg">Ingresa un correo electrónico válido.</small>
+        </fieldset>
+
+        <fieldset>
+          <label for="Mensaje">Mensaje</label>
+          <textarea
+            id="Mensaje"
+            name="mensaje"
+            rows="6"
+            required
+            maxlength="240"
+            [(ngModel)]="contacto.mensaje"
+            #mensaje="ngModel"
+            aria-required="true"
+            aria-describedby="longitudMensaje"
+          ></textarea>
+          <small *ngIf="mensaje.invalid && mensaje.touched" class="error-msg">El mensaje no puede estar vacío.</small>
+          <small
+            id="longitudMensaje"
+            [ngClass]="{ 'caracteres-excedido': contacto.mensaje.length === 240 }"
+            class="caracteres-info"
+          >
+            {{ contacto.mensaje.length }}/240 caracteres
+          </small>
+        </fieldset>
+
+        <fieldset>
+          <re-captcha
+            #captchaRef
+            siteKey="6Lc3VVkrAAAAAIhcqo8SkU1oZ6et8eL9Rj9epiME"
+            (resolved)="onCaptchaResolved($event)"
+            required
+          >
+          </re-captcha>
+          <small *ngIf="!captchaValido && intentadoEnviar" class="error-msg">Por favor, confirma que no eres un robot.</small>
+        </fieldset>
+
+        <fieldset class="submit-container">
+          <input type="submit" name="submit" value="Envía tu mensaje" />
+        </fieldset>
+      </form>
+    </section>
+  </main>
 </div>

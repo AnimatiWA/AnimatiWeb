@@ -29,8 +29,8 @@
           <td>{{ compra.Cantidad }}</td>
           <td>${{ compra.Precio | number:'1.2-2' }}</td>
           <td>
-            <span [ngClass]="compra.Confirmado ? 'estado-confirmado' : 'estado-pendiente'">
-              {{ compra.Confirmado ? 'Confirmado' : 'Pendiente' }}
+            <span [ngClass]="compra.Confirmado === 'aprobado' ? 'estado-confirmado' : 'estado-pendiente'">
+              {{ compra.Confirmado === 'aprobado' ? 'Confirmado' : 'Pendiente' }}
             </span>
           </td>
         </tr>

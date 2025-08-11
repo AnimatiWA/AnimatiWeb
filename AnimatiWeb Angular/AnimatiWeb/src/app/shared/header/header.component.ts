@@ -42,7 +42,7 @@ constructor(
   
   private subscribeToCartChanges(): void {
     // Suscribirse a los cambios en el carrito para actualizar el contador en tiempo real
-    this.cartSubscription = this.carritoService.cartItems$.subscribe(productos => {
+    this.cartSubscription = this.carritoService.itemsCarrito$.subscribe(productos => {
       if (productos && Array.isArray(productos)) {
         // Calcular el número total de items (sumando todas las cantidades)
         this.cartItemsCount = productos.reduce((total, item) => {

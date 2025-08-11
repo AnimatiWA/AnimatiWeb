@@ -4,29 +4,36 @@
   <div *ngIf="listaProductos.length === 0">
     <p>No hay productos en el carrito.</p>
   </div>
+
   <div *ngIf="listaProductos.length > 0" class="text-end mt-4 carrito">
     <div class="productos">
       <div *ngFor="let producto of listaProductos" class="producto mb-3 p-3">
         <img [src]="producto.imagen_producto" alt="{{producto.nombre_producto}}" class="img-fluid mb-2">
         <div>
           <h3>{{producto.nombre_producto}}</h3>
-          <p>Precio: ${{producto.Precio}}</p>
+          <p>Precio: ${{producto.Precio / producto.Cantidad}}</p>
           <div class="cantidad">
             <p>Cantidad: {{producto.Cantidad}}</p>
             <div class="botones-cantidad">
-              <button class="btn btn-control btn-add" (click)="addUnProducto(producto)">
+              <button class="btn btn-control btn-add" [disabled]="producto.loading" (click)="addUnProducto(producto)"
+                [attr.aria-label]="'Agregar uno al producto ' + producto.nombre_producto">
                 <i class="fa fa-plus"></i> Agregar uno
               </button>
-              <button class="btn btn-control btn-delete" (click)="deleteUnProducto(producto)" [disabled]="producto.Cantidad <= 1">
+              <button class="btn btn-control btn-delete" [disabled]="producto.loading" (click)="deleteUnProducto(producto)"
+                [disabled]="producto.Cantidad <= 1"
+                [attr.aria-label]="'Borrar uno del producto ' + producto.nombre_producto">
                 <i class="fa fa-minus"></i> Borrar uno
               </button>
             </div>
           </div>
-          <p class="subtotal">Subtotal: ${{producto.Precio * producto.Cantidad}}</p>
+          <p class="subtotal">Subtotal: ${{producto.Precio}}</p>
         </div>
-        <button class="btn btn-close btn-borrar btn-animati" (click)="deleteProducto(producto)"></button>
+        <button class="btn btn-close btn-borrar btn-animati" [disabled]="producto.loading" (click)="deleteProducto(producto)"
+          [attr.aria-label]="'Eliminar ' + producto.nombre_producto + ' del carrito'">
+        </button>
       </div>
     </div>
+
     <div class="resumen">
       <h4>Resumen de compra</h4>
       <div class="cantidad">
@@ -37,7 +44,10 @@
         <p>Total:</p>
         <p>${{getTotal()}}</p>
       </div>
-      <button (click)="comprar()" class="btn btn-primary mt-2 btn-animati">Comprar</button>
+      <button (click)="comprar()" class="btn btn-primary mt-2 btn-animati"
+        aria-label="Finalizar compra y proceder al pago">
+        Comprar
+      </button>
     </div>
   </div>
 </div>

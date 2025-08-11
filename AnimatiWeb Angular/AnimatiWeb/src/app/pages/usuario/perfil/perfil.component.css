@@ -1,3 +1,19 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.bg-gradient-custom {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #c8b8ff, #e0d8ff);
+}
+
 .perfil-container {
   max-width: 800px;
   margin: 30px auto;
@@ -160,6 +176,39 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.perfil-body {
+  background: linear-gradient(to right, #b3e5fc, #e1f5fe);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  max-width: 860px;
+  width: 100%;
+}
+
+.perfil-titulo-visual {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.titulo-perfil-imagen {
+  width: 300px;
+  max-width: 100%;
+  display: block;
+}
+
+.btn-match {
+  display: block;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+  margin: 0 auto 16px auto;
 }
 
 @media (max-width: 768px) {

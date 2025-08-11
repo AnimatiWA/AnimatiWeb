@@ -101,6 +101,8 @@ class Carrito(models.Model):
     Usuario = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     Creado = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default = True)
+    Deshabilitado = models.DateTimeField(null=True, blank=True)
+    confirmado = models.BooleanField(default = False)
 
 class ProductoCarrito(models.Model):
     Codigo = models.ForeignKey(Producto, on_delete=models.CASCADE)

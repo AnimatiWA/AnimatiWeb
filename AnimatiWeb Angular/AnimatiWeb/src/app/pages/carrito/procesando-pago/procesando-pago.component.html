@@ -1,0 +1,46 @@
+<div class="process-container">
+  <div class="process-card">
+    <div class="header">
+      <h2>Procesamiento de Pago</h2>
+      <p class="subtitle" *ngIf="estadoPago === 'pendiente'">Por favor, aguarda unos instantes.</p>
+    </div>
+    <!-- Resumen de compra -->
+    <div class="order-summary">
+      <h3>Resumen de la compra</h3>
+      <div class="summary-details">
+        <div class="summary-row">
+          <span>Total productos:</span>
+          <span>{{ cantidadItems }} items</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span class="price">${{ montoCompra }}</span>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="mensajeDemora" class="alerta-demora">
+      {{ mensajeDemora }}
+    </p>
+
+    <div class="loading-container" *ngIf="estadoPago === 'pendiente' && mostrarSpinner">
+      <div class="spinner"></div>
+      <p>Estamos procesando tu pago, por favor no cierres esta ventana...</p>
+    </div>
+
+
+    <div class="success-container" *ngIf="estadoPago === 'aprobado'">
+      <h4 class="success-text">✅ ¡Tu pago fue aprobado exitosamente!</h4>
+    </div>
+
+    <div class="actions final-actions" *ngIf="mostrarBotones">
+      <button class="btn btn-outline-secondary" (click)="volverAlHistorial()">
+        <i class="fas fa-arrow-left"></i> Ir al historial de compras
+      </button>
+      <button class="btn btn-primary" (click)="volverATienda()">
+        Ir a la galeria
+      </button>
+    </div>
+
+  </div>
+</div>
