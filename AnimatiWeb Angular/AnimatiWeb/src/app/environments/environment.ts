@@ -43,5 +43,6 @@ export const environment = {
     REGISTER_PURCHASE: 'carrito/registrar',
     CREATE_PREFERENCE: 'mercadopago/crearPreferencia',
     GET_PURCHASE_STATUS: 'mercadopago/estadoPago',
+    GET_ALL_SALES: 'pedidos/resumenCompras',
   },
 };

@@ -1,1 +1,44 @@
-<p>sales works!</p>
+<app-layout></app-layout>
+
+
+<div  class="row container-fluid" *ngIf="venta && !loading" class="cards-container">
+  <div class="card shadow" >
+    <div class="card-header bg-primary text-white">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <h5 class="mb-0"><i class="fas fa-money-bill"></i> Resumen de Ventas</h5>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading">Cargando...</div>
+<div class="row">
+<div  *ngIf="venta && !loading" class="cards-container">
+  <div class="card h-1''shadow-sm producto-card">
+    <div class="card-body d-flex flex-column">
+      <h3>Total Ventas</h3>
+      <p>{{ venta.total_ventas }}</p>
+    </div>
+  </div>
+
+  
+  <div class="card h-100 shadow-sm producto-card">
+    <div class="card-body d-flex flex-column">
+      <h3>Total Ingresos</h3>
+      <p>{{ venta.total_ingresos }}</p>
+    </div>
+  </div>
+
+  <div class="card h-100 shadow-sm producto-card">
+    <div class="card-body d-flex flex-column">
+      <h3>Productos vendidos</h3>
+      <p>{{ venta.productos_vendidos }}</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+

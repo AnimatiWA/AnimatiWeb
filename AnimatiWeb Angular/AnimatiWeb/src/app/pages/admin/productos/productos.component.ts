@@ -210,7 +210,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     if (target) {
       target.src = 'assets/images/no-image.png';
     }
-  }
+    
+  } 
 }
 
 export class objetoProducto {
