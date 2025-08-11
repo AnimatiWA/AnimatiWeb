@@ -1,0 +1,9 @@
+[build]
+  base = "AnimatiWeb Angular/AnimatiWeb"
+  command = "ng build --configuration production"
+  publish = "dist/animati-web"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
