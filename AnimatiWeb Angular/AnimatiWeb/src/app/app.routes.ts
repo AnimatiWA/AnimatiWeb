@@ -22,6 +22,7 @@ import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.com
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
+import { SalesComponent } from './pages/admin/sales/sales.component';
 
 export const routes: Routes = [
   // === RUTAS PÚBLICAS ===
@@ -61,6 +62,11 @@ export const routes: Routes = [
         path: 'categorias',
         component: CategoriasComponent,
         title: 'Gestión de Categorías'
+      },
+            {
+        path: 'sales',
+        component: SalesComponent,
+        title: 'Resumen de ventas'
       },
       {
         path: 'dashboard',
