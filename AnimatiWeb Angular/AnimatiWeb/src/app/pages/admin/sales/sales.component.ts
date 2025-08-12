@@ -46,7 +46,14 @@ venta!: Ventas;
       }
     });
   }
+    get ticketPromedio(): number {
+    if (!this.venta || !this.venta.total_ventas || this.venta.total_ventas === 0) {
+      return 0;
+    }
+    return this.venta.total_ingresos / this.venta.total_ventas;
+  }
 }
+
 
 
 

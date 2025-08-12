@@ -209,8 +209,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLImageElement;
     if (target) {
       target.src = 'assets/images/no-image.png';
-    }
-    
+    } 
   } 
 }
 
