@@ -1,0 +1,33 @@
+<!-- Términos y Condiciones -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">🖋️ Términos y Condiciones de AnimatiApp</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="text-muted">(Versión "ya es tarde para arrepentirse")</h6>
+
+        <p>Bienvenido/a a AnimatiApp, la única papelería digital donde, además de venderte útiles, te vendemos la ilusión de que los vas a usar para estudiar.
+        Al presionar "Aceptar", firmás con tinta indeleble invisible en los siguientes términos:</p>
+
+        <ol>
+          <li><strong>Venta de alma y garantías inexistentes.</strong> Tu alma pasa a formar parte del inventario de AnimatiApp. No hay reembolso. No hay cambio. Si está dañada, la revendemos como "edición vintage".</li>
+          <li><strong>Obligación de compra.</strong> Desde ahora, deberás adquirir todo lo que AnimatiApp te sugiera: hojas que se autodestruyen, lápices que desaparecen misteriosamente, resaltadores que sólo marcan errores ortográficos… y nuestra exclusiva "goma de borrar la esperanza".</li>
+          <li><strong>Castigo por no consumir.</strong> Si pasás 24 horas sin comprar, enviaremos un ejército de clips oxidados para desorganizar todos tus apuntes.</li>
+          <li><strong>Acceso a tu vida privada.</strong> AnimatiApp tendrá derecho a revisar tu cuaderno, tu carpeta, tu cartuchera… y, si encontramos un bolígrafo de otra marca, lo cambiaremos por uno que solo escribe insultos.</li>
+          <li><strong>Tiempo de uso perpetuo.</strong> La app permanecerá instalada incluso después de tu muerte, para que tus herederos sigan recibiendo nuestras promos de lapiceras con olor a desesperación.</li>
+          <li><strong>Cláusula de destino inevitable.</strong> Todo camino lleva a comprar más hojas que jamás vas a llenar. No luches contra esto.</li>
+        </ol>
+
+        <p class="mt-4">Al aceptar, confirmás que AnimatiApp es tu nueva fuente de papel, tinta, caos y deuda emocional.</p>
+        <p>Y recordá: en Animati, la única línea que no vendemos es la de tu vida… pero podemos dibujarla por vos.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('terms-and-conditions').checked = true; bootstrap.Modal.getInstance(document.getElementById('termsModal')).hide();">Acepto</button>
+        <button type="button" class="btn btn-success" onclick="document.getElementById('terms-and-conditions').checked = true; bootstrap.Modal.getInstance(document.getElementById('termsModal')).hide();">Claro que acepto</button>
+      </div>
+    </div>
+  </div>
+</div>

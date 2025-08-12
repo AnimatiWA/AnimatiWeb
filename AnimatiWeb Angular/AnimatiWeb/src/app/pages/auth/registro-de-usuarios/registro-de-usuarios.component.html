@@ -105,9 +105,9 @@
             Deseo recibir correos electrónicos con novedades
           </label>
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="terms-and-conditions" formControlName="termsAndConditions">
+            <input type="checkbox" class="form-check-input" id="terms-and-conditions" formControlName="termsAndConditions" (click)="showTermsModal($event)">
             <label class="form-check-label" for="terms-and-conditions">
-              Acepto los <a href="./terms-y-co.html">términos y condiciones</a>
+              Acepto los <a href="javascript:void(0)" (click)="showTermsModal($event)">términos y condiciones</a>
             </label>
           </div>
           <div class="text-danger" *ngIf="formRegistro.get('termsAndConditions')?.touched && formRegistro.get('termsAndConditions')?.invalid">
@@ -116,7 +116,7 @@
             </div>
           </div>
           <div class="m-3">
-            <input class="btn btn-primary btn-enviar mt-3" (click)="registrarse()" value= "Crear cuenta" type=" button" />
+            <input class="btn btn-primary btn-enviar mt-3" (click)="registrarse()" value= "Crear cuenta" type=" button" [disabled]="!formRegistro.get('termsAndConditions')?.value" />
 
           </div>
         </fieldset>

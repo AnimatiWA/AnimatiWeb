@@ -5,7 +5,7 @@ import { User } from '../../../models/user';
 import { Usuario } from '../../../interface/usuario';
 import { RegisterService } from '../../../services/auth/register.service';
 import { CommonModule } from '@angular/common';
-
+declare var bootstrap: any; // Declaración para utilizar Bootstrap JS
 
 @Component({
   selector: 'app-registro-de-usuarios',
@@ -89,6 +89,37 @@ export class RegistroDeUsuariosComponent {
     } else {
       this.showConfirmPassword = !this.showConfirmPassword;
     }
+  }
+
+  showTermsModal(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Cargar el contenido del modal dinámicamente
+    fetch('/assets/terminos-modal.html')
+      .then(response => response.text())
+      .then(html => {
+        // Agregar el modal al body si no existe
+        if (!document.getElementById('termsModal')) {
+          const div = document.createElement('div');
+          div.innerHTML = html;
+          document.body.appendChild(div);
+          
+          // Configurar los botones del modal para marcar el checkbox
+          const acceptButtons = document.querySelectorAll('#termsModal .modal-footer button');
+          acceptButtons.forEach(button => {
+            button.addEventListener('click', () => {
+              this.formRegistro.get('termsAndConditions')?.setValue(true);
+              const modalInstance = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
+              modalInstance.hide();
+            });
+          });
+        }
+        
+        // Mostrar el modal
+        const termsModal = new bootstrap.Modal(document.getElementById('termsModal'));
+        termsModal.show();
+      });
   }
 
   registrarse() {
