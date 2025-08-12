@@ -95,28 +95,30 @@ export class RegistroDeUsuariosComponent {
     event.preventDefault();
     event.stopPropagation();
     
-    // Cargar el contenido del modal dinámicamente
+    const existingModal = document.getElementById('termsModal');
+    if (existingModal) {
+      existingModal.remove();
+    }
+    
     fetch('/assets/terminos-modal.html')
       .then(response => response.text())
       .then(html => {
-        // Agregar el modal al body si no existe
-        if (!document.getElementById('termsModal')) {
-          const div = document.createElement('div');
-          div.innerHTML = html;
-          document.body.appendChild(div);
-          
-          // Configurar los botones del modal para marcar el checkbox
-          const acceptButtons = document.querySelectorAll('#termsModal .modal-footer button');
-          acceptButtons.forEach(button => {
-            button.addEventListener('click', () => {
-              this.formRegistro.get('termsAndConditions')?.setValue(true);
-              const modalInstance = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
-              modalInstance.hide();
-            });
-          });
-        }
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        document.body.appendChild(div);
         
-        // Mostrar el modal
+        const acceptButtons = document.querySelectorAll('#termsModal .modal-footer button');
+        acceptButtons.forEach(button => {
+          button.replaceWith(button.cloneNode(true));
+          const newButton = document.querySelectorAll('#termsModal .modal-footer button')[Array.from(acceptButtons).indexOf(button)];
+          newButton.addEventListener('click', () => {
+            this.formRegistro.get('termsAndConditions')?.setValue(true);
+            this.formRegistro.get('termsAndConditions')?.markAsTouched();
+            const modalInstance = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
+            modalInstance.hide();
+          });
+        });
+        
         const termsModal = new bootstrap.Modal(document.getElementById('termsModal'));
         termsModal.show();
       });
@@ -146,7 +148,7 @@ export class RegistroDeUsuariosComponent {
     this.registerService.registrarse(objeto).subscribe({
       next: (data) => {
         console.log('Registro exitoso:', data);
-        alert('Cuenta creada exitosamente. Inicie sesión para continuar.');
+        alert(`Cuenta creada exitosamente para el usuario ${objeto.username}. Inicie sesión para continuar.`);
 
         setTimeout(() => {
           this.router.navigate(['/login']);
