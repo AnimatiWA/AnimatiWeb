@@ -28,7 +28,8 @@ import { RouterModule } from '@angular/router';
 
 
 export class SalesComponent implements OnInit{
-venta!: Ventas;
+  panelVisible: boolean = false;
+  venta!: Ventas;
   loading = false;
 
   constructor(private salesService: SalesService) {}
