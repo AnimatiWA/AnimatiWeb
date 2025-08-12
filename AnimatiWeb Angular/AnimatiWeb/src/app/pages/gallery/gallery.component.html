@@ -18,8 +18,8 @@
                 </div>
                 <h4>Nuestros productos son completamente originales y están ilustrados por Animati. Si desean algún diseño personalizado, no duden en solicitarlo.</h4>
             </header>
-            <div class="row" >
-                <div class="col-3" *ngFor="let producto of listaProductos">
+            <div class="row productos-grid" >
+                <div class="producto-item" *ngFor="let producto of listaProductos">
                     <article class="producto">
                         <img [src]="producto.Imagen" alt="Block de notas">
                         <p>Unidades disponibles: {{producto.Stock}}</p>

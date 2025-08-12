@@ -45,14 +45,16 @@
         </header>
 
         <!-- Productos -->
-        <div class="row">
-          <div class="col-3" *ngFor="let producto of listaProductos.slice(0, 4)">
-            <article class="producto">
+        <div class="productos-grid">
+          <article class="producto" *ngFor="let producto of listaProductos.slice(0, 4)">
+            <div class="producto-imagen">
               <img [src]="producto.Imagen" [alt]="producto.Nombre_Producto" />
-              <h6>{{ producto.Nombre_Producto }}</h6>
-              <h6>${{ producto.Precio }}</h6>
-            </article>
-          </div>
+            </div>
+            <div class="producto-info">
+              <h6 class="producto-nombre">{{ producto.Nombre_Producto }}</h6>
+              <h6 class="producto-precio">${{ producto.Precio }}</h6>
+            </div>
+          </article>
         </div>
 
         <!-- Botón con accesibilidad -->
