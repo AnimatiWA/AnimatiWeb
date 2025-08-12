@@ -79,6 +79,8 @@ export class NavComponent implements OnInit, OnDestroy {
     console.log('- userType en sessionStorage:', sessionStorage.getItem('userType'));
   }
 
+
+
   /**
    * Verifica si el usuario actual tiene permisos de administrador
    */
