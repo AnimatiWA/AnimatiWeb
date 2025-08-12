@@ -19,7 +19,7 @@ export class ContactoComponentComponent {
     mensaje: ''
   };
 
-  captchaValido = false;
+  captchaValido = true; // reCAPTCHA deshabilitado
   intentadoEnviar = false;
 
   @ViewChild('captchaRef') captchaRef!: RecaptchaComponent;

@@ -1,7 +1,7 @@
 [build]
   base = "AnimatiWeb Angular/AnimatiWeb"
   command = "ng build --configuration production"
-  publish = "dist/animati-web"
+  publish = "dist/animati-web/browser"
 
 [[redirects]]
   from = "/*"
