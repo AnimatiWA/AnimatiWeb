@@ -55,11 +55,22 @@
             <div class="card shadow-sm producto-card" class="cards-container">
               <div class="card-body d-flex flex-column">
                 <h3>Resumen ultimo trimestre</h3>
-                <p>{{ ticketPromedio | number:'1.2-2' }}</p>
+
+                    <ul>
+                      <li>Total Último Mes: {{ mesesPrevios.total_ultimo_mes | currency }}</li>
+                      <li>Total Penúltimo Mes: {{ mesesPrevios.total_penultimo_mes | currency }}</li>
+                      <li>Total Antepenúltimo Mes: {{ mesesPrevios.total_antepenultimo_mes | currency }}</li>
+                    </ul>
+
               </div>
             </div>
+            
+
         </div>
     </div>
   </div>
+
+
+
 
 

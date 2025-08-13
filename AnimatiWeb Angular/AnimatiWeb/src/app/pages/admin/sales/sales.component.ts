@@ -2,7 +2,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { SalesService } from '../../../services/sales/sales.service';
-import { Ventas } from '../../../interface/ventaslista';
+import { Ventas, MesesPrevios} from '../../../interface/ventaslista';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LayoutComponent } from "../../../admin/pages/layout/layout.component";
@@ -31,6 +31,11 @@ export class SalesComponent implements OnInit{
   panelVisible: boolean = false;
   venta!: Ventas;
   loading = false;
+  mesesPrevios = {
+    total_ultimo_mes: 0,
+    total_penultimo_mes: 0,
+    total_antepenultimo_mes: 0
+  };
 
   constructor(private salesService: SalesService) {}
 
@@ -39,6 +44,7 @@ export class SalesComponent implements OnInit{
     this.salesService.getVentas().subscribe({
       next: (data) => {
         this.venta = data;
+        this.mesesPrevios = data.meses_previos;
         this.loading = false;
       },
       error: () => {
@@ -54,9 +60,3 @@ export class SalesComponent implements OnInit{
     return this.venta.total_ingresos / this.venta.total_ventas;
   }
 }
-
-
-
-
-
-
