@@ -31,11 +31,7 @@ export class SalesComponent implements OnInit{
   panelVisible: boolean = false;
   venta!: Ventas;
   loading = false;
-  mesesPrevios = {
-    total_ultimo_mes: 0,
-    total_penultimo_mes: 0,
-    total_antepenultimo_mes: 0
-  };
+
 
   constructor(private salesService: SalesService) {}
 
@@ -44,7 +40,6 @@ export class SalesComponent implements OnInit{
     this.salesService.getVentas().subscribe({
       next: (data) => {
         this.venta = data;
-        this.mesesPrevios = data.meses_previos;
         this.loading = false;
       },
       error: () => {
