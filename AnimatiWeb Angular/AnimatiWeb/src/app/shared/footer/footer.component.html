@@ -1,6 +1,6 @@
-<footer class="footer" role="contentinfo">
-  <div class="footer-separator"></div> <!-- Línea violeta superior -->
+<div class="footer-separator"></div>
 
+<footer class="footer" role="contentinfo">
   <div class="footer-container">
     <!-- Columna 1 -->
     <div class="footer-column">
@@ -34,13 +34,14 @@
     </div>
 
     <!-- Columna 3 -->
-    <div class="footer-column">
+    <div class="footer-column playstore-column">
       <button class="playstore-button"
               (click)="openPromoModal()"
-              aria-label="Abrir información sobre la app en Play Store">
+              aria-label="Abrir información sobre la app en Play Store"
+              title="Descargá nuestra app en Play Store">
         <img src="assets/img/playstore-badge.png"
-             alt=""
-             class="playstore-badge" />
+            alt="Botón para acceder a la app en Play Store"
+            class="playstore-badge" />
       </button>
     </div>
   </div>
