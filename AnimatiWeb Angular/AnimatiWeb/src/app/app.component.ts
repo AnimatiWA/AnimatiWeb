@@ -12,6 +12,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { UsuarioModule } from './pages/usuario/usuario.module';
 import { CarritoModule } from './pages/carrito/carrito.module';
+import { WhatsappButtonComponent } from './shared/whatsapp-button/whatsapp-button.component';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,8 @@ import { CarritoModule } from './pages/carrito/carrito.module';
     RouterOutlet,
     HttpClientModule,
     UsuarioModule,
-    CarritoModule
+    CarritoModule,
+    WhatsappButtonComponent
   ],
 })
 export class AppComponent {

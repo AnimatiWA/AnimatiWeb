@@ -3,7 +3,10 @@
   href="https://wa.me/5493521413315?text=Hola%20Animati%2C%20quiero%20hacer%20una%20consulta"
   target="_blank"
   aria-label="Abrir chat de WhatsApp"
+  role="button"
+  tabindex="0"
+  *ngIf="isVisible"
 >
-  <img src="assets\img\whatsapp-icon.png" alt="WhatsApp" />
+  <img src="assets/img/whatsapp-icon.png" alt="WhatsApp" />
   <span class="tooltip">Ponte en contacto con nosotros</span>
 </a>
