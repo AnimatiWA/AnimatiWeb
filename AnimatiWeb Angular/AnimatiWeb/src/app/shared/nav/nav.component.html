@@ -1,75 +1,100 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <header class="navbar-fixed">
-    <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    </head>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
 
-    <div class="menu nav">
+  <div class="menu nav">
+
+    <!-- 🔝 Primera fila: logo + acciones de usuario -->
+    <div class="navbar-top">
+      <div class="logo-center">
         <a routerLink="/" class="logo">
-            <img src="../../../assets/img/imagen1.jpg" alt="Icono de inicio" class="log-icon">
+          <img src="../../../assets/img/imagen1.jpg" alt="Icono de inicio" class="log-icon">
         </a>
-        <nav class="nav-menu">
-            <ul class="nav-list">
-                <li><a class="nav-link" routerLink="/" aria-label="Ir a inicio"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a class="nav-link" routerLink="/gallery" aria-label="Ir a tienda"><i class="fas fa-store"></i> Tienda</a></li>
-                <li><a class="nav-link" routerLink="/contacto" aria-label="Ir a contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
-                <li><a class="nav-link" routerLink="/Quien-somos" aria-label="Conocer quiénes somos"><i class="fas fa-info-circle"></i> Quiénes Somos</a></li>
-                
-                <!-- Opciones para usuarios no logueados -->
-                <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="/login" aria-label="Iniciar sesión"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
-                <li *ngIf="!userLoginOn"><a class="nav-link" routerLink="./registroUsuarios" aria-label="Registrarse"><i class="fas fa-user-plus"></i> Registrarse</a></li>
-                
-                <!-- Panel de Administración (solo para admins) -->
-                <li *ngIf="userLoginOn && isAdmin" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle admin-link" href="#" id="adminDropdown" role="button" 
-                       data-bs-toggle="dropdown" aria-expanded="false" aria-label="Panel de administración">
-                        <i class="fas fa-cog"></i> Panel Admin
-                    </a>
-                    <ul class="dropdown-menu admin-dropdown" aria-labelledby="adminDropdown">
-                        <li><a class="dropdown-item" routerLink="admin/productos" aria-label="Gestionar productos">
-                            <i class="fas fa-boxes"></i> Gestionar Productos
-                        </a></li>
-                    
-                        <li><a class="dropdown-item" routerLink="/admin/usuarios" aria-label="Gestionar usuarios">
-                            <i class="fas fa-users"></i> Gestionar Usuarios
-                        </a></li>
-                        <li><a class="dropdown-item" routerLink="/admin/sales" aria-label="Resumen de ventas">
-                            <i class="fas fa-money-bill"></i> Resumen de ventas
-                        </a></li>
-                     
-                      
-                    </ul>
-                </li>
+      </div>
 
-                <!-- Opción simple de admin (alternativa al dropdown) -->
-                <!-- Descomenta esta línea si prefieres un botón simple en lugar del dropdown -->
-                <!-- <li *ngIf="userLoginOn && isAdmin">
-                    <a class="nav-link admin-simple" routerLink="/admin/productos" aria-label="Panel de administración">
-                        <i class="fas fa-tools"></i> Admin
-                    </a>
-                </li> -->
-                
-                <!-- Cerrar sesión -->
-                <li *ngIf="userLoginOn"><a class="nav-link" routerLink="/" (click)="logout()" aria-label="Cerrar sesión"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-                
-                <!-- Avatar del usuario -->
-                <li *ngIf="userLoginOn" class="nav-item">
-                    <a class="nav-link" (click)="irAPerfil()" style="cursor: pointer;" aria-label="Ir al perfil">
-                        <div class="avatar-container">
-                            <img [src]="'assets/images/' + userAvatar" alt="Avatar de usuario" class="user-avatar">
-                        </div>
-                    </a>
-                </li>
-                
-                <!-- Carrito de compras -->
-                <li *ngIf="userLoginOn" class="cart-container">
-                    <a class="nav-link" routerLink="/carrito" aria-label="Ver carrito de compras">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+      <div class="user-actions" *ngIf="!userLoginOn">
+        <a class="nav-link" routerLink="/login" aria-label="Iniciar sesión">
+          <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </a>
+        <a class="nav-link" routerLink="./registroUsuarios" aria-label="Registrarse">
+          <i class="fas fa-user-plus"></i> Registrarse
+        </a>
+      </div>
+
+      <div class="user-actions" *ngIf="userLoginOn">
+        <!-- Dropdown Admin -->
+        <div *ngIf="isAdmin" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle admin-link" href="#" id="adminDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false" aria-label="Panel de administración">
+            <i class="fas fa-cog"></i> Panel Admin
+          </a>
+          <ul class="dropdown-menu admin-dropdown" aria-labelledby="adminDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/admin/productos" aria-label="Gestionar productos">
+                <i class="fas fa-boxes"></i> Gestionar Productos
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/admin/usuarios" aria-label="Gestionar usuarios">
+                <i class="fas fa-users"></i> Gestionar Usuarios
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/admin/sales" aria-label="Resumen de ventas">
+                <i class="fas fa-money-bill"></i> Resumen de ventas
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cerrar sesión -->
+        <a class="nav-link" routerLink="/" (click)="logout()" aria-label="Cerrar sesión">
+          <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </a>
+
+        <!-- Avatar -->
+        <a class="nav-link" (click)="irAPerfil()" style="cursor: pointer;" aria-label="Ir al perfil">
+          <div class="avatar-container">
+            <img [src]="'assets/images/' + userAvatar" alt="Avatar de usuario" class="user-avatar">
+          </div>
+        </a>
+
+        <!-- Carrito -->
+        <a class="nav-link cart-container" routerLink="/carrito" aria-label="Ver carrito de compras">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
+        </a>
+      </div>
     </div>
+
+    <!-- 🔽 Segunda fila: navegación principal -->
+    <nav class="nav-menu">
+      <ul class="nav-list">
+        <li>
+          <a class="nav-link" routerLink="/" aria-label="Ir a inicio">
+            <i class="fas fa-home"></i> Inicio
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/gallery" aria-label="Ir a tienda">
+            <i class="fas fa-store"></i> Tienda
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/contacto" aria-label="Ir a contacto">
+            <i class="fas fa-envelope"></i> Contacto
+          </a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/Quien-somos" aria-label="Conocer quiénes somos">
+            <i class="fas fa-info-circle"></i> Quiénes Somos
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
 </header>
