@@ -130,4 +130,3 @@ export class SalesComponent implements OnInit{
     this.pieChart = new Chart(this.pieCanvas.nativeElement, config);
   }
 }
-
