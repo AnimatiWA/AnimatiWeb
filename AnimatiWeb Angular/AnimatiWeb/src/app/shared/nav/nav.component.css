@@ -9,7 +9,7 @@ body {
 header {
   background-color: hsl(0, 50%, 89%);
   color: #641881;
-  padding: 10px 0 0;   /* 0 abajo, la nav full-bleed se pega al borde */
+  padding: 10px 0 0;
   width: 100%;
   min-height: 80px;
 }
@@ -18,21 +18,20 @@ header {
 .menu {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 10px; /* padding bottom para separar de la nav */
+  padding: 0 20px 10px;
   display: flex;
   flex-direction: column;
 }
 
-/* Logo centrado + acciones a la derecha */
 .navbar-top {
   position: relative;
   display: flex;
-  justify-content: flex-start; /* dejamos el espacio y empujamos acciones con margin-left:auto */
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
   margin-bottom: 10px;
-  min-height: 72px; /* asegura espacio para el logo */
+  min-height: 72px;
 }
 
 /* Logo centrado absoluto */
@@ -45,7 +44,7 @@ header {
   align-items: center;
   justify-content: center;
   min-width: 0;
-  pointer-events: none; /* evita bloquear clics de botones */
+  pointer-events: none;
 }
 
 .logo {
@@ -57,12 +56,12 @@ header {
   width: 130px;
   height: 80px;
   object-fit: contain;
-  pointer-events: auto; /* el logo sí puede clickease */
+  pointer-events: auto;
 }
 
 /* Acciones de usuario (derecha) */
 .user-actions {
-  margin-left: auto;      /* empuja a la derecha */
+  margin-left: auto;
   display: flex;
   gap: 15px;
   align-items: center;
@@ -124,6 +123,7 @@ header {
   position: relative;
   display: flex;
   align-items: center;
+  font-size: 1.2rem;
 }
 .cart-badge {
   position: absolute;
@@ -184,9 +184,9 @@ header {
 
 /* ======= Fila 2: Navegación principal (full-bleed) ======= */
 .nav-menu {
-  width: 100vw;           /* full-bleed */
+  width: 100vw;
   margin-left: 50%;
-  transform: translateX(-50%); /* centra el bloque full-bleed */
+  transform: translateX(-50%);
   display: block;
 }
 
@@ -203,7 +203,7 @@ header {
 
 .nav-list li { width: 100%; }
 
-/* Cada ítem ocupa su celda completa */
+/* ===== Mejor foco/hover para la navegación principal (fila 2) ===== */
 .nav-list .nav-link {
   display: flex;
   align-items: center;
@@ -212,22 +212,43 @@ header {
   padding: 14px 0;
   text-decoration: none;
   font-weight: 600;
-  font-size: 18px; /* <-- aumentado solo aquí */
+  font-size: 18px;
   color: #641881;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 0;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  border-radius: 8px;
 }
 
+/* Hover con alto contraste y soporte para teclado */
 .nav-list .nav-link:hover,
 .nav-list .nav-link:focus {
-  background-color: rgba(155, 7, 241, 0.12);
-  color: #641881;
+  background-color: #641881;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(100,24,129,0.16);
   outline: none;
 }
 
-.nav-list .nav-link.router-link-active {
-  background-color: rgba(155, 7, 241, 0.22);
+/* Mostrar un contorno visual claro solo para navegación por teclado */
+.nav-list .nav-link:focus-visible {
+  background-color: #641881;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(100,24,129,0.20), 0 0 0 4px rgba(100,24,129,0.08);
+  border-radius: 8px;
+}
+
+/* Estado activo (ruta actual) — más distinguible que el hover */
+.nav-list .nav-link.router-link-active,
+.nav-list .nav-link[aria-current="page"] {
+  background-color: #5a116f;
+  color: #ffffff;
   font-weight: 700;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.06);
+}
+
+/* Aumentar objetivo táctil (mejor experiencia móvil) */
+@media (hover: none) {
+  .nav-list .nav-link {
+    padding: 18px 0;
+  }
 }
 
 /* ======= Responsive ======= */
