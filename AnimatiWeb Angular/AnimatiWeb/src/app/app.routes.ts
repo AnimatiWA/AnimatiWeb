@@ -88,6 +88,7 @@ export const routes: Routes = [
   { path: 'agregarproducto', redirectTo: 'admin/productos', pathMatch: 'full' },
   { path: 'categoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
   { path: 'agregarcategoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
+    { path: 'resumenventas', redirectTo: 'admin/sales', pathMatch: 'full' },
   { path: 'dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
   
   // === RUTAS DE DESARROLLO/TESTING ===
