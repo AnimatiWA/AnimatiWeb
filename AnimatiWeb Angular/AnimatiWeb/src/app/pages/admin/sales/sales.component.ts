@@ -9,6 +9,7 @@ import { LayoutComponent } from "../../../admin/pages/layout/layout.component";
 import { ErrorInterceptorService } from '../../../services/auth/error-interceptor.service';
 import { RouterModule } from '@angular/router';
 import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
+import { HttpClientModule } from '@angular/common/http';
 
 Chart.register(...registerables);
 
@@ -25,7 +26,8 @@ Chart.register(...registerables);
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    LayoutComponent
+    LayoutComponent,
+    HttpClientModule
   ],
 template: `
     <div>
