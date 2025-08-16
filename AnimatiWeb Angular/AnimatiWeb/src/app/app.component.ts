@@ -12,6 +12,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { UsuarioModule } from './pages/usuario/usuario.module';
 import { CarritoModule } from './pages/carrito/carrito.module';
+import { InfoBarComponent } from './shared/info-bar/info-bar.component';
 import { WhatsappButtonComponent } from './shared/whatsapp-button/whatsapp-button.component';
 
 @Component({
@@ -31,6 +32,7 @@ import { WhatsappButtonComponent } from './shared/whatsapp-button/whatsapp-butto
     HttpClientModule,
     UsuarioModule,
     CarritoModule,
+    InfoBarComponent,
     WhatsappButtonComponent
   ],
 })
