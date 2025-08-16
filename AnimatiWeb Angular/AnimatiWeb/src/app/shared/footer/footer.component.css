@@ -22,7 +22,7 @@ body {
 .footer {
     background-color: hsl(0, 50%, 89%);
     color: #4A0A66; /* Mejor contraste */
-    padding: 10px 0;
+    padding: 50px 0 10px 0;
     position: relative;
     bottom: 0px;
     width: 100%;
@@ -97,25 +97,55 @@ body {
     outline: 2px solid #641881;
 }
 
-/* Imagen Play Store */
-.playstore-badge {
-    width: 180px;
-    height: auto;
-    margin-top: 10px;
-    transition: transform 0.3s;
+/* Columna 3 */
+.playstore-column {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 20px;
+  flex: 1;
+  margin-top: 10px; /* Igual que otras columnas */
 }
 
+/* Botón */
 .playstore-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.playstore-badge:hover,
-.playstore-badge:focus {
-    transform: scale(1.05);
-    outline: 2px solid rgba(155, 7, 241, 0.781);
+.playstore-button:focus {
+  outline: 2px solid rgba(155, 7, 241, 0.781);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Imagen del botón Play Store */
+.playstore-badge {
+  width: 200px;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+/* Hover visual */
+.playstore-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .playstore-column {
+    justify-content: center;
+    padding-right: 0;
+    margin-top: 15px;
+  }
+
+  .playstore-badge {
+    width: 160px; /* Reduce en pantallas pequeñas */
+  }
 }
 
 .footer-legend {
