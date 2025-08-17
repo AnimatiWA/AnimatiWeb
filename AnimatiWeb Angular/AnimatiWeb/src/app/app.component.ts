@@ -33,7 +33,8 @@ import { WhatsappButtonComponent } from './shared/whatsapp-button/whatsapp-butto
     UsuarioModule,
     CarritoModule,
     InfoBarComponent,
-    WhatsappButtonComponent
+    WhatsappButtonComponent,
+    RouterLink,
   ],
 })
 export class AppComponent {
