@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #641881; /* tu violeta */
+  background-color: rgba(155, 7, 241, 0.781);
   color: #fff;
   padding: 12px 10px;
   font-family: 'Poppins', sans-serif;

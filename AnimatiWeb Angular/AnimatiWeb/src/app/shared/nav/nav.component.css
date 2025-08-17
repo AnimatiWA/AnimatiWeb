@@ -24,7 +24,6 @@ header {
 }
 
 .navbar-top {
-  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -32,6 +31,14 @@ header {
   width: 100%;
   margin-bottom: 10px;
   min-height: 72px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: hsl(0, 50%, 89%);
+  box-shadow: none;
+  padding: 10px 20px;
+  padding-top: 30px;
 }
 
 /* Logo centrado absoluto */
@@ -108,10 +115,12 @@ header {
   justify-content: center;
   transition: transform 0.2s ease;
 }
+
 .avatar-container:hover {
   transform: scale(1.1);
   box-shadow: 0 0 5px rgba(100, 24, 129, 0.5);
 }
+
 .user-avatar {
   width: 100%;
   height: 100%;
@@ -125,6 +134,7 @@ header {
   align-items: center;
   font-size: 1.2rem;
 }
+
 .cart-badge {
   position: absolute;
   top: 0;
@@ -150,6 +160,7 @@ header {
   display: flex;
   align-items: center;
 }
+
 .admin-dropdown {
   position: absolute;
   top: 100%;
@@ -157,12 +168,13 @@ header {
   z-index: 1050;
   min-width: 10rem;
   border-radius: 0.25rem;
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
   margin: 0;
   padding: 0.5rem 0;
 }
+
 .admin-dropdown .dropdown-item {
   display: block;
   width: 100%;
@@ -172,12 +184,14 @@ header {
   border: 0;
   color: #641881;
 }
+
 .admin-dropdown .dropdown-item:hover,
 .admin-dropdown .dropdown-item:focus {
   background: #641881;
   color: white;
   text-decoration: none;
 }
+
 .admin-dropdown .dropdown-item i {
   margin-right: 8px;
 }
@@ -188,6 +202,7 @@ header {
   margin-left: 50%;
   transform: translateX(-50%);
   display: block;
+  padding-top: 80px;
 }
 
 /* 4 columnas iguales */
@@ -201,7 +216,9 @@ header {
   gap: 0;
 }
 
-.nav-list li { width: 100%; }
+.nav-list li {
+  width: 100%;
+}
 
 /* ===== Mejor foco/hover para la navegación principal (fila 2) ===== */
 .nav-list .nav-link {
@@ -223,7 +240,7 @@ header {
 .nav-list .nav-link:focus {
   background-color: #641881;
   color: #ffffff;
-  box-shadow: 0 6px 18px rgba(100,24,129,0.16);
+  box-shadow: 0 6px 18px rgba(100, 24, 129, 0.16);
   outline: none;
 }
 
@@ -231,7 +248,7 @@ header {
 .nav-list .nav-link:focus-visible {
   background-color: #641881;
   color: #ffffff;
-  box-shadow: 0 6px 18px rgba(100,24,129,0.20), 0 0 0 4px rgba(100,24,129,0.08);
+  box-shadow: 0 6px 18px rgba(100, 24, 129, 0.20), 0 0 0 4px rgba(100, 24, 129, 0.08);
   border-radius: 8px;
 }
 
@@ -241,7 +258,7 @@ header {
   background-color: #5a116f;
   color: #ffffff;
   font-weight: 700;
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.06);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.06);
 }
 
 /* Aumentar objetivo táctil (mejor experiencia móvil) */
@@ -253,7 +270,9 @@ header {
 
 /* ======= Responsive ======= */
 @media (max-width: 992px) {
-  .nav-list .nav-link { padding: 16px 0; }
+  .nav-list .nav-link {
+    padding: 16px 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -262,6 +281,10 @@ header {
     align-items: center;
     gap: 10px;
     min-height: auto;
+  }
+
+  .nav-menu {
+    padding-top: 120px;
   }
 
   .logo-center {
@@ -288,6 +311,7 @@ header {
   .nav-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .nav-list .nav-link {
     padding: 14px 0;
   }
@@ -299,6 +323,7 @@ header {
     border: none;
     background: transparent;
   }
+
   .admin-dropdown .dropdown-item {
     padding: 0.5rem 1rem;
   }
@@ -308,6 +333,7 @@ header {
   .nav-list {
     grid-template-columns: 1fr;
   }
+
   .nav-list .nav-link {
     width: 100%;
     padding: 12px 0;
