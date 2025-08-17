@@ -1,25 +1,31 @@
 <div class="footer-separator"></div>
 
 <footer class="footer" role="contentinfo">
-  <div class="footer-container">
-    <!-- Columna 1 -->
-    <div class="footer-column">
+  <div class="footer-container a11y-surface">
+    <!-- Columna 1 (ancha) -->
+    <div class="footer-column footer-column--wide">
       <h3>Animati Papelería</h3>
       <p>🎈 Diseños 100% originales</p>
       <p>🎈 Aritos, Posters, Polaroids</p>
       <p>🎈 Cajas temáticas, Señaladores, y mucho más.</p>
     </div>
 
-    <!-- Columna 2 -->
-    <div class="footer-column">
+    <!-- Columna 2 (ancha, vacía por ahora) -->
+    <div class="footer-column footer-column--wide">
+      <!-- Reservado -->
+    </div>
+
+    <!-- Columna 3 (contacto, junto al borde derecho) -->
+    <div class="footer-column footer-column--contact">
       <h3>Encuéntranos</h3>
 
       <p>
         <i class="fa-brands fa-instagram" aria-hidden="true"></i>
         <a href="https://www.instagram.com/animati_papeleria/"
            target="_blank"
+           rel="noopener noreferrer"
            aria-label="Ir al Instagram de Animati Papelería">
-          animati_papeleria
+          <span>&#64;animati_papeleria</span>
         </a>
       </p>
 
@@ -27,26 +33,23 @@
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
         <a href="https://wa.me/5493521413315?text=Hola%20Animati%2C%20quiero%20hacer%20una%20consulta"
            target="_blank"
+           rel="noopener noreferrer"
            aria-label="Enviar mensaje a Animati Papelería por WhatsApp">
           +54 9 3521 413315
         </a>
       </p>
-    </div>
 
-    <!-- Columna 3 -->
-    <div class="footer-column playstore-column">
       <button class="playstore-button"
               (click)="openPromoModal()"
               aria-label="Abrir información sobre la app en Play Store"
               title="Descargá nuestra app en Play Store">
         <img src="assets/img/playstore-badge.png"
-            alt="Botón para acceder a la app en Play Store"
-            class="playstore-badge" />
+             alt="Descargar la app en Play Store"
+             class="playstore-badge" />
       </button>
     </div>
   </div>
 
-  <!-- Leyenda de desarrollo -->
   <div class="footer-legend">
     <p>&copy; 2025 Animati | Desarrollado con 💙 por Equipo Animati</p>
   </div>
