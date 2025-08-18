@@ -264,11 +264,62 @@ h4 {
     flex: 0 0 50%;
     max-width: 50%;
   }
+  
+  .producto {
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .producto h3 {
+    font-size: 16px;
+    margin: 10px 10px 5px 10px;
+  }
+  
+  .producto p {
+    font-size: 14px;
+    margin: 5px 10px 10px 10px;
+  }
+  
+  h4 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .titulo img {
+    max-width: 280px;
+    margin-bottom: 20px;
+  }
+  
+  .btn-carrito {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .cantidad-control {
+    margin-bottom: 10px;
+  }
+  
+  .btn-control {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 576px) {
   .col-4 {
     flex: 0 0 100%; 
     max-width: 100%;
+  }
+  
+  .container.menu {
+    padding: 10px;
+  }
+  
+  .cantidad-display {
+    font-size: 14px;
+    min-width: 25px;
+    margin: 0 5px;
   }
 }

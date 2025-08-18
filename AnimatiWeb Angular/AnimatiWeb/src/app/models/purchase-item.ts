@@ -3,5 +3,5 @@ export class PurchaseItem {
   Fecha: string = '';
   Cantidad: number = 0;
   Precio: number = 0;
-  Confirmado: boolean = false;
+  Confirmado: string = '';
 }

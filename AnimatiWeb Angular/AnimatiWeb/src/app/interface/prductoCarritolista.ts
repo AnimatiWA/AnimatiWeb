@@ -7,5 +7,5 @@ export interface ProductoCarrito{
     Precio: number;
     Stock: number;
     Cantidad:number;
-    
+    loading?: boolean;
 }

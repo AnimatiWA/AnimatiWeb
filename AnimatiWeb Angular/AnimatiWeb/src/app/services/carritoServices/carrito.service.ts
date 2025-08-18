@@ -7,26 +7,25 @@ import { Producto } from '../../interface/prductolista';
 import { ProductoCarrito } from '../../interface/prductoCarritolista';
 import { Carrito } from '../../interface/carrito';
 import { filter, switchMap, catchError, map, tap, of, throwError } from 'rxjs';
+import { Preferencia } from '../../interface/preferencia';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarritoService {
-
   private carritoActivoId: number | null = null;
   private miLista:Producto[]=[];
   private miCarrito= new BehaviorSubject<Producto[]>([])
-  miCarrito$ = this.miCarrito
-  
-  private cartItemsSubject = new BehaviorSubject<ProductoCarrito[]>([]);
-  public cartItems$ = this.cartItemsSubject.asObservable();
+  public miCarrito$ = this.miCarrito
+
+  private itemsCarrito = new BehaviorSubject<ProductoCarrito[]>([]);
+  public itemsCarrito$ = this.itemsCarrito
 
 constructor(private http: HttpClient, private loginService: LoginService) {
 
   const savedId = sessionStorage.getItem('carritoActivoId');
   if (savedId) {
     this.carritoActivoId = +savedId;
-    this.actualizarProductosCarrito();
   }
 
   this.loginService.userLoginOn.pipe(
@@ -36,20 +35,31 @@ constructor(private http: HttpClient, private loginService: LoginService) {
     this.carritoActivoId = id;
     if (id !== null) {
       sessionStorage.setItem('carritoActivoId', id.toString());
-      this.actualizarProductosCarrito();
     }
   });
 }
   
-  private getCarrito(): Observable<number | null> {
+  public getCarrito(): Observable<number | null> {
 
     const headers = this.loginService.userTokenHeader;
 
     return this.http.get<Carrito>(environment.API_END_POINT + environment.METHODS.GET_CART_USER, { headers }).pipe(
 
-      tap(carrito => this.carritoActivoId = carrito.id),
+      tap(carrito => {
+        this.carritoActivoId = carrito.id;
+        this.actualizarProductosCarrito();
+      } ),
       map(carrito => carrito.id),
-      catchError(() => of(null))
+      catchError(() => {
+        return this.createCarrito().pipe(
+          tap(nuevoCarrito => {
+            this.carritoActivoId = nuevoCarrito.id;
+            this.actualizarProductosCarrito();
+            sessionStorage.setItem('carritoActivoId', nuevoCarrito.id.toString());
+          }),
+          map(nuevoCarrito => nuevoCarrito.id)
+        );
+      })
     );
   }
 
@@ -57,15 +67,12 @@ constructor(private http: HttpClient, private loginService: LoginService) {
 
     if (this.carritoActivoId){
 
-      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad).pipe(
-        tap(() => this.actualizarProductosCarrito())
-      );
+      return this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad);
     } else{
 
       return this.createCarrito().pipe(
         tap(carrito => this.carritoActivoId = carrito.id),
-        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad)),
-        tap(() => this.actualizarProductosCarrito())
+        switchMap(() => this.createProductoCarrito(producto.Codigo_Producto, producto.Cantidad))
       );
     }
   }
@@ -87,7 +94,10 @@ constructor(private http: HttpClient, private loginService: LoginService) {
       Cantidad: cantidad,
     }
 
-    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers });
+    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers })
+    .pipe(
+        tap(() => this.actualizarProductosCarrito())
+    );
   }
 
   getProductosCarrito(){
@@ -96,155 +106,80 @@ constructor(private http: HttpClient, private loginService: LoginService) {
 
     return this.http.get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + (this.carritoActivoId || 0), { headers });
   }
-  
+
+  //Carrito///////////////////////////////////////////////////////////////////////////////////////////////// NO LO MEZCLES GABY PORFAVOR
+
   actualizarProductosCarrito(): void {
     if (!this.carritoActivoId) {
-      this.cartItemsSubject.next([]);
+      this.itemsCarrito.next([]);
       return;
     }
-    
+
     const headers = this.loginService.userTokenHeader;
-    
-    this.http.get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + this.carritoActivoId, { headers })
-      .subscribe({
+
+    this.http
+      .get<ProductoCarrito[]>(environment.API_END_POINT + environment.METHODS.GET_PRODUCT_CART_BY_ID + this.carritoActivoId, { headers }).subscribe({
         next: (productos) => {
           console.log('Actualizando productos del carrito:', productos);
-          this.cartItemsSubject.next(productos);
+          this.itemsCarrito.next(productos);
         },
         error: (error) => {
           console.error('Error al obtener productos del carrito:', error);
-          // No cambiamos el estado del carrito en caso de error
-        }
+          this.itemsCarrito.next([]);
+        },
       });
   }
-  
-  // Método para actualizar el carrito localmente (sin esperar al servidor)
-  private actualizarLocalCarrito(idProductoEliminado?: number): void {
-    const productosActuales = this.cartItemsSubject.getValue();
-    if (idProductoEliminado) {
-      // Filtramos el producto eliminado
-      const productosActualizados = productosActuales.filter(p => p.id !== idProductoEliminado);
-      console.log('Actualizando carrito localmente:', productosActualizados);
-      this.cartItemsSubject.next(productosActualizados);
-    }
-  }
-  
-  // Método para actualizar cantidad localmente
-  private actualizarCantidadLocal(idProducto: number | undefined, nuevaCantidad: number): void {
-    if (!idProducto) return;
-    
-    const productosActuales = this.cartItemsSubject.getValue();
-    const productosActualizados = productosActuales.map(p => {
-      if (p.id === idProducto) {
-        return {...p, Cantidad: nuevaCantidad};
-      }
-      return p;
-    });
-    
-    console.log('Actualizando cantidad localmente:', productosActualizados);
-    this.cartItemsSubject.next(productosActualizados);
-  }
 
-  deleteProducto(producto: ProductoCarrito){
-    const headers = this.loginService.userTokenHeader;
-    
-    // Optimistic update - actualizamos inmediatamente la UI
-    this.actualizarLocalCarrito(producto.id);
-    
-    return this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers }).pipe(
-      tap(() => {
-        console.log('Producto eliminado del servidor, actualizando carrito');
-        this.actualizarProductosCarrito();
-      }),
-      catchError(error => {
-        console.error('Error al eliminar producto:', error);
-        // Si hay error, revertimos la actualización local
-        this.actualizarProductosCarrito();
-        return throwError(() => error);
-      })
-    );
-  }
-
-  deleteUnProducto(producto: ProductoCarrito): Observable<any>{
-    const headers = this.loginService.userTokenHeader;
-    
-    // Actualización optimista - reducir cantidad localmente
-    this.actualizarCantidadLocal(producto.id, Math.max(1, (producto.Cantidad || 1) - 1));
-    
-    return this.http.patch(environment.API_END_POINT + environment.METHODS.DELETE_ONE_PRODUCT_CART_BY_ID + producto.id, {} , { headers }).pipe(
-      tap(() => {
-        console.log('Unidad eliminada del servidor, actualizando carrito');
-        this.actualizarProductosCarrito();
-      }),
-      catchError(error => {
-        console.error('Error al eliminar unidad:', error);
-        // Si hay error, revertimos la actualización local
-        this.actualizarProductosCarrito();
-        return throwError(() => error);
-      })
-    );
-  }
-  
   addUnProducto(producto: ProductoCarrito): Observable<any> {
     const headers = this.loginService.userTokenHeader;
-    
-    // Actualización optimista - incrementar cantidad localmente
-    this.actualizarCantidadLocal(producto.id, (producto.Cantidad || 0) + 1);
-    
+
     const body = {
       Codigo: producto.Codigo,
       Cantidad: 1,
     };
-    
-    return this.http.post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers }).pipe(
-      tap(() => {
-        console.log('Unidad agregada en el servidor, actualizando carrito');
-        this.actualizarProductosCarrito();
-      }),
-      catchError(error => {
-        console.error('Error al agregar unidad:', error);
-        // Si hay error, revertimos la actualización local
-        this.actualizarProductosCarrito();
-        return throwError(() => error);
-      })
-    );
+
+    return this.http
+      .post(environment.API_END_POINT + environment.METHODS.CREATE_PRODUCT_CART, body, { headers })
+      .pipe(
+        tap(() => {
+          console.log('Unidad agregada en el servidor, actualizando carrito');
+          this.actualizarProductosCarrito();
+        }),
+        catchError((error) => {
+          console.error('Error al agregar unidad:', error);
+          // Si hay error, revertimos la actualización local
+          this.actualizarProductosCarrito();
+          return throwError(() => error);
+        })
+      );
   }
-  
-  resetCarrito(): Observable<any> {
-    if (!this.carritoActivoId) {
-      return of({ success: true });
-    }
-    
+
+  deleteProducto(producto: ProductoCarrito){
+
     const headers = this.loginService.userTokenHeader;
-    
-    return this.getProductosCarrito().pipe(
-      switchMap(productos => {
-        if (!productos || productos.length === 0) {
-          this.cartItemsSubject.next([]);
-          return of({ success: true });
-        }
-        
-        const deleteObservables = productos.map(producto => 
-          this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers })
-        );
-        
-        return deleteObservables.length > 0
-          ? forkJoin(deleteObservables).pipe(
-              tap(() => {
-                this.cartItemsSubject.next([]);
-              }),
-              tap(() => {
-                this.miCarrito.next([]);
-              })
-            )
-          : of({ success: true });
-      }),
-      catchError(error => {
-        this.cartItemsSubject.next([]);
-        this.miCarrito.next([]);
-        return of({ success: false, error });
-      })
+
+    return this.http.delete(environment.API_END_POINT + environment.METHODS.DELETE_PRODUCT_CART_BY_ID + producto.id, { headers })
+    .pipe(
+        tap(() => this.actualizarProductosCarrito())
     );
   }
 
+  deleteUnProducto(producto: ProductoCarrito): Observable<any>{
+
+    const headers = this.loginService.userTokenHeader;
+
+    return this.http.patch(environment.API_END_POINT + environment.METHODS.DELETE_ONE_PRODUCT_CART_BY_ID + producto.id, {} , { headers })
+    .pipe(
+        tap(() => this.actualizarProductosCarrito())
+    );
+  }
+
+  createPreference() {
+    const headers = this.loginService.userTokenHeader;
+
+    return this.http.post<Preferencia>(environment.API_END_POINT + environment.METHODS.CREATE_PREFERENCE, {}, { headers })
+    .pipe(
+        tap(() => this.actualizarProductosCarrito())
+    );
+  }
 }

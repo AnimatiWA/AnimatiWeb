@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/jasmine": "^5.1.8"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0"
   }
 }

@@ -1,0 +1,74 @@
+<app-layout></app-layout>
+<div class="d-flex justify-content-center my-4" *ngIf="loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+
+ <div [ngClass]="panelVisible ? 'col-lg-8 col-md-7' : 'col-12'">
+    <div class="card shadow" >
+
+        <div class="card-header bg-primary text-white">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <h5 class="mb-0">
+                  <i class="fas fa-money-bill"></i> Resumen de ventas
+                </h5>
+              </div>
+            </div>
+        </div>
+
+
+
+      <div class="card">
+          <div  *ngIf="venta && !loading" >
+            <div class="cards-container">
+            <div class="card shadow-sm producto-card" >
+              <div class="card-body d-flex flex-column">
+                <h3>Total Ventas</h3>
+                <p>{{ venta.total_ventas }}</p>
+              </div>
+            </div>
+
+            <div class="card shadow-sm producto-card" >
+              <div class="card-body d-flex flex-column">
+                <h3>Total Ingresos</h3>
+                <p>{{ venta.total_ingresos }}</p>
+              </div>
+            </div>
+<!-- Suspendido
+            <div class="card shadow-sm producto-card">
+              <div class="card-body d-flex flex-column">
+                <h3>Total Productos</h3>
+                <p>{{ venta.productos_vendidos }}</p>
+              </div>
+            </div>
+-->
+            <div class="card shadow-sm producto-card">
+              <div class="card-body d-flex flex-column">
+                <h3>Ticket Promedio</h3>
+                <p>{{ ticketPromedio | number:'1.2-2' }}</p>
+              </div>
+            </div>
+          </div>
+            <div class="card shadow-sm producto-card" class="cards-container">
+              <div class="card-body d-flex flex-column">
+                <h3>Ingresos último trimestre</h3>
+                     <canvas #barCanvas></canvas>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h3>Ingresos último trimestre</h3>
+                     <canvas #pieCanvas></canvas>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+
+
+
+
+

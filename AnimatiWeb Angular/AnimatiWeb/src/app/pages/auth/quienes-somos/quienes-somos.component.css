@@ -96,6 +96,7 @@ h2 {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
 }
 
 /* Efectos en los enlaces del equipo */
@@ -204,7 +205,36 @@ ul li p span {
 }
 
 /* Responsive ajustes */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+  .about-us {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  h2 {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  .titulo img {
+    width: 300px;
+  }
+  
+  .about-us p {
+    font-size: 15px;
+    text-indent: 20px;
+  }
+  
+  .team ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+  
+  .team {
+    background-color: hsl(0, 50%, 89%);
+    padding: 15px;
+  }
+  
   .producto-card {
     padding: 15px;
   }
@@ -215,6 +245,34 @@ ul li p span {
 
   .producto-card .descripcion {
     font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-us div {
+    padding: 10px;
+  }
+  
+  .team ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .team ul li {
+    padding-left: 25px;
+    margin-bottom: 8px;
+  }
+  
+  .team ul li::before {
+    font-size: 16px;
+  }
+  
+  .team a {
+    padding: 5px 10px;
+    font-size: 15px;
+  }
+  
+  .team a:hover {
+    font-size: 16px;
   }
 }
 
