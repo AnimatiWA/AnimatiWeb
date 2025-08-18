@@ -162,3 +162,62 @@ input[type="checkbox"] {
 label {
   color: #0A5EB0;
 }
+
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 15px 10px;
+  }
+  
+  .body {
+    padding: 20px 15px;
+  }
+  
+  h2 {
+    font-size: 28px;
+    text-align: center;
+  }
+  
+  label {
+    font-size: 15px;
+  }
+  
+  .form-text {
+    font-size: 12px;
+  }
+  
+  .text-danger {
+    font-size: 13px;
+  }
+  
+  .btn-enviar {
+    padding: 12px 25px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 100%;
+    padding: 10px 5px;
+  }
+  
+  .body {
+    padding: 15px 10px;
+  }
+  
+  .input-group .btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 14px;
+  }
+  
+  fieldset label {
+    font-size: 14px;
+  }
+  
+  .form-check {
+    margin-top: 15px;
+  }
+}
