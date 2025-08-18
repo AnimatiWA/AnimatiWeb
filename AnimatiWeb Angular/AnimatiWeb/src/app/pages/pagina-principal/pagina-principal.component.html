@@ -55,7 +55,7 @@
 
         <!-- Productos -->
         <div class="row">
-          <div class="col-3" *ngFor="let producto of listaProductos.slice(0, 4)">
+          <div class="col-6 col-sm-6 col-md-4 col-lg-3" *ngFor="let producto of listaProductos.slice(0, 4)">
             <article class="producto">
               <img [src]="producto.Imagen" [alt]="producto.Nombre_Producto" />
               <h6>{{ producto.Nombre_Producto }}</h6>

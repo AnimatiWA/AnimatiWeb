@@ -22,6 +22,7 @@ export class NavComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false; // Nueva propiedad para verificar si es admin
   cartItemsCount: number = 0;
   userAvatar: string = 'avatar1.png';
+  menuMobileOpen: boolean = false;
   private cartSubscription: Subscription | undefined;
   private avatarSubscription: Subscription | undefined;
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -164,6 +165,14 @@ export class NavComponent implements OnInit, OnDestroy {
   
   irAPerfil(): void {
     this.router.navigate(['/perfil']);
+  }
+
+  toggleMobileMenu(): void {
+    this.menuMobileOpen = !this.menuMobileOpen;
+  }
+  
+  closeMobileMenu(): void {
+    this.menuMobileOpen = false;
   }
 
   /**

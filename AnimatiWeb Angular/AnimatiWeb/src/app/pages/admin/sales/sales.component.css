@@ -429,9 +429,66 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   flex: 1;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
 }
+
 canvas {
   max-width: 400px;
   max-height: 200px;
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+  
+  p {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding: 0.5rem !important;
+  }
+  
+  .card-header {
+    padding: 0.75rem;
+  }
+  
+  .card-header h5 {
+    font-size: 1rem;
+  }
+  
+  .card {
+    padding: 0.75rem;
+  }
+  
+  .producto-card {
+    margin-bottom: 0.75rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
+  
+  .card-body {
+    padding: 0.75rem !important;
+  }
+  
+  canvas {
+    max-height: 180px;
+  }
 }

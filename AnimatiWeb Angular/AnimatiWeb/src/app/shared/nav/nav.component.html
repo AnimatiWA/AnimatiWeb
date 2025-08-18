@@ -9,6 +9,9 @@
 
     <!-- Primera fila: logo + acciones de usuario -->
     <div class="navbar-top">
+      <button class="hamburger-btn" (click)="toggleMobileMenu()" aria-label="Menú">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="logo-center">
         <a routerLink="/" class="logo">
           <img src="../../../assets/img/imagen1.jpg" alt="Icono de inicio" class="log-icon">
@@ -68,25 +71,25 @@
     </div>
 
     <!-- Segunda fila: navegación principal -->
-    <nav class="nav-menu">
+    <nav class="nav-menu" [class.mobile-menu-open]="menuMobileOpen">
       <ul class="nav-list">
         <li>
-          <a class="nav-link" routerLink="/" aria-label="Ir a inicio">
+          <a class="nav-link" routerLink="/" aria-label="Ir a inicio" (click)="closeMobileMenu()">
             <i class="fas fa-home"></i> Inicio
           </a>
         </li>
         <li>
-          <a class="nav-link" routerLink="/gallery" aria-label="Ir a tienda">
+          <a class="nav-link" routerLink="/gallery" aria-label="Ir a tienda" (click)="closeMobileMenu()">
             <i class="fas fa-store"></i> Tienda
           </a>
         </li>
         <li>
-          <a class="nav-link" routerLink="/contacto" aria-label="Ir a contacto">
+          <a class="nav-link" routerLink="/contacto" aria-label="Ir a contacto" (click)="closeMobileMenu()">
             <i class="fas fa-envelope"></i> Contacto
           </a>
         </li>
         <li>
-          <a class="nav-link" routerLink="/Quien-somos" aria-label="Conocer quiénes somos">
+          <a class="nav-link" routerLink="/Quien-somos" aria-label="Conocer quiénes somos" (click)="closeMobileMenu()">
             <i class="fas fa-info-circle"></i> Quiénes Somos
           </a>
         </li>
