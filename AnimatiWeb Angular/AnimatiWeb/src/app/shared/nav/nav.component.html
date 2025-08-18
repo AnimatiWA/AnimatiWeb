@@ -9,6 +9,9 @@
 
     <!-- Primera fila: logo + acciones de usuario -->
     <div class="navbar-top">
+      <button class="hamburger-btn" (click)="toggleMobileMenu()" aria-label="Menú">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="logo-center">
         <a routerLink="/" class="logo">
           <img src="../../../assets/img/imagen1.jpg" alt="Icono de inicio" class="log-icon">
@@ -68,7 +71,7 @@
     </div>
 
     <!-- Segunda fila: navegación principal -->
-    <nav class="nav-menu">
+    <nav class="nav-menu" [class.mobile-menu-open]="menuMobileOpen">
       <ul class="nav-list">
         <li>
           <a class="nav-link" routerLink="/" aria-label="Ir a inicio">
