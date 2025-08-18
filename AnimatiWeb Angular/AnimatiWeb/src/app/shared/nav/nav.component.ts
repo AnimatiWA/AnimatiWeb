@@ -170,6 +170,10 @@ export class NavComponent implements OnInit, OnDestroy {
   toggleMobileMenu(): void {
     this.menuMobileOpen = !this.menuMobileOpen;
   }
+  
+  closeMobileMenu(): void {
+    this.menuMobileOpen = false;
+  }
 
   /**
    * Método público para verificar si el usuario es admin (útil para el template)
