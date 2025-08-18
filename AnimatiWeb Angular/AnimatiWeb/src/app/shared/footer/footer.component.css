@@ -1,6 +1,5 @@
 /* Importar fuente del navbar */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /* General Styles */
@@ -20,13 +19,31 @@ body {
 
 /* Footer */
 .footer {
-    background-color: hsl(0, 50%, 89%);
-    color: #4A0A66; /* Mejor contraste */
-    padding: 10px 0;
+    --violeta-animati: #641881;
+    --tinta: #3A0A55;
+
+    color: var(--tinta);
+    padding: 50px 0 10px 0;
     position: relative;
-    bottom: 0px;
     width: 100%;
     height: fit-content;
+
+    background:
+      linear-gradient(to bottom, rgba(27, 0, 41, 0.18), rgba(27, 0, 41, 0.18)),
+      url('/assets/img/footer-background.png');
+
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: clamp(280px, 38vw, 560px) auto;
+}
+
+/* Ajuste extra en pantallas pequeñas: mayor contraste */
+@media (max-width: 600px) {
+    .footer {
+        background-image:
+          linear-gradient(to bottom, rgba(27, 0, 41, 0.25), rgba(27, 0, 41, 0.25)),
+          url('/assets/img/footer-background.png');
+    }
 }
 
 /* Contenedor del footer */
@@ -52,9 +69,10 @@ body {
 .footer-column h3 {
     font-family: 'Pacifico', cursive;
     font-size: 28px;
-    color: #641881;
+    color: #F5F5F5;
     font-weight: 500;
     margin-bottom: 20px;
+    position: relative;
 }
 
 /* Subrayado en títulos */
@@ -63,65 +81,104 @@ body {
     position: absolute;
     width: 50px;
     height: 3px;
-    background-color: rgba(155, 7, 241, 0.781);
+    background-color: #641881;
     left: 0;
-    bottom: 0;
+    bottom: -5px;
 }
 
-/* Texto con misma fuente del navbar */
+/* Texto con mejor contraste */
 .footer-column p {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.1em;
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre icono y texto */
+    gap: 10px;
     margin: 10px 0;
+    color: #F5F5F5;
 }
 
-/* Iconos alineados a la izquierda */
+/* Iconos con mejor visibilidad */
 .footer-column i {
     font-size: 1.4em;
-    color: #641881; /* Violeta de la paleta */
+    color: #F5F5F5;
 }
 
-/* Enlaces */
+/* Enlaces con alto contraste y foco visible */
 .footer-column a {
-    color: #4A0A66;
+    color: #F5F5F5; /* ← Mejora de contraste */
     text-decoration: none;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .footer-column a:hover,
 .footer-column a:focus {
-    color: #2A3335;
-    outline: 2px solid #641881;
+    color: #ffffff;
+    background-color: #641881;
+    padding: 2px 4px;
+    border-radius: 4px;
+    outline: none;
 }
 
-/* Imagen Play Store */
-.playstore-badge {
-    width: 180px;
-    height: auto;
-    margin-top: 10px;
-    transition: transform 0.3s;
+.footer-column--contact {
+  margin-left: auto;
 }
 
+/* Columna 3 */
+.playstore-column {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-right: 20px;
+  flex: 1;
+  margin-top: 10px;
+}
+
+/* Botón */
 .playstore-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.playstore-badge:hover,
-.playstore-badge:focus {
-    transform: scale(1.05);
-    outline: 2px solid rgba(155, 7, 241, 0.781);
+.playstore-button:focus {
+  outline: 2px solid rgba(155, 7, 241, 0.781);
+  outline-offset: 4px;
+  border-radius: 6px;
 }
 
+/* Imagen del botón Play Store */
+.playstore-badge {
+  width: 200px;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+/* Hover visual */
+.playstore-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .playstore-column {
+    justify-content: center;
+    padding-right: 0;
+    margin-top: 15px;
+  }
+
+  .playstore-badge {
+    width: 160px;
+  }
+}
+
+/* Leyenda inferior con contraste mejorado */
 .footer-legend {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    color: #4A0A66;
+    font-size: 0.95rem;
+    color: #F5F5F5; /* ← Mejora de contraste */
     padding-top: 10px;
 }

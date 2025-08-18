@@ -51,7 +51,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getProductos() {
+   getProductos() {
     this.loading = true;
     this.productoServicio.getProductos().subscribe({
       next: (res) => {
@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  enviarProducto() {
+ enviarProducto() {
     if (!this.validarFormulario()) {
       this.showAlert('Por favor completa todos los campos obligatorios', 'warning');
       return;
@@ -76,14 +76,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productoServicio.gurdarProducto(this.objetoProducto).subscribe({
       next: (res: any) => {
         this.loading = false;
-        if (res.result) {
-          this.showAlert('Producto creado exitosamente', 'success');
-          this.getProductos();
-          this.cerrarPanelNuevoProducto();
-          this.resetForm();
-        } else {
-          this.showAlert(res.message || 'Error al crear producto', 'error');
-        }
+        console.log('Respuesta del servidor (crear):', res); // Para debug
+        
+        // Simplificar como en actualizarProducto - si llega aquí, fue exitoso
+        this.showAlert('Producto creado exitosamente', 'success');
+        this.getProductos();
+        this.cerrarPanelNuevoProducto();
+        this.resetForm();
       },
       error: (error) => {
         this.loading = false;
@@ -91,28 +90,41 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.showAlert('Error al crear producto', 'error');
       }
     });
-  }
+}
 
-  onEditarProducto(item: any) {
-    if (this.confirmAction('¿Estás seguro de editar este producto?')) {
-      this.objetoProducto = { ...item }; // Crear copia para evitar mutación directa
-      this.isEditMode = true;
-      this.panelVisible = true;
-    }
+
+ onEditarProducto(item: any) {
+  if (this.confirmAction('¿Estás seguro de editar este producto?')) {
+ 
+    this.objetoProducto = {
+      Codigo_Producto: item.Codigo_Producto,
+      Nombre_Producto: item.Nombre_Producto,
+      Imagen: item.Imagen,
+      Precio: item.Precio,
+      Stock: item.Stock,
+      Id_Categoria: item.Id_Categoria,
+    
+    };
+
+    this.isEditMode = true;
+    this.panelVisible = true;
+    
+    console.log('Producto cargado para edición:', this.objetoProducto);
   }
+}
+
   
-  onEliminarProducto(item: any) {
+onEliminarProducto(item: any) {
     if (this.confirmAction('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.')) {
       this.loading = true;
       this.productoServicio.eliminarProducto(item.Codigo_Producto).subscribe({
         next: (res: any) => {
           this.loading = false;
-          if (res.result) {
-            this.showAlert('Producto eliminado exitosamente', 'success');
-            this.getProductos();
-          } else {
-            this.showAlert(res.message || 'Error al eliminar producto', 'error');
-          }
+          console.log('Respuesta del servidor (eliminar):', res); // Para debug
+          
+          // Simplificar - si llegamos aquí, la eliminación fue exitosa
+          this.showAlert('Producto eliminado exitosamente', 'success');
+          this.getProductos();
         },
         error: (error) => {
           this.loading = false;
@@ -121,36 +133,41 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }
       });      
     }
+}
+
+ actualizarProducto() {
+  if (!this.validarFormulario()) {
+    this.showAlert('Por favor completa todos los campos obligatorios', 'warning');
+    return;
   }
 
-  actualizarProducto() {
-    if (!this.validarFormulario()) {
-      this.showAlert('Por favor completa todos los campos obligatorios', 'warning');
-      return;
-    }
+  if (this.confirmAction('¿Estás seguro de actualizar este producto?')) {
+    this.loading = true;
 
-    if (this.confirmAction('¿Estás seguro de actualizar este producto?')) {
-      this.loading = true;
-      this.productoServicio.actulizarProducto(this.objetoProducto).subscribe({
-        next: (data) => {
-          this.loading = false;
-          if (data) {
-            this.showAlert('Producto actualizado exitosamente', 'success');
-            this.getProductos();
-            this.cerrarPanelNuevoProducto();
-            this.resetForm();
-          } else {
-            this.showAlert('Error al actualizar producto', 'error');
-          }
-        },
-        error: (error) => {
-          this.loading = false;
-          console.error('Error al actualizar producto:', error);
-          this.showAlert('Error al actualizar producto', 'error');
-        }
-      });
-    }
+    const codigo = this.objetoProducto.Codigo_Producto;
+    
+    console.log('Actualizando producto con código:', codigo);
+    console.log('Datos a enviar:', this.objetoProducto);
+
+    this.productoServicio.actualizarProducto(codigo, this.objetoProducto).subscribe({
+      next: (res: any) => {
+        this.loading = false;
+        console.log('Respuesta del servidor:', res); // Para ver qué devuelve realmente
+        
+        // Simplificar - si llegamos aquí, la actualización fue exitosa
+        this.showAlert('Producto actualizado exitosamente', 'success');
+        this.getProductos();
+        this.cerrarPanelNuevoProducto();
+        this.resetForm();
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error al actualizar producto:', error);
+        this.showAlert('Error al actualizar producto', 'error');
+      }
+    });
   }
+}
 
   abrirPanelNuevoProducto() {
     this.resetForm();
@@ -170,6 +187,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   validarFormulario(): boolean {
     return !!(
+      this.objetoProducto.Codigo_Producto > 0 &&
       this.objetoProducto.Nombre_Producto?.trim() &&
       this.objetoProducto.Precio > 0 &&
       this.objetoProducto.Stock >= 0 &&
@@ -209,8 +227,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLImageElement;
     if (target) {
       target.src = 'assets/images/no-image.png';
-    }
-  }
+    } 
+  } 
 }
 
 export class objetoProducto {

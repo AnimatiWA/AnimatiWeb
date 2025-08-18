@@ -22,6 +22,8 @@ import { AccesoAdminComponent } from './pages/auth/acceso-admin/acceso-admin.com
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 import { HistorialComprasComponent } from './pages/usuario/historial-compras/historial-compras.component';
+import { SalesComponent } from './pages/admin/sales/sales.component';
+import { ArrepentimientoComponent } from './pages/arrepentimiento/arrepentimiento.component';
 
 export const routes: Routes = [
   // === RUTAS PÚBLICAS ===
@@ -32,6 +34,7 @@ export const routes: Routes = [
   { path: 'separadores', component: SeparadoresComponent },
   { path: 'set-stickers', component: SetStickersComponent },
   { path: 'Quien-somos', component: QuienesSomosComponent },
+  { path: 'arrepentimiento', component: ArrepentimientoComponent },
   
   // === RUTAS DE AUTENTICACIÓN ===
   { path: 'login', component: LoginComponent },
@@ -62,6 +65,11 @@ export const routes: Routes = [
         component: CategoriasComponent,
         title: 'Gestión de Categorías'
       },
+            {
+        path: 'sales',
+        component: SalesComponent,
+        title: 'Resumen de ventas'
+      },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -82,6 +90,7 @@ export const routes: Routes = [
   { path: 'agregarproducto', redirectTo: 'admin/productos', pathMatch: 'full' },
   { path: 'categoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
   { path: 'agregarcategoria', redirectTo: 'admin/categorias', pathMatch: 'full' },
+  { path: 'resumenventas', redirectTo: 'admin/sales', pathMatch: 'full' },
   { path: 'dashboard', redirectTo: 'admin/dashboard', pathMatch: 'full' },
   
   // === RUTAS DE DESARROLLO/TESTING ===

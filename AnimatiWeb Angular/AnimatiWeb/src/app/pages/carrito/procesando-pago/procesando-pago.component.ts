@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
 import { MercadopagoService } from '../../../services/mercadopago/mercadopago.service';
+import { CarritoService } from '../../../services/carritoServices/carrito.service';
 
 @Component({
   selector: 'app-procesando-pago',
@@ -29,7 +30,8 @@ export class ProcesandoPagoComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private mercadoPagoService: MercadopagoService
+    private mercadoPagoService: MercadopagoService,
+    private carritoService: CarritoService,
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +64,10 @@ export class ProcesandoPagoComponent implements OnInit, OnDestroy {
     this.pollingSub = interval(5000).subscribe(() => {
       this.mercadoPagoService.consultarEstadoPago(this.pedidoId).subscribe({
         next: (response) => {
-          if (response.estado == 'aprobado') this.detenerPolling();
+          if (response.estado == 'aprobado') {
+            this.carritoService.getCarrito().subscribe();
+            this.detenerPolling();
+          }
           this.estadoPago = response.estado;
         },
         error: (err) => {

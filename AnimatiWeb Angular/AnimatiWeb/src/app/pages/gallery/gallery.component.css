@@ -39,7 +39,11 @@ h4 {
 }
 
 
-
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
 
 .producto {
     background-color: #e0d8ff; 
@@ -246,66 +250,76 @@ h4 {
   display: none;
 }
 
-/* Estilos de cuadrícula responsiva con flexbox */
-.productos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px;
-}
-
-.producto-item {
+.col-4 {
+    
     box-sizing: border-box;
     padding: 0 15px; 
     margin-bottom: 30px; 
-    flex: 0 0 25%; /* 4 productos por fila por defecto */
-    max-width: 25%;
+    flex: 0 0 33.3333%; 
+    max-width: 33.3333%; 
 }
 
-/* Ajustes responsivos */
-@media (max-width: 1200px) {
-  .producto-item {
-    flex: 0 0 33.333%;
-    max-width: 33.333%;
-  }
-}
-
-@media (max-width: 992px) {
-  .producto-item {
+@media (max-width: 768px) {
+  .col-4 {
     flex: 0 0 50%;
     max-width: 50%;
   }
   
-  .titulo img {
-    width: 250px;
-    height: auto;
-  }
-  
-  h4 {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 576px) {
-  .producto-item {
-    flex: 0 0 100%; 
-    max-width: 100%;
-  }
-  
-  .titulo img {
-    width: 200px;
-    height: auto;
-  }
-  
-  .btn-carrito {
-    font-size: 0.9rem;
-    padding: 8px 12px;
+  .producto {
+    padding: 10px;
+    margin-bottom: 15px;
   }
   
   .producto h3 {
     font-size: 16px;
+    margin: 10px 10px 5px 10px;
   }
   
   .producto p {
     font-size: 14px;
+    margin: 5px 10px 10px 10px;
+  }
+  
+  h4 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .titulo img {
+    max-width: 280px;
+    margin-bottom: 20px;
+  }
+  
+  .btn-carrito {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .cantidad-control {
+    margin-bottom: 10px;
+  }
+  
+  .btn-control {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-4 {
+    flex: 0 0 100%; 
+    max-width: 100%;
+  }
+  
+  .container.menu {
+    padding: 10px;
+  }
+  
+  .cantidad-display {
+    font-size: 14px;
+    min-width: 25px;
+    margin: 0 5px;
   }
 }

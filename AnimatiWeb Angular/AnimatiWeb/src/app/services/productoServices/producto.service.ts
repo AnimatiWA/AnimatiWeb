@@ -48,17 +48,18 @@ export class ProductService {
     );
   }
 
-  actulizarProducto(obj: any): Observable<any> {
-    const headers = this.auth.userTokenHeader;
+ actualizarProducto(codigo: number, obj: any): Observable<any> {
+  const headers = this.auth.userTokenHeader;
+  
+  return this.http
+    .put<any>(
+      `${environment.API_END_POINT}${environment.METHODS.UPDATE_PRODUCT}${codigo}`,
+      obj,
+      { headers }
+    )
+    .pipe();
+}
 
-    return this.http
-      .put<Producto['Codigo_Producto']>(
-        environment.API_END_POINT + environment.METHODS.UPDATE_PRODUCT,
-        obj,
-        { headers }
-      )
-      .pipe();
-  }
   eliminarProducto(Codigo_Producto: any) {
     const headers = this.auth.userTokenHeader;
 

@@ -6,13 +6,14 @@ import { ProductService } from '../../services/productoServices/producto.service
 import { HttpClient } from '@angular/common/http';
 import { Producto } from '../../interface/prductolista';
 import { CommonModule } from '@angular/common';
+import { InfoBarComponent } from '../../shared/info-bar/info-bar.component';
 
 @Component({
   selector: 'app-pagina-principal',
   standalone: true,
   templateUrl: './pagina-principal.component.html',
   styleUrl: './pagina-principal.component.css',
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, InfoBarComponent]
 })
 export class PaginaPrincipalComponent implements OnInit {
   listaProductos!: Producto[];
@@ -27,5 +28,4 @@ export class PaginaPrincipalComponent implements OnInit {
       this.listaProductos = res;
     });
   }
-
 }

@@ -1,0 +1,73 @@
+<div class="bg-gradient-custom">
+  <div class="container">
+    <div class="body-grid">
+      <!-- 📝 Formulario -->
+      <div class="formulario">
+        <h2>Arrepentimiento de compra</h2>
+        <p>Completá el formulario con tus datos para iniciar el proceso.</p>
+
+        <form [formGroup]="form" (ngSubmit)="enviarPorWhatsapp()">
+          <!-- Campo genérico -->
+          <fieldset *ngFor="let campo of campos">
+            <label [for]="campo.nombre">{{ campo.label }}</label>
+            <ng-container [ngSwitch]="campo.tipo">
+              <input
+                *ngSwitchCase="'text'"
+                [id]="campo.nombre"
+                [formControlName]="campo.nombre"
+                type="text"
+                [placeholder]="campo.placeholder || ''"
+                [class.invalid]="isInvalid(campo.nombre)"
+                [attr.aria-invalid]="isInvalid(campo.nombre)"
+                [attr.aria-describedby]="'error-' + campo.nombre"
+              />
+              <input
+                *ngSwitchCase="'email'"
+                [id]="campo.nombre"
+                [formControlName]="campo.nombre"
+                type="email"
+                [class.invalid]="isInvalid(campo.nombre)"
+                [attr.aria-invalid]="isInvalid(campo.nombre)"
+                [attr.aria-describedby]="'error-' + campo.nombre"
+              />
+              <textarea
+                *ngSwitchCase="'textarea'"
+                [id]="campo.nombre"
+                [formControlName]="campo.nombre"
+                rows="4"
+                [class.invalid]="isInvalid(campo.nombre)"
+                [attr.aria-invalid]="isInvalid(campo.nombre)"
+                [attr.aria-describedby]="'error-' + campo.nombre"
+              ></textarea>
+            </ng-container>
+            <div
+              class="error"
+              [id]="'error-' + campo.nombre"
+              *ngIf="getError(campo.nombre)"
+            >
+              {{ getError(campo.nombre) }}
+            </div>
+          </fieldset>
+
+          <!-- Botón -->
+          <div class="submit-container">
+            <button type="submit" class="btn-enviar">
+              Enviar por WhatsApp
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ℹ️ Indicaciones -->
+      <div class="indicaciones">
+        <h3>Recordá que:</h3>
+        <ul>
+          <li>Tendrás un plazo máximo de 10 días de corrido posteriores a la recepción del pedido para solicitar la revocación.</li>
+          <li>Gestionaremos la devolución una vez recibidas en nuestro depósito los artículos que desees devolver, siempre considerando que deberán estar en perfecto estado, sin uso, en su empaque y con sus etiquetas originales.</li>
+          <li>El reembolso se hará al mismo medio de pago utilizado.</li>
+          <li>Considera que los tiempos de impacto y acreditación dependerán exclusivamente de tu entidad financiera y bancaria.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

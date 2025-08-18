@@ -138,13 +138,26 @@ body {
         margin-top: 50px;
         margin-bottom: 30px;
     }
+    .titulo img {
+        width: 300px;
+    }
     .button-container {
-        margin-top: 50px;
-        margin-bottom: 60px;
+        margin-top: 30px;
+        margin-bottom: 40px;
     }
     .btn-tienda {
-        font-size: 20px;
-        padding: 12px 30px;
+        font-size: 18px;
+        padding: 10px 24px;
+    }
+    .producto {
+        margin-bottom: 15px;
+    }
+    .producto h6 {
+        font-size: 14px;
+        margin: 8px 10px;
+    }
+    .container.menu {
+        padding: 15px 10px 0;
     }
     .productos-grid {
         grid-template-columns: repeat(1, 1fr);

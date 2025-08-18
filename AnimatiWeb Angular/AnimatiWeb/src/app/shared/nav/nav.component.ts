@@ -22,7 +22,7 @@ export class NavComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false; // Nueva propiedad para verificar si es admin
   cartItemsCount: number = 0;
   userAvatar: string = 'avatar1.png';
-  mobileMenuActive: boolean = false;
+  menuMobileOpen: boolean = false;
   private cartSubscription: Subscription | undefined;
   private avatarSubscription: Subscription | undefined;
   currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -78,8 +78,6 @@ export class NavComponent implements OnInit, OnDestroy {
     console.log('- userRole en sessionStorage:', sessionStorage.getItem('userRole'));
     console.log('- userType en sessionStorage:', sessionStorage.getItem('userType'));
   }
-
-
 
   /**
    * Verifica si el usuario actual tiene permisos de administrador
@@ -169,20 +167,12 @@ export class NavComponent implements OnInit, OnDestroy {
     this.router.navigate(['/perfil']);
   }
 
-  /**
-   * Alterna el estado del menú móvil
-   */
   toggleMobileMenu(): void {
-    this.mobileMenuActive = !this.mobileMenuActive;
+    this.menuMobileOpen = !this.menuMobileOpen;
   }
   
-  /**
-   * Cierra el menú móvil
-   */
   closeMobileMenu(): void {
-    if (this.mobileMenuActive) {
-      this.mobileMenuActive = false;
-    }
+    this.menuMobileOpen = false;
   }
 
   /**

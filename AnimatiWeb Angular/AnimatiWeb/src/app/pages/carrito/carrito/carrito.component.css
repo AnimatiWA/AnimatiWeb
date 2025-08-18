@@ -275,11 +275,12 @@ body {
     flex-direction: column;
   }
   
-  .productos, .resumen {
+  .productos {
     width: 100%;
   }
   
   .resumen {
+    width: 100%;
     margin-top: 20px;
   }
 }
@@ -290,30 +291,64 @@ body {
     max-width: 100%;
   }
   
+  .container-fluid.body {
+    padding: 15px 10px;
+  }
+  
   .producto {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     padding: 15px;
+    gap: 10px;
+    align-items: center;
   }
   
   .producto img {
-    width: 60%;
-    margin-bottom: 10px !important;
+    width: 80%;
+    max-width: 200px;
+    margin: 0 auto;
   }
   
-  .producto div {
-    align-items: center;
+  .producto h3 {
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .producto p {
+    font-size: 14px;
+    text-align: center;
   }
   
   .producto .cantidad {
     align-items: center;
+    width: 100%;
+  }
+  
+  .producto .botones-cantidad {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .producto .btn-control {
+    width: 100%;
+    justify-content: center;
+    margin-top: 5px;
   }
   
   .producto .btn-borrar {
     align-self: center;
     margin: 10px auto 0;
   }
+  
+  .resumen h4 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .resumen .btn-animati {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 15px;
+  }
 }
-
-

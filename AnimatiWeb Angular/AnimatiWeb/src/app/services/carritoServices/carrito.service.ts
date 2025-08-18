@@ -39,15 +39,27 @@ constructor(private http: HttpClient, private loginService: LoginService) {
   });
 }
   
-  private getCarrito(): Observable<number | null> {
+  public getCarrito(): Observable<number | null> {
 
     const headers = this.loginService.userTokenHeader;
 
     return this.http.get<Carrito>(environment.API_END_POINT + environment.METHODS.GET_CART_USER, { headers }).pipe(
 
-      tap(carrito => this.carritoActivoId = carrito.id),
+      tap(carrito => {
+        this.carritoActivoId = carrito.id;
+        this.actualizarProductosCarrito();
+      } ),
       map(carrito => carrito.id),
-      catchError(() => of(null))
+      catchError(() => {
+        return this.createCarrito().pipe(
+          tap(nuevoCarrito => {
+            this.carritoActivoId = nuevoCarrito.id;
+            this.actualizarProductosCarrito();
+            sessionStorage.setItem('carritoActivoId', nuevoCarrito.id.toString());
+          }),
+          map(nuevoCarrito => nuevoCarrito.id)
+        );
+      })
     );
   }
 
