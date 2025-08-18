@@ -81,7 +81,7 @@ body {
     position: absolute;
     width: 50px;
     height: 3px;
-    background-color: rgba(155, 7, 241, 0.781);
+    background-color: #641881;
     left: 0;
     bottom: -5px;
 }
@@ -117,6 +117,10 @@ body {
     padding: 2px 4px;
     border-radius: 4px;
     outline: none;
+}
+
+.footer-column--contact {
+  margin-left: auto;
 }
 
 /* Columna 3 */
