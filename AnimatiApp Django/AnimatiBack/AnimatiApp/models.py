@@ -78,6 +78,7 @@ class Producto(models.Model):
     Precio = models.DecimalField(blank=False, default=2000, decimal_places=2, max_digits=10)
     Stock = models.PositiveIntegerField(blank=False, default=0)
     Id_Categoria = models.ForeignKey(Categoria, to_field='Id_Categoria', on_delete=models.CASCADE)
+    Descripcion = models.TextField(blank=True, null=True)
     class Meta:
         db_table = 'producto'
         verbose_name = 'Producto'
@@ -162,3 +163,10 @@ class PasswordResetToken(models.Model):
 
     def is_expired(self):
         return timezone.now() > self.expires_at
+
+class Pedido(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    carrito = models.ForeignKey(Carrito, on_delete=models.SET_NULL, null=True, blank=True)
+    estado = models.CharField(max_length=20, default='pendiente')
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+    creado = models.DateTimeField(auto_now_add=True)
