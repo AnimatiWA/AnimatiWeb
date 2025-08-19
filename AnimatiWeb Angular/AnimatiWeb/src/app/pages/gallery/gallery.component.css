@@ -67,14 +67,73 @@ h4 {
 
 .producto h3 {
     font-size: 18px;
-    margin: 15px 20px 10px 20px;
+    margin: 15px 20px 5px 20px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.producto h3 a {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: block;
+    position: relative;
+    padding-bottom: 8px;
+    cursor: pointer;
+}
+
+.producto h3 a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(to right, #c8b8ff, transparent);
+    transition: width 0.3s ease;
+}
+
+.producto h3 a:hover::after {
+    width: 100%;
+}
+
+/* Indicador de clic */
+.producto h3 a:hover {
+    color: #5c00a3;
 }
 
 .producto p {
     font-size: 16px;
-    margin: 10px 20px 15px 20px;
+    margin: 10px 20px 12px 20px;
+    color: #444;
 }
 
+/* Estilo para el precio */
+.producto p:last-of-type {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 12px 20px 15px 20px;
+}
+
+.descripcion-producto {
+    font-size: 14px;
+    color: #444;
+    margin: 8px 20px 10px 20px;
+    line-height: 1.4;
+    min-height: 40px;
+    max-height: none;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(230, 224, 255, 0.3);
+    border-radius: 4px;
+    padding: 6px 10px;
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+    border: 1px solid rgba(190, 180, 255, 0.2);
+}
 
 .producto:hover {
     background: linear-gradient(to right, #b9e5ff, #e0d8ff); 
@@ -275,9 +334,37 @@ h4 {
     margin: 10px 10px 5px 10px;
   }
   
+  .producto h3 a {
+    padding-bottom: 6px;
+  }
+  
+  .producto h3 a::after {
+    height: 1.5px;
+    width: 40px;
+  }
+
   .producto p {
     font-size: 14px;
-    margin: 5px 10px 10px 10px;
+    margin: 5px 10px 8px 10px;
+  }
+
+  /* Estilo para el precio en móvil */
+  .producto p:last-of-type {
+    font-size: 16px;
+    margin: 8px 10px 10px 10px;
+  }
+
+  .descripcion-producto {
+    font-size: 13px;
+    margin: 5px 10px 8px 10px;
+    line-height: 1.4;
+    min-height: 30px;
+    max-height: none;
+    padding: 5px 8px;
+    border-radius: 3px;
+    background-color: rgba(230, 224, 255, 0.25);
+    white-space: normal;
+    overflow: visible;
   }
   
   h4 {
@@ -321,5 +408,29 @@ h4 {
     font-size: 14px;
     min-width: 25px;
     margin: 0 5px;
+  }
+
+  .producto {
+    margin-bottom: 12px;
+    padding: 12px;
+  }
+
+  .producto h3 {
+    font-size: 16px;
+    letter-spacing: 0.1px;
+    margin: 10px 10px 5px 10px;
+  }
+
+  .descripcion-producto {
+    font-size: 12px;
+    margin: 5px 8px;
+    padding: 4px 8px;
+    background-color: rgba(230, 224, 255, 0.2);
+  }
+
+  /* Ajustes para los botones en móvil */
+  .btn-carrito {
+    font-size: 0.8rem;
+    padding: 8px 10px;
   }
 }
