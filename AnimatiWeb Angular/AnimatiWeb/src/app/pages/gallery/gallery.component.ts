@@ -9,6 +9,7 @@ import { CarritoService } from '../../services/carritoServices/carrito.service';
 import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../../services/auth/login.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-gallery',
@@ -24,8 +25,15 @@ export class GalleryComponent implements OnInit{
     userLoginOn:boolean=false;
     userLoginOut:boolean=false;
     currentUserLoginOn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    productosExpandidos: {[key: number]: boolean} = {}; // Para controlar qué descripciones están expandidas
 
-    constructor(private http:HttpClient, private productoService:ProductService, private carritoService: CarritoService, private loginService: LoginService){
+    constructor(
+        private http:HttpClient, 
+        private productoService:ProductService, 
+        private carritoService: CarritoService, 
+        private loginService: LoginService,
+        private router: Router
+    ){
         this.currentUserLoginOn=new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null); 
      }
     
@@ -111,4 +119,37 @@ export class GalleryComponent implements OnInit{
         }
     }
 
+    /**
+     * Maneja el clic en el producto para mostrar/ocultar descripción o redirigir a login
+     */
+    manejarClicProducto(producto: Producto, event: Event) {
+        event.preventDefault(); // Evitar comportamiento por defecto del enlace
+        
+        if (this.userLoginOn) {
+            // Si está logueado, muestra u oculta la descripción
+            this.toggleDescripcion(producto);
+        } else {
+            // Si no está logueado, redirige a login
+            this.router.navigate(['/login']);
+        }
+    }
+
+    /**
+     * Muestra u oculta la descripción de un producto
+     */
+    toggleDescripcion(producto: Producto) {
+        if (producto.Codigo_Producto !== undefined) {
+            // Si ya existe, lo toggle (invierte valor)
+            this.productosExpandidos[producto.Codigo_Producto] = 
+                !this.productosExpandidos[producto.Codigo_Producto];
+        }
+    }
+
+    /**
+     * Verifica si un producto tiene su descripción expandida
+     */
+    esDescripcionVisible(producto: Producto): boolean {
+        return producto.Codigo_Producto !== undefined && 
+               this.productosExpandidos[producto.Codigo_Producto] === true;
+    }
 }
