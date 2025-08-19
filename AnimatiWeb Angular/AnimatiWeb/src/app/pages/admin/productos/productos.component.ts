@@ -103,7 +103,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       Precio: item.Precio,
       Stock: item.Stock,
       Id_Categoria: item.Id_Categoria,
-    
+      Descripcion: item.Descripcion || ''
     };
 
     this.isEditMode = true;
@@ -238,6 +238,7 @@ export class objetoProducto {
   Imagen: string;
   Precio: number;
   Stock: number;
+  Descripcion: string;
 
   constructor() {
     this.Codigo_Producto = 0;
@@ -246,5 +247,6 @@ export class objetoProducto {
     this.Precio = 0;
     this.Stock = 0;
     this.Id_Categoria = 0;
+    this.Descripcion = '';
   }
 }

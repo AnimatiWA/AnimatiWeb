@@ -6,5 +6,5 @@ export interface Producto{
     Precio: number;
     Stock: number;
     Cantidad:number;
-    
+    Descripcion?: string;
 }

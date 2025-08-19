@@ -221,6 +221,19 @@
               placeholder="0">
           </div>
 
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label class="form-label">
+              <i class="fas fa-align-left"></i> Descripción
+            </label>
+            <textarea 
+              [(ngModel)]="objetoProducto.Descripcion" 
+              class="form-control"
+              name="descripcion"
+              rows="3"
+              placeholder="Ingresa una descripción del producto"></textarea>
+          </div>
+
           <!-- Botones de acción -->
           <div class="row g-2">
             <div class="col-6">
